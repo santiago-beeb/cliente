@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { useMediaQuery } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -45,6 +46,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  const isMobile = useMediaQuery("(max-width: 640px)");
   return (
     <nav>
       <Typography
@@ -64,7 +66,7 @@ const Navbar = () => {
           alignItems: "center",
         }}
       >
-        SIGNUP
+        INICIO
       </Typography>
       <div className="navbar-left">
         <a className="container_logo" href="/"></a>
@@ -77,15 +79,17 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-        />
-      </Search>
+      {!isMobile && (
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        </Search>
+      )}
       <div className="navbar-right">
         <ul>
           <a href="/login" className="navbar-email">
