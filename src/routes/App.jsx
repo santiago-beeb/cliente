@@ -1,16 +1,17 @@
-import { Layout } from "../containers/layout";
+import { useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useInitialState } from "../hooks/useInitialState";
+import { Layout } from "../containers/layout";
 import Home from "../pages/Home/Home";
 import { Login } from "../pages/Login/Login";
 import { CreateAccount } from "../pages/CreateAccount/CreateAccount";
-import "./App.css"
+import "./App.css";
 
 const App = () => {
-  const initialState = useInitialState();
+  const [isLoggedIn, setLoggedIn] = useState(false); // Estado de autenticación
+
   return (
-    <AppContext.Provider value={initialState}>
+    <AppContext.Provider value={{ isLoggedIn, setLoggedIn }}>
       <BrowserRouter>
         <Layout>
           <Routes>

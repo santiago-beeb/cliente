@@ -1,9 +1,11 @@
-import "./Navbar.css";
 import Typography from "@mui/material/Typography";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useMediaQuery } from "@mui/material";
+import { AppContext } from "../../context/AppContext";
+import "./Navbar.css";
+import { useContext } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -46,6 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  const { isLoggedIn } = useContext(AppContext);
   const isMobile = useMediaQuery("(max-width: 640px)");
   return (
     <nav>
@@ -92,9 +95,17 @@ const Navbar = () => {
       )}
       <div className="navbar-right">
         <ul>
-          <a href="/login" className="navbar-email">
-            Iniciar Sesion
-          </a>
+          {isLoggedIn ? (
+            // Si el usuario ha iniciado sesión, muestra el nombre de usuario o icono de perfil
+            <a href="/perfil" className="navbar-email">
+              Nombre de Usuario
+            </a>
+          ) : (
+            // Si el usuario no ha iniciado sesión, muestra el enlace "Iniciar Sesión"
+            <a href="/login" className="navbar-email">
+              Iniciar Sesión
+            </a>
+          )}
         </ul>
       </div>
     </nav>
