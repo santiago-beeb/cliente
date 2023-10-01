@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const MobileNavbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Agrega un estado para controlar la visibilidad del menú
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);

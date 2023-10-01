@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./CreateAccount.css";
 
 const url = "https://server-general.up.railway.app/api/user/signup";
+const documentTypesUrl =
+  "https://server-general.up.railway.app/api/user/document-types";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
 
-  const [tipoDocumento, setTipoDocumento] = useState(1);
+  const [tipoDocumento, setTipoDocumento] = useState(""); // Cambia el valor predeterminado a una cadena vacía
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -16,18 +18,34 @@ const CreateAccount = () => {
   const [contrasenia, setContrasenia] = useState("");
   const [repetirContrasenia, setRepetirContrasenia] = useState("");
   const [error, setError] = useState("");
+  const [documentTypes, setDocumentTypes] = useState([]);
 
   const validateEmail = (email) => {
-    // Validar el formato del correo electrónico utilizando una expresión regular
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     return emailRegex.test(email);
   };
 
   const validatePassword = (password) => {
-    // Validar la contraseña: mínimo 5 caracteres, al menos una mayúscula, una minúscula y un número
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,}$/;
     return passwordRegex.test(password);
   };
+
+  // Efecto para obtener los tipos de documento desde la API
+  useEffect(() => {
+    async function fetchDocumentTypes() {
+      try {
+        const response = await fetch(documentTypesUrl);
+        if (response.ok) {
+          const data = await response.json();
+          setDocumentTypes(data);
+        }
+      } catch (error) {
+        console.error("Error al obtener tipos de documento:", error);
+      }
+    }
+
+    fetchDocumentTypes();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +74,7 @@ const CreateAccount = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          usr_tipo_documento: tipoDocumento,
+          usr_tipo_documento: tipoDocumento, // Usa el tipo de documento seleccionado
           usr_numero_documento: numeroDocumento,
           usr_nombre: nombre,
           usr_apellido: apellido,
@@ -78,25 +96,6 @@ const CreateAccount = () => {
       setError("Hubo un problema al registrarse");
     }
   };
-
-  const currencies = [
-    {
-      value: 1,
-      label: "Cédula de ciudadanía",
-    },
-    {
-      value: 2,
-      label: "Registro Civil",
-    },
-    {
-      value: 3,
-      label: "Tarjeta de Identidad",
-    },
-    {
-      value: 4,
-      label: "Documento Extranjero",
-    },
-  ];
 
   return (
     <div className="signup">
@@ -122,6 +121,7 @@ const CreateAccount = () => {
             onChange={(e) => setApellido(e.target.value)}
           />
           <TextField
+            required
             id="standard-select-tipo-documento"
             select
             label="Tipo documento"
@@ -130,9 +130,9 @@ const CreateAccount = () => {
             helperText="Selecciona tu tipo de documento"
             variant="standard"
           >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            {documentTypes.map((option) => (
+              <MenuItem key={option.tpd_id} value={option.tpd_id}>
+                {option.tpd_descripcion}
               </MenuItem>
             ))}
           </TextField>

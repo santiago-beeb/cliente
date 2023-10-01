@@ -1,5 +1,5 @@
 .Login {
-  width: 100%;
+  width: 100% - 60px;
   height: 100vh;
   display: grid;
   place-items: center;

@@ -12,10 +12,13 @@
 }
 
 .mobile-menu a {
-  font-size: 32px;
   text-decoration: none;
   color: black;
   font-weight: bold;
+}
+
+.mobile-menu-text{
+  color: rgba(0, 0, 0, 0.462);
 }
 
 .mobile-menu ul {
@@ -34,6 +37,7 @@
 
 .mobile-menu ul li {
   margin-bottom: 24px;
+  font-size: 32px;
 }
 
 @keyframes swipeDown {

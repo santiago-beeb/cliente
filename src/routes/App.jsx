@@ -9,7 +9,7 @@ import "./App.css";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(false); // Estado de autenticación
-
+  const [nombre, setNombre] = useState(false); // Estado de nombre
   useEffect(() => {
     // Verificar si hay un token en el almacenamiento local
     const token = localStorage.getItem("token");
@@ -23,7 +23,7 @@ const App = () => {
     if (isLoggedIn) {
       return <Navigate to="/" />;
     }
-    return <Login setLoggedIn={setLoggedIn} />;
+    return <Login setLoggedIn={setLoggedIn} setNombre={setNombre} />;
   };
 
   // Función para redirigir al usuario al inicio si está autenticado
@@ -35,7 +35,7 @@ const App = () => {
   };
 
   return (
-    <AppContext.Provider value={{ isLoggedIn, setLoggedIn }}>
+    <AppContext.Provider value={{ isLoggedIn, setLoggedIn, nombre, setNombre }}>
       <BrowserRouter>
         <Layout>
           <Routes>

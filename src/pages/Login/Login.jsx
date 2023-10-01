@@ -40,7 +40,11 @@ const Login = () => {
         setLoggedIn(true); // Autenticación exitosa
         const data = await response.json();
         const token = data.token; // Token enviado por el servidor
-        localStorage.setItem("token", token); // Almacenar el token en el localStorage
+        localStorage.setItem("token", token); // Almacena el token en el localStorage
+
+        // Guarda el nombre en el localStorage
+        localStorage.setItem("nombre", data.nombre);
+
         navigate("/");
       } else {
         const data = await response.json();
@@ -50,7 +54,6 @@ const Login = () => {
       setError("Hubo un problema al iniciar sesión");
     }
   };
-
   return (
     <div className="Login">
       <div className="Login-container">

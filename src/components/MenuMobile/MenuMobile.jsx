@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import "./MenuMobile.css";
 
 const MenuMobile = ({ toggleMobileMenu }) => {
-  const { isLoggedIn, setLoggedIn, user } = useContext(AppContext);
+  const { isLoggedIn, setLoggedIn } = useContext(AppContext); // Obtén 'nombre' desde el contexto
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const nombre = localStorage.getItem("nombre");
+
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -35,7 +37,7 @@ const MenuMobile = ({ toggleMobileMenu }) => {
       <ul>
         <li>
           {isLoggedIn ? (
-            <p className="mobile-menu-text">Bienvenido {user?.nombre}</p>
+            <p className="mobile-menu-text smaller-font">Bienvenido {nombre}</p>
           ) : (
             <p className="mobile-menu-text"></p>
           )}
