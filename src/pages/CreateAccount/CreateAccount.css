@@ -27,6 +27,13 @@
   text-decoration: none;
   margin-bottom: 52px;
 }
+
+.error-message {
+  color: red; /* Color de texto en rojo */
+  font-size: 14px; /* Tamaño de fuente adecuado */
+  margin-top: 5px; /* Agrega un pequeño espacio arriba del mensaje de error */
+}
+
 @media (max-width: 640px) {
   .logo {
     display: block;

@@ -1,16 +1,22 @@
-import Typography from "@mui/material/Typography";
+import { useMediaQuery } from "@mui/material";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import StoreIcon from "@mui/icons-material/Store";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
+import MenuIcon from "@mui/icons-material/Menu";
+import { AppContext } from "../../context/AppContext";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { useMediaQuery } from "@mui/material";
-import { AppContext } from "../../context/AppContext";
 import "./Navbar.css";
-import { useContext } from "react";
+import { MenuMobile } from "../MenuMobile/MenuMobile";
 
 const Search = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
+  borderRadius: theme.shape.borderRadius,
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
@@ -19,7 +25,7 @@ const Search = styled("div")(({ theme }) => ({
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: "auto",
+    width: "500px",
   },
 }));
 
@@ -35,81 +41,140 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
+  width: "100%", // Ancho completo del contenedor
+  height: "100%", // Altura completa del contenedor
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "400px",
     },
   },
 }));
 
-const Navbar = () => {
-  const { isLoggedIn } = useContext(AppContext);
-  const isMobile = useMediaQuery("(max-width: 640px)");
+const MobileNavbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Agrega un estado para controlar la visibilidad del menú
+
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  return (
+    <nav className={`mobile-navbar ${isMenuOpen ? "menu-open" : ""}`}>
+      <div className="mobile-layout">
+        <div className="mobile-icon" onClick={toggleMobileMenu}>
+          <MenuIcon
+            style={{
+              color: "white",
+              height: "35px",
+              width: "35px",
+            }}
+          />
+        </div>
+        <div className="mobile-icon" onClick={closeMobileMenu}>
+          <Link to="/">
+            <StoreIcon
+              style={{
+                color: "white",
+                height: "35px",
+                width: "35px",
+              }}
+            />
+          </Link>
+        </div>
+        <div className="mobile-icon">
+          <LocalMallIcon
+            style={{
+              color: "white",
+              height: "35px",
+              width: "35px",
+            }}
+          />
+        </div>
+      </div>
+      {isMenuOpen && <MenuMobile toggleMobileMenu={toggleMobileMenu} />}
+    </nav>
+  );
+};
+
+const DesktopNavbar = () => {
+  const { isLoggedIn, setLoggedIn } = useContext(AppContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+  };
+
   return (
     <nav>
-      <Typography
-        variant="h5"
-        noWrap
-        component="a"
-        href="/"
-        sx={{
-          mr: 2,
-          display: { xs: "flex", md: "none" },
-          flexGrow: 1,
-          fontFamily: "monospace",
-          fontWeight: 700,
-          letterSpacing: ".3rem",
-          color: "inherit",
-          textDecoration: "none",
-          alignItems: "center",
-        }}
-      >
-        INICIO
-      </Typography>
       <div className="navbar-left">
-        <a className="container_logo" href="/"></a>
+        <Link to="/" className="container_logo">
+          <StoreIcon
+            style={{
+              color: "white",
+              marginLeft: "10px",
+              height: "30px",
+              width: "30px",
+            }}
+          />
+        </Link>
         <ul>
           <li>
-            <a href="/">Hombre</a>
+            <Link to="/hombre">Hombre</Link>
           </li>
           <li>
-            <a href="/">Mujer</a>
+            <Link to="/mujer">Mujer</Link>
           </li>
         </ul>
       </div>
-      {!isMobile && (
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-      )}
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+        />
+      </Search>
       <div className="navbar-right">
         <ul>
-          {isLoggedIn ? (
-            // Si el usuario ha iniciado sesión, muestra el nombre de usuario o icono de perfil
-            <a href="/perfil" className="navbar-email">
-              Nombre de Usuario
-            </a>
-          ) : (
-            // Si el usuario no ha iniciado sesión, muestra el enlace "Iniciar Sesión"
-            <a href="/login" className="navbar-email">
-              Iniciar Sesión
-            </a>
-          )}
+          <li>
+            <LocalMallIcon
+              style={{
+                color: "white",
+                marginRight: "10px",
+                height: "30px",
+                width: "30px",
+              }}
+            />
+          </li>
+          <li>
+            {isLoggedIn ? (
+              <Link to="/" className="navbar-email" onClick={handleLogout}>
+                Cerrar Sesión
+              </Link>
+            ) : (
+              <Link to="/login" className="navbar-email">
+                Iniciar Sesión
+              </Link>
+            )}
+          </li>
         </ul>
       </div>
     </nav>
   );
+};
+
+const Navbar = () => {
+  const isMobile = useMediaQuery("(max-width: 640px)");
+
+  return <>{isMobile ? <MobileNavbar /> : <DesktopNavbar />}</>;
 };
 
 export default Navbar;

@@ -1,14 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import './CreateAccount.css'
+import "./CreateAccount.css";
 
 const url = "https://server-general.up.railway.app/api/user/signup";
 
 const CreateAccount = () => {
-  const navigate = useNavigate(); // Inicializa useNavigate
+  const navigate = useNavigate();
 
-  const [tipoDocumento, setTipoDocumento] = useState(1); // Valor predeterminado
+  const [tipoDocumento, setTipoDocumento] = useState(1);
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -17,11 +17,35 @@ const CreateAccount = () => {
   const [repetirContrasenia, setRepetirContrasenia] = useState("");
   const [error, setError] = useState("");
 
+  const validateEmail = (email) => {
+    // Validar el formato del correo electrónico utilizando una expresión regular
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password) => {
+    // Validar la contraseña: mínimo 5 caracteres, al menos una mayúscula, una minúscula y un número
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (contrasenia !== repetirContrasenia) {
       setError("Las contraseñas no coinciden.");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError("El correo electrónico no es válido.");
+      return;
+    }
+
+    if (!validatePassword(contrasenia)) {
+      setError(
+        "La contraseña debe tener al menos 5 caracteres, incluyendo mayúsculas, minúsculas y números."
+      );
       return;
     }
 
@@ -135,17 +159,17 @@ const CreateAccount = () => {
             id="standard-password-input"
             label="Contraseña"
             type="password"
-            autoComplete="current-password"
+            autoComplete="new-password" // Cambiado el valor a new-password
             variant="standard"
             value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
           />
           <TextField
             required
-            id="standard-password-input"
+            id="standard-password-confirm-input" // Cambiado el id a uno diferente
             label="Repetir contraseña"
             type="password"
-            autoComplete="current-password"
+            autoComplete="new-password" // Cambiado el valor a new-password
             variant="standard"
             value={repetirContrasenia}
             onChange={(e) => setRepetirContrasenia(e.target.value)}

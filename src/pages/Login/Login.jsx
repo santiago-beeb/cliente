@@ -9,7 +9,7 @@ const url = "https://server-general.up.railway.app/api/user/login";
 const Login = () => {
   const navigate = useNavigate();
   const form = useRef(null);
-  const { setLoggedIn } = useContext(AppContext); // Obtenemos la función para actualizar el estado
+  const { setLoggedIn } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [contrasenia, setContrasenia] = useState("");
@@ -29,19 +29,24 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, contrasenia }),
+        body: JSON.stringify({
+          usr_email: email,
+          usr_contrasenia: contrasenia,
+        }),
       });
 
       if (response.ok) {
         setError("");
-        setLoggedIn(true); // Actualizamos el estado en el componente App
+        setLoggedIn(true); // Autenticación exitosa
+        const data = await response.json();
+        const token = data.token; // Token enviado por el servidor
+        localStorage.setItem("token", token); // Almacenar el token en el localStorage
         navigate("/");
       } else {
         const data = await response.json();
         setError(data.message || "Inicio de sesión fallido");
       }
     } catch (error) {
-      console.error("Error al iniciar sesión:", error);
       setError("Hubo un problema al iniciar sesión");
     }
   };

@@ -7,20 +7,13 @@ nav {
   background-color: #333;
   border-bottom: 1px solid #000;
   color: #fff;
-  box-shadow: 0.3;
-}
-
-.menu {
-  display: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .container_logo {
   display: flex;
   align-items: center;
-}
-
-.nav-logo {
-  width: 100px;
 }
 
 .navbar-left ul,
@@ -72,28 +65,26 @@ nav {
   cursor: pointer;
 }
 
-.navbar-shopping-cart div {
-  width: 16px;
-  height: 16px;
-  background-color: #00a8cc;
-  border-radius: 50%;
-  font-size: 14px;
-  font-weight: bold;
-  position: absolute;
-  top: -6px;
-  right: -3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.menu {
+  display: none;
 }
 
-@media (max-width: 640px) {
-  .menu {
-    display: block;
-    cursor: pointer;
-  }
+.mobile-navbar {
+  height: 60px;
+}
 
-  .navbar-left ul {
-    display: none;
-  }
+.mobile-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.mobile-icon {
+  display: flex; 
+  align-items: center; 
+  text-align: center;
+  margin-right: 10px;
 }
