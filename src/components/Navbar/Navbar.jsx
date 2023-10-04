@@ -2,7 +2,7 @@ import { useMediaQuery } from "@mui/material";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
-import LocalMallIcon from "@mui/icons-material/LocalMall";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppContext } from "../../context/AppContext";
 import { styled, alpha } from "@mui/material/styles";
@@ -10,6 +10,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import "./Navbar.css";
 import { MenuMobile } from "../MenuMobile/MenuMobile";
+import { ShoppingCart } from "../../containers/ShoppingCart/ShoppingCart";
 
 const Search = styled("div")(({ theme }) => ({
   display: "flex",
@@ -56,13 +57,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const MobileNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    setIsCartOpen(false);
+  };
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+    setIsMenuOpen(false);
   };
 
   const closeMobileMenu = () => {
     setIsMenuOpen(false);
+    setIsCartOpen(false);
   };
 
   return (
@@ -88,8 +97,8 @@ const MobileNavbar = () => {
             />
           </Link>
         </div>
-        <div className="mobile-icon">
-          <LocalMallIcon
+        <div className="mobile-icon" onClick={toggleCart}>
+          <ShoppingBasketIcon
             style={{
               color: "white",
               height: "35px",
@@ -99,22 +108,33 @@ const MobileNavbar = () => {
         </div>
       </div>
       {isMenuOpen && <MenuMobile toggleMobileMenu={toggleMobileMenu} />}
+      {isCartOpen && <ShoppingCart toggleMobileMenu={toggleCart} />}
     </nav>
   );
 };
 
 const DesktopNavbar = () => {
   const { isLoggedIn, setLoggedIn } = useContext(AppContext);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
+  const closeCart = () => {
+    setIsCartOpen(false);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setLoggedIn(false);
+    setIsCartOpen(false);
   };
 
   return (
     <nav>
       <div className="navbar-left">
-        <Link to="/" className="container_logo">
+        <Link to="/" className="container_logo" onClick={closeCart}>
           <StoreIcon
             style={{
               color: "white",
@@ -126,14 +146,18 @@ const DesktopNavbar = () => {
         </Link>
         <ul>
           <li>
-            <Link to="/hombre">Hombre</Link>
+            <Link to="/hombre" onClick={closeCart}>
+              Hombre
+            </Link>
           </li>
           <li>
-            <Link to="/mujer">Mujer</Link>
+            <Link to="/mujer" onClick={closeCart}>
+              Mujer
+            </Link>
           </li>
         </ul>
       </div>
-      <Search>
+      <Search onClick={closeCart}>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
@@ -145,14 +169,15 @@ const DesktopNavbar = () => {
       <div className="navbar-right">
         <ul>
           <li>
-            <LocalMallIcon
-              style={{
-                color: "white",
-                marginRight: "10px",
-                height: "30px",
-                width: "30px",
-              }}
-            />
+            <div className="mobile-icon" onClick={toggleCart}>
+              <ShoppingBasketIcon
+                style={{
+                  color: "white",
+                  height: "35px",
+                  width: "35px",
+                }}
+              />
+            </div>
           </li>
           <li>
             {isLoggedIn ? (
@@ -160,13 +185,14 @@ const DesktopNavbar = () => {
                 Cerrar Sesión
               </Link>
             ) : (
-              <Link to="/login" className="navbar-email">
+              <Link to="/login" className="navbar-email" onClick={closeCart}>
                 Iniciar Sesión
               </Link>
             )}
           </li>
         </ul>
       </div>
+      {isCartOpen && <ShoppingCart toggleMobileMenu={toggleCart} />}
     </nav>
   );
 };

@@ -8,7 +8,7 @@
   background-color: #ffffff;
   border: 1px solid black;
   border-radius: 6px;
-  animation: swipeDown 0.26s ease;
+  animation: swipeRight 0.26s ease;
 }
 
 .mobile-menu a {
@@ -17,7 +17,7 @@
   font-weight: bold;
 }
 
-.mobile-menu-text{
+.mobile-menu-text {
   color: rgba(0, 0, 0, 0.462);
 }
 
@@ -40,12 +40,12 @@
   font-size: 32px;
 }
 
-@keyframes swipeDown {
+@keyframes swipeRight {
   0% {
-    height: 0;
+    right: 100%; 
   }
   100% {
-    height: 100%;
+    right: 0; 
   }
 }
 
