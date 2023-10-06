@@ -4,8 +4,14 @@ import { Link } from "react-router-dom";
 import "./MenuMobile.css";
 
 const MenuMobile = () => {
-  const { isLoggedIn, isAdmin, nombre, handleLinkClick, handleLogout, isMenuOpen } =
-    useContext(AppContext);
+  const {
+    isLoggedIn,
+    isAdmin,
+    nombre,
+    handleLinkClick,
+    handleLogout,
+    isMenuOpen,
+  } = useContext(AppContext);
 
   return (
     <div className={`mobile-menu ${isMenuOpen ? "menu-open" : ""}`}>
@@ -36,15 +42,15 @@ const MenuMobile = () => {
         </li>
         <li>
           {isLoggedIn ? (
-            <Link
-              to="/"
+            <a
+              href="/login"
               className="navbar-email mobile-menu-link smaller-font"
               onClick={() => {
                 handleLogout();
               }}
             >
               Cerrar Sesión
-            </Link>
+            </a>
           ) : (
             <Link
               to="/login"

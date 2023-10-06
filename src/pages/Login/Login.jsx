@@ -1,5 +1,4 @@
 import { useRef, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
 import { AppContext } from "../../context/AppContext";
 import "./Login.css";
@@ -7,7 +6,6 @@ import "./Login.css";
 const url = "https://server-general.up.railway.app/api/user/login";
 
 const Login = () => {
-  const navigate = useNavigate();
   const form = useRef(null);
   const { setLoggedIn, cargando, setCargando } = useContext(AppContext);
 
@@ -43,7 +41,8 @@ const Login = () => {
         const data = await response.json();
         const token = data.token;
         sessionStorage.setItem("token", token);
-        navigate("/");
+        //window.location.reload();
+        window.location.href = "/";
       } else {
         const data = await response.json();
         setError(data.message || "Inicio de sesión fallido");

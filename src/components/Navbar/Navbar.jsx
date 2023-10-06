@@ -2,7 +2,7 @@ import { useMediaQuery } from "@mui/material";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppContext } from "../../context/AppContext";
 import { styled, alpha } from "@mui/material/styles";
@@ -44,7 +44,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
-  width: "100%", 
+  width: "100%",
   height: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
@@ -172,9 +172,9 @@ const DesktopNavbar = () => {
           </li>
           <li>
             {isLoggedIn ? (
-              <Link to="/login" className="navbar-email" onClick={handleLogout}>
+              <a href="/login" className="navbar-email" onClick={handleLogout}>
                 Cerrar Sesión
-              </Link>
+              </a>
             ) : (
               <Link to="/login" className="navbar-email" onClick={closeCart}>
                 Iniciar Sesión
