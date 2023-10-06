@@ -4,7 +4,7 @@ nav {
   display: flex;
   justify-content: space-between;
   position: sticky;
-  background-color: #333;
+  background-color: #212121;
   border-bottom: 1px solid #000;
   color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -49,26 +49,6 @@ nav {
   color: #00a8cc;
 }
 
-.navbar-email {
-  color: #ccc;
-  font-size: 14px;
-  margin-right: 12px;
-}
-
-.navbar-email:hover {
-  cursor: pointer;
-  color: #00a8cc;
-}
-
-.navbar-shopping-cart {
-  position: relative;
-  cursor: pointer;
-}
-
-.menu {
-  display: none;
-}
-
 .mobile-navbar {
   height: 60px;
 }
@@ -83,8 +63,11 @@ nav {
 }
 
 .mobile-icon {
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   text-align: center;
-  margin-right: 10px;
+  color: white;
+  margin: 10px;
+  height: 35px;
+  width: 35px;
 }

@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/AppContext";
 import "./CreateAccount.css";
 
 const url = "https://server-general.up.railway.app/api/user/signup";
@@ -10,7 +11,9 @@ const documentTypesUrl =
 const CreateAccount = () => {
   const navigate = useNavigate();
 
-  const [tipoDocumento, setTipoDocumento] = useState(""); // Cambia el valor predeterminado a una cadena vacía
+  const { cargando, setCargando } = useContext(AppContext);
+
+  const [tipoDocumento, setTipoDocumento] = useState("");
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -50,13 +53,17 @@ const CreateAccount = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setCargando(true);
+
     if (contrasenia !== repetirContrasenia) {
       setError("Las contraseñas no coinciden.");
+      setCargando(false);
       return;
     }
 
     if (!validateEmail(email)) {
       setError("El correo electrónico no es válido.");
+      setCargando(false);
       return;
     }
 
@@ -64,6 +71,7 @@ const CreateAccount = () => {
       setError(
         "La contraseña debe tener al menos 5 caracteres, incluyendo mayúsculas, minúsculas y números."
       );
+      setCargando(false);
       return;
     }
 
@@ -74,7 +82,7 @@ const CreateAccount = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          usr_tipo_documento: tipoDocumento, // Usa el tipo de documento seleccionado
+          usr_tipo_documento: tipoDocumento,
           usr_numero_documento: numeroDocumento,
           usr_nombre: nombre,
           usr_apellido: apellido,
@@ -84,7 +92,6 @@ const CreateAccount = () => {
       });
 
       if (response.ok) {
-        console.log("Registro exitoso");
         setError("");
         navigate("/login");
       } else {
@@ -94,6 +101,8 @@ const CreateAccount = () => {
     } catch (error) {
       console.error("Error al registrarse:", error);
       setError("Hubo un problema al registrarse");
+    } finally {
+      setCargando(false);
     }
   };
 
@@ -104,24 +113,43 @@ const CreateAccount = () => {
         <form action="" className="form" onSubmit={handleSubmit}>
           <TextField
             required
+            disabled={cargando}
             type="text"
             id="nombre-basic"
             label="Nombre"
             variant="standard"
             value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length <= 50) {
+                setNombre(e.target.value);
+              }
+            }}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
+
           <TextField
             required
+            disabled={cargando}
             type="text"
             id="apellidos-basic"
             label="Apellidos"
             variant="standard"
             value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length <= 50) {
+                setApellido(e.target.value);
+              }
+            }}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
+
           <TextField
             required
+            disabled={cargando}
             id="standard-select-tipo-documento"
             select
             label="Tipo documento"
@@ -138,15 +166,25 @@ const CreateAccount = () => {
           </TextField>
           <TextField
             required
+            disabled={cargando}
             type="text"
             id="numero-documento-basic"
             label="Número documento"
             variant="standard"
             value={numeroDocumento}
-            onChange={(e) => setNumeroDocumento(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value.length <= 15) {
+                setNumeroDocumento(e.target.value);
+              }
+            }}
+            inputProps={{
+              maxLength: 15,
+            }}
           />
+
           <TextField
             required
+            disabled={cargando}
             type="email"
             id="email"
             label="Correo Electrónico"
@@ -156,26 +194,28 @@ const CreateAccount = () => {
           />
           <TextField
             required
+            disabled={cargando}
             id="standard-password-input"
             label="Contraseña"
             type="password"
-            autoComplete="new-password" // Cambiado el valor a new-password
+            autoComplete="new-password"
             variant="standard"
             value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
           />
           <TextField
             required
-            id="standard-password-confirm-input" // Cambiado el id a uno diferente
+            disabled={cargando}
+            id="standard-password-confirm-input"
             label="Repetir contraseña"
             type="password"
-            autoComplete="new-password" // Cambiado el valor a new-password
+            autoComplete="new-password"
             variant="standard"
             value={repetirContrasenia}
             onChange={(e) => setRepetirContrasenia(e.target.value)}
           />
           {error && <p className="error-message">{error}</p>}
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" disabled={cargando}>
             Crear
           </Button>
         </form>

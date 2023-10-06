@@ -9,7 +9,7 @@ const url = "https://server-general.up.railway.app/api/user/login";
 const Login = () => {
   const navigate = useNavigate();
   const form = useRef(null);
-  const { setLoggedIn } = useContext(AppContext);
+  const { setLoggedIn, cargando, setCargando } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [contrasenia, setContrasenia] = useState("");
@@ -22,6 +22,8 @@ const Login = () => {
       setError("Todos los campos son requeridos");
       return;
     }
+
+    setCargando(true);
 
     try {
       const response = await fetch(url, {
@@ -48,8 +50,11 @@ const Login = () => {
       }
     } catch (error) {
       setError("Hubo un problema al iniciar sesión");
+    } finally {
+      setCargando(false);
     }
   };
+
   return (
     <div className="Login">
       <div className="Login-container">
@@ -57,16 +62,19 @@ const Login = () => {
         <form action="" className="form" ref={form} onSubmit={handleSubmit}>
           <TextField
             required
+            disabled={cargando} // Deshabilita el campo de correo si está cargando.
             type="email"
             id="email"
             label="Correo Electrónico"
             variant="standard"
             name="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             required
+            disabled={cargando} // Deshabilita el campo de contraseña si está cargando.
             id="standard-password-input"
             label="Contraseña"
             type="password"
@@ -76,12 +84,14 @@ const Login = () => {
             value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
           />
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" disabled={cargando}>
             Iniciar Sesión
           </Button>
           {error && <p className="error-message">{error}</p>}
-          <a href="/password-recovery">Olvidé mi contraseña</a>
-          <Button href="/signup" variant="outlined">
+          <a href="/password-recovery" disabled={cargando}>
+            Olvidé mi contraseña
+          </a>
+          <Button href="/signup" variant="outlined" disabled={cargando}>
             Registrarse
           </Button>{" "}
         </form>

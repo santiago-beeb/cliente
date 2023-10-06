@@ -2,7 +2,7 @@ import { useMediaQuery } from "@mui/material";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppContext } from "../../context/AppContext";
 import { styled, alpha } from "@mui/material/styles";
@@ -24,6 +24,8 @@ const Search = styled("div")(({ theme }) => ({
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
+  height: "40px",
+  marginTop: "10px",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
     width: "500px",
@@ -42,8 +44,8 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
-  width: "100%", // Ancho completo del contenedor
-  height: "100%", // Altura completa del contenedor
+  width: "100%", 
+  height: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -88,10 +90,10 @@ const MobileNavbar = () => {
           </Link>
         </div>
         <div className="mobile-icon" onClick={toggleCart}>
-          <ShoppingBasketIcon
+          <ShoppingCartIcon
             style={{
               color: "white",
-              height: "35px",
+              height: "30px",
               width: "35px",
             }}
           />
@@ -159,7 +161,7 @@ const DesktopNavbar = () => {
         <ul>
           <li>
             <div className="mobile-icon" onClick={toggleCart}>
-              <ShoppingBasketIcon
+              <ShoppingCartIcon
                 style={{
                   color: "white",
                   height: "35px",
@@ -170,7 +172,7 @@ const DesktopNavbar = () => {
           </li>
           <li>
             {isLoggedIn ? (
-              <Link to="/" className="navbar-email" onClick={handleLogout}>
+              <Link to="/login" className="navbar-email" onClick={handleLogout}>
                 Cerrar Sesión
               </Link>
             ) : (

@@ -1,11 +1,3 @@
-@keyframes swipeLeft {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 360px;
-  }
-}
 .ShoppingCart {
   width: 100vw;
   padding: 24px;
@@ -60,6 +52,15 @@
 .order p:nth-child(2) {
   text-align: end;
   font-weight: bold;
+}
+
+@keyframes swipeLeft {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 360px;
+  }
 }
 
 @media (min-width: 640px) {

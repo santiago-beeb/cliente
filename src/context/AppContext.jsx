@@ -1,11 +1,11 @@
 import { useState, createContext, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Navigate } from "react-router-dom";
 
 const AppContext = createContext();
 
-const token = sessionStorage.getItem("token");
-
 const isUserAuthenticated = () => {
+  const token = sessionStorage.getItem("token");
   return Boolean(token);
 };
 
@@ -15,39 +15,80 @@ function AppProvider({ children }) {
   const [nombre, setNombre] = useState("");
   const [isCartOpen, setCartOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [cargando, setCargando] = useState(false);
 
   useEffect(() => {
-    console.log(isLoggedIn);
-    if (isLoggedIn) {
-      const url =
-        "https://server-general.up.railway.app/api/user/check-admin-role";
+    const token = sessionStorage.getItem("token");
+    const url =
+      "https://server-general.up.railway.app/api/user/check-admin-role";
 
-      const requestOptions = {
-        method: "GET",
-        headers: {
-          token: `${token}`,
-        },
-      };
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        token: `${token}`,
+      },
+    };
 
-      fetch(url, requestOptions)
-        .then((response) => {
-          if (!response.ok) {
+    fetch(url, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("No tienes autorizacion");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setAdmin(data.isAdmin);
+        setNombre(data.nombre);
+      })
+      .catch((error) => {
+        console.error("Error al verificar el estado de administrador:", error);
+      });
+  }, [isLoggedIn]);
+
+  const checkTokenValidity = () => {
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      return;
+    }
+
+    const url =
+      "https://server-general.up.railway.app/api/user/check-admin-role";
+
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        token: `${token}`,
+      },
+    };
+
+    fetch(url, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          if (response.status === 401) {
+            sessionStorage.removeItem("token");
+            setLoggedIn(false);
+            setAdmin(false);
+            setNombre("");
+            Navigate("/login");
+          } else {
             throw new Error(`Solicitud fallida con código: ${response.status}`);
           }
-          return response.json();
-        })
-        .then((data) => {
-          setAdmin(data.isAdmin);
-          setNombre(data.nombre);
-        })
-        .catch((error) => {
-          console.error(
-            "Error al verificar el estado de administrador:",
-            error
-          );
-        });
-    }
-  }, [isLoggedIn]);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.error("Error al verificar el estado del token:", error);
+      });
+  };
+
+  useEffect(() => {
+    checkTokenValidity();
+    const tokenCheckInterval = setInterval(() => {
+      checkTokenValidity();
+    }, 60000);
+    return () => clearInterval(tokenCheckInterval);
+  }, []);
 
   const toggleMobileMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -89,11 +130,14 @@ function AppProvider({ children }) {
         isAdmin,
         nombre,
         isMenuOpen,
+        cargando,
+        setCargando,
         setCartOpen,
         setLoggedIn,
         toggleCart,
         closeCart,
         setAdmin,
+        setNombre,
         toggleMobileMenu,
         closeMobileMenu,
         handleLogout,
