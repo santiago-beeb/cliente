@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import Checkout from "../../pages/Checkout/Checkout";
+import { Checkout } from "../../pages/Checkout/Checkout";
 import "./ShoppingCart.css";
 import { Link } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 
 const ShoppingCart = () => {
-  const { isCartOpen, toggleCart } = useContext(AppContext);
+  const { isCartOpen, closeCart } = useContext(AppContext);
 
   const sumTotal = () => {
     const reducer = (accumulator, currentValue) =>
@@ -17,7 +17,7 @@ const ShoppingCart = () => {
   return (
     <aside className={`ShoppingCart ${isCartOpen ? "open" : ""}`}>
       <div className="title-container">
-        <Typography variant="h6" onClick={toggleCart} className="title">
+        <Typography variant="h6" className="title">
           My order
         </Typography>
       </div>
@@ -33,7 +33,7 @@ const ShoppingCart = () => {
             }).format(sumTotal())}
           </Typography>
         </div>
-        <Link onClick={toggleCart} to="/checkout">
+        <Link onClick={closeCart} to="/checkout">
           <Button variant="contained" className="primary-button">
             Checkout
           </Button>

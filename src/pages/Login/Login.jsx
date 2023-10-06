@@ -37,14 +37,10 @@ const Login = () => {
 
       if (response.ok) {
         setError("");
-        setLoggedIn(true); // Autenticación exitosa
+        setLoggedIn(true);
         const data = await response.json();
-        const token = data.token; // Token enviado por el servidor
-        localStorage.setItem("token", token); // Almacena el token en el localStorage
-
-        // Guarda el nombre en el localStorage
-        localStorage.setItem("nombre", data.nombre);
-
+        const token = data.token;
+        sessionStorage.setItem("token", token);
         navigate("/");
       } else {
         const data = await response.json();

@@ -1,24 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 import "./MenuMobile.css";
 
-const MenuMobile = ({ toggleMobileMenu }) => {
-  const { isLoggedIn, setLoggedIn } = useContext(AppContext); // Obtén 'nombre' desde el contexto
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const nombre = localStorage.getItem("nombre");
-
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setLoggedIn(false);
-    toggleMobileMenu();
-  };
-
-  const handleLinkClick = () => {
-    setIsMenuOpen(false);
-    toggleMobileMenu();
-  };
+const MenuMobile = () => {
+  const { isLoggedIn, isAdmin, nombre, handleLinkClick, handleLogout, isMenuOpen } =
+    useContext(AppContext);
 
   return (
     <div className={`mobile-menu ${isMenuOpen ? "menu-open" : ""}`}>
@@ -33,6 +20,11 @@ const MenuMobile = ({ toggleMobileMenu }) => {
             Mujer
           </Link>
         </li>
+        {isAdmin && (
+          <li onClick={handleLinkClick} className="smaller-font">
+            <Link to="/administrar-productos">Administrar Productos</Link>
+          </li>
+        )}
       </ul>
       <ul>
         <li>

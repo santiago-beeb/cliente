@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
@@ -56,26 +56,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const MobileNavbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    setIsCartOpen(false);
-  };
-
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-    setIsMenuOpen(false);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMenuOpen(false);
-    setIsCartOpen(false);
-  };
+  const {
+    toggleMobileMenu,
+    isMenuOpen,
+    closeMobileMenu,
+    toggleCart,
+    isCartOpen,
+  } = useContext(AppContext);
 
   return (
-    <nav className={`mobile-navbar ${isMenuOpen ? "menu-open" : ""}`}>
+    <nav className={`mobile-navbar`}>
       <div className="mobile-layout">
         <div className="mobile-icon" onClick={toggleMobileMenu}>
           <MenuIcon
@@ -108,28 +98,20 @@ const MobileNavbar = () => {
         </div>
       </div>
       {isMenuOpen && <MenuMobile toggleMobileMenu={toggleMobileMenu} />}
-      {isCartOpen && <ShoppingCart toggleMobileMenu={toggleCart} />}
+      {isCartOpen && <ShoppingCart toggleCart={toggleCart} />}
     </nav>
   );
 };
 
 const DesktopNavbar = () => {
-  const { isLoggedIn, setLoggedIn } = useContext(AppContext);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
-  const closeCart = () => {
-    setIsCartOpen(false);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setLoggedIn(false);
-    setIsCartOpen(false);
-  };
+  const {
+    isLoggedIn,
+    isAdmin,
+    closeCart,
+    toggleCart,
+    isCartOpen,
+    handleLogout,
+  } = useContext(AppContext);
 
   return (
     <nav>
@@ -155,6 +137,13 @@ const DesktopNavbar = () => {
               Mujer
             </Link>
           </li>
+          {isAdmin && (
+            <li>
+              <Link to="/administrar-productos" onClick={closeCart}>
+                Administrar Productos
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
       <Search onClick={closeCart}>

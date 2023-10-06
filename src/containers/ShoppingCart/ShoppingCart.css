@@ -16,9 +16,8 @@
   top: 60px;
   bottom: 0;
   color: black;
-  border-radius: 6px;
   border: 1px solid black;
-  animation: swipeLeft 0.26s ease;
+  animation: swipeLeft 0.4s ease;
 }
 .cart-product-list {
   max-height: calc(100vh - 300px);
@@ -63,19 +62,9 @@
   font-weight: bold;
 }
 
-.primary-button {
-  background-color: var(--hospital-green);
-  border-radius: 8px;
-  border: none;
-  color: var(--white);
-  width: 100%;
-  cursor: pointer;
-  font-size: var(--md);
-  font-weight: bold;
-  height: 50px;
-}
 @media (min-width: 640px) {
   .ShoppingCart {
     width: 400px;
+    border-radius: 6px;
   }
 }

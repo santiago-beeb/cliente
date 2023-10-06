@@ -7,8 +7,7 @@
   left: 0;
   background-color: #ffffff;
   border: 1px solid black;
-  border-radius: 6px;
-  animation: swipeRight 0.26s ease;
+  animation: swipeRight 0.4s ease;
 }
 
 .mobile-menu a {
@@ -42,10 +41,10 @@
 
 @keyframes swipeRight {
   0% {
-    right: 100%; 
+    right: 100%;
   }
   100% {
-    right: 0; 
+    right: 0;
   }
 }
 
