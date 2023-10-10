@@ -1,6 +1,6 @@
 nav {
   top: 0;
-  width: 100vw;
+  width: calc (100vw - 12px);
   display: flex;
   justify-content: space-between;
   position: sticky;
@@ -43,8 +43,7 @@ nav {
   margin-left: 12px;
 }
 
-.navbar-left ul li a:hover,
-.navbar-right ul li a:hover {
+.navbar-left ul li a:hover {
   border: 1px solid #00a8cc;
   color: #00a8cc;
 }

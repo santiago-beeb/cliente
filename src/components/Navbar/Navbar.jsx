@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 import { AppContext } from "../../context/AppContext";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -173,11 +175,25 @@ const DesktopNavbar = () => {
           <li>
             {isLoggedIn ? (
               <a href="/login" className="navbar-email" onClick={handleLogout}>
-                Cerrar Sesión
+                <LogoutIcon
+                  style={{
+                    color: "white",
+                    marginLeft: "10px",
+                    height: "30px",
+                    width: "30px",
+                  }}
+                />
               </a>
             ) : (
               <Link to="/login" className="navbar-email" onClick={closeCart}>
-                Iniciar Sesión
+                <LoginIcon
+                  style={{
+                    color: "white",
+                    marginLeft: "10px",
+                    height: "30px",
+                    width: "30px",
+                  }}
+                />
               </Link>
             )}
           </li>

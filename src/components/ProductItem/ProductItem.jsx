@@ -10,15 +10,14 @@ const ProductItem = ({ product }) => {
   return (
     <Card
       sx={{
-        maxWidth: 800,
-        margin: "16px",
+        width: "100%",
         backgroundColor: "#f5f5f5",
       }}
     >
       <CardActionArea>
         <CardMedia
           component="img"
-          height="400"
+          height="450"
           image={product.pdc_imagen}
           alt={product.pdc_descripcion}
         />
@@ -26,9 +25,6 @@ const ProductItem = ({ product }) => {
           <Typography gutterBottom variant="h5" component="div">
             {product.pdc_descripcion}
           </Typography>
-          {/* <Typography variant="body2" color="text.secondary">
-            {product.pdc_descripcion}
-          </Typography> */}
         </CardContent>
       </CardActionArea>
       <CardActions>

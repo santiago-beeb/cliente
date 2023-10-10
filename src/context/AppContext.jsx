@@ -86,7 +86,7 @@ function AppProvider({ children }) {
     checkTokenValidity();
     const tokenCheckInterval = setInterval(() => {
       checkTokenValidity();
-    }, 60000);
+    }, 3600000);
     return () => clearInterval(tokenCheckInterval);
   }, []);
 
