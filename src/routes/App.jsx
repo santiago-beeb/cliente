@@ -9,6 +9,8 @@ import { AdminProduct } from "../pages/AdminProduct/AdminProduct";
 import { Checkout } from "../pages/Checkout/Checkout";
 import { AppContext, AppProvider } from "../context/AppContext";
 import { useContext } from "react";
+import Women from "../pages/Category/Women";
+import Men from "../pages/Category/Men";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/login" element={<LoginWrapper />} />
             <Route path="/signup" element={<CreateAccountWrapper />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/men" element={<Men />} />
+            <Route path="/women" element={<Women />} />
             <Route path="/administrar-productos" element={<AdminWrapper />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

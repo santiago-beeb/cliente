@@ -130,12 +130,12 @@ const DesktopNavbar = () => {
         </Link>
         <ul>
           <li>
-            <Link to="/hombre" onClick={closeCart}>
+            <Link to="/men" onClick={closeCart}>
               Hombre
             </Link>
           </li>
           <li>
-            <Link to="/mujer" onClick={closeCart}>
+            <Link to="/women" onClick={closeCart}>
               Mujer
             </Link>
           </li>

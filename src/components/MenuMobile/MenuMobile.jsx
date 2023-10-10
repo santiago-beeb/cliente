@@ -17,12 +17,12 @@ const MenuMobile = () => {
     <div className={`mobile-menu ${isMenuOpen ? "menu-open" : ""}`}>
       <ul>
         <li onClick={handleLinkClick}>
-          <Link to="/hombre" className="mobile-menu-link">
+          <Link to="/men" className="mobile-menu-link">
             Hombre
           </Link>
         </li>
         <li onClick={handleLinkClick}>
-          <Link to="/mujer" className="mobile-menu-link">
+          <Link to="/women" className="mobile-menu-link">
             Mujer
           </Link>
         </li>
