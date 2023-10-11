@@ -1,63 +1,17 @@
 import { useMediaQuery } from "@mui/material";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import { AppContext } from "../../context/AppContext";
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
 import "./Navbar.css";
 import { MenuMobile } from "../MenuMobile/MenuMobile";
 import { ShoppingCart } from "../../containers/ShoppingCart/ShoppingCart";
-
-const Search = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  position: "relative",
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  borderRadius: theme.shape.borderRadius,
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  height: "40px",
-  marginTop: "10px",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "500px",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  width: "100%",
-  height: "100%",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "400px",
-    },
-  },
-}));
+import { Searcher } from "../Searcher/Searcher";
+import SearchIcon from "@mui/icons-material/Search";
 
 const MobileNavbar = () => {
   const {
@@ -91,8 +45,17 @@ const MobileNavbar = () => {
             />
           </Link>
         </div>
-        <div className="mobile-icon" onClick={toggleCart}>
+        {/* <Searcher onClick={closeMobileMenu} /> */}
+        <div className="mobile-double">
+          <SearchIcon
+            style={{
+              color: "white",
+              height: "30px",
+              width: "35px",
+            }}
+          />
           <ShoppingCartIcon
+            onClick={toggleCart}
             style={{
               color: "white",
               height: "30px",
@@ -117,6 +80,10 @@ const DesktopNavbar = () => {
     handleLogout,
   } = useContext(AppContext);
 
+  const isMenActive = useMatch("/men");
+  const isWomenActive = useMatch("/women");
+  const isAdminActive = useMatch("/administrar-productos");
+
   return (
     <nav>
       <div className="navbar-left">
@@ -132,36 +99,40 @@ const DesktopNavbar = () => {
         </Link>
         <ul>
           <li>
-            <Link to="/men" onClick={closeCart}>
+            <Link
+              to="/men"
+              onClick={closeCart}
+              className={isMenActive ? "active-link" : ""}
+            >
               Hombre
             </Link>
           </li>
           <li>
-            <Link to="/women" onClick={closeCart}>
+            <Link
+              to="/women"
+              onClick={closeCart}
+              className={isWomenActive ? "active-link" : ""}
+            >
               Mujer
             </Link>
           </li>
           {isAdmin && (
             <li>
-              <Link to="/administrar-productos" onClick={closeCart}>
-                Administrar Productos
+              <Link
+                to="/administrar-productos"
+                onClick={closeCart}
+                className={isAdminActive ? "active-link" : ""}
+              >
+                Admin
               </Link>
             </li>
           )}
         </ul>
       </div>
-      <Search onClick={closeCart}>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-        />
-      </Search>
+      <Searcher onClick={closeCart} />
       <div className="navbar-right">
         <ul>
-          <li>
+          <Link>
             <div className="mobile-icon" onClick={toggleCart}>
               <ShoppingCartIcon
                 style={{
@@ -169,9 +140,10 @@ const DesktopNavbar = () => {
                   height: "35px",
                   width: "35px",
                 }}
+                Link
               />
             </div>
-          </li>
+          </Link>
           <li>
             {isLoggedIn ? (
               <a href="/login" className="navbar-email" onClick={handleLogout}>

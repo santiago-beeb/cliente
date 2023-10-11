@@ -34,6 +34,10 @@ nav {
   margin-left: 12px;
 }
 
+.navbar-left ul li a {
+  font-size: vw;
+}
+
 .navbar-left ul li a,
 .navbar-right ul li a {
   text-decoration: none;
@@ -43,8 +47,11 @@ nav {
   margin-left: 12px;
 }
 
+.navbar-left ul li a.active-link {
+  color: #00a8cc;
+}
+
 .navbar-left ul li a:hover {
-  border: 1px solid #00a8cc;
   color: #00a8cc;
 }
 
@@ -54,11 +61,10 @@ nav {
 
 .mobile-layout {
   display: flex;
+  width: 100%;
+  max-width: 640px;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 .mobile-icon {
@@ -69,4 +75,11 @@ nav {
   margin: 10px;
   height: 35px;
   width: 35px;
+}
+
+.mobile-double{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: white;
 }

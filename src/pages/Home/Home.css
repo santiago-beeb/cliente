@@ -8,5 +8,6 @@
 @media (max-width: 640px) {
   .backgroundStyle {
     background-image: url("https://b2cmattelsa.vtexassets.com/assets/vtex.file-manager-graphql/images/80a6f647-8499-46c3-add3-a81ec0548848___838cb2c8175802966e917f98bea13f7f.jpg");
+    width: auto;
   }
 }

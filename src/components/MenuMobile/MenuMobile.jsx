@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import { Link } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import "./MenuMobile.css";
 
 const MenuMobile = () => {
@@ -13,22 +13,44 @@ const MenuMobile = () => {
     isMenuOpen,
   } = useContext(AppContext);
 
+  const isMenActive = useMatch("/men");
+  const isWomenActive = useMatch("/women");
+  const isAdminActive = useMatch("/administrar-productos");
+  const isLoginActive = useMatch("/login");
+
   return (
     <div className={`mobile-menu ${isMenuOpen ? "menu-open" : ""}`}>
       <ul>
         <li onClick={handleLinkClick}>
-          <Link to="/men" className="mobile-menu-link">
+          <Link
+            to="/men"
+            className={`mobile-menu-link ${
+              isMenActive ? "mobile-active-link" : ""
+            }`}
+          >
             Hombre
           </Link>
         </li>
         <li onClick={handleLinkClick}>
-          <Link to="/women" className="mobile-menu-link">
+          <Link
+            to="/women"
+            className={`mobile-menu-link ${
+              isWomenActive ? "mobile-active-link" : ""
+            }`}
+          >
             Mujer
           </Link>
         </li>
         {isAdmin && (
           <li onClick={handleLinkClick} className="smaller-font">
-            <Link to="/administrar-productos">Administrar Productos</Link>
+            <Link
+              to="/administrar-productos"
+              className={`mobile-menu-link ${
+                isAdminActive ? "mobile-active-link" : ""
+              }`}
+            >
+              Admin
+            </Link>
           </li>
         )}
       </ul>
@@ -54,7 +76,9 @@ const MenuMobile = () => {
           ) : (
             <Link
               to="/login"
-              className="navbar-email mobile-menu-link smaller-font"
+              className={`navbar-email mobile-menu-link smaller-font ${
+                isLoginActive ? "mobile-active-link" : ""
+              }`}
               onClick={() => {
                 handleLinkClick();
               }}
