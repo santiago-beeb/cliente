@@ -11,11 +11,13 @@ const isUserAuthenticated = () => {
 
 function AppProvider({ children }) {
   const [isLoggedIn, setLoggedIn] = useState(isUserAuthenticated);
-  const [isAdmin, setAdmin] = useState(false);
-  const [nombre, setNombre] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [cargando, setCargando] = useState(false);
+  const [isAdmin, setAdmin] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [nombre, setNombre] = useState("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -109,6 +111,18 @@ function AppProvider({ children }) {
     setCartOpen(false);
   };
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     setLoggedIn(false);
@@ -122,6 +136,25 @@ function AppProvider({ children }) {
     toggleMobileMenu();
   };
 
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isProductInfoOpen, setProductInfoOpen] = useState(false);
+  const [productInfoMessage, setProductInfoMessage] = useState("");
+  const [productInfoSeverity, setProductInfoSeverity] = useState("");
+
+  const openProductInfo = (product) => {
+    setSelectedProduct(product);
+    setProductInfoOpen(true);
+  };
+
+  const closeProductInfo = () => {
+    setProductInfoOpen(false);
+  };
+
+  const handleProductInfoSnackbarClose = () => {
+    setProductInfoOpen(false);
+    setProductInfoSeverity("");
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -130,7 +163,17 @@ function AppProvider({ children }) {
         isAdmin,
         nombre,
         isMenuOpen,
+        isSearchOpen,
         cargando,
+        modalOpen,
+        selectedProduct,
+        isProductInfoOpen,
+        productInfoMessage,
+        productInfoSeverity,
+        setProductInfoMessage,
+        openProductInfo,
+        closeProductInfo,
+        handleProductInfoSnackbarClose,
         setCargando,
         setCartOpen,
         setLoggedIn,
@@ -142,6 +185,10 @@ function AppProvider({ children }) {
         closeMobileMenu,
         handleLogout,
         handleLinkClick,
+        setIsSearchOpen,
+        toggleSearch,
+        openModal,
+        closeModal,
       }}
     >
       {children}

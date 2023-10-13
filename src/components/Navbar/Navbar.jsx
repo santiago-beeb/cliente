@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, useMatch } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -7,12 +7,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import { AppContext } from "../../context/AppContext";
-import "./Navbar.css";
 import { MenuMobile } from "../MenuMobile/MenuMobile";
 import { ShoppingCart } from "../../containers/ShoppingCart/ShoppingCart";
 import { Searcher } from "../Searcher/Searcher";
-
 import SearchIcon from "@mui/icons-material/Search";
+import "./Navbar.css";
 
 const MobileNavbar = () => {
   const {
@@ -21,13 +20,9 @@ const MobileNavbar = () => {
     closeMobileMenu,
     toggleCart,
     isCartOpen,
+    isSearchOpen,
+    toggleSearch,
   } = useContext(AppContext);
-
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
 
   return (
     <nav className={`mobile-navbar`}>
@@ -72,9 +67,9 @@ const MobileNavbar = () => {
           />
         </div>
       </div>
-      {isMenuOpen && <MenuMobile toggleMobileMenu={toggleMobileMenu} />}
-      {isCartOpen && <ShoppingCart toggleCart={toggleCart} />}
-      {isSearchOpen && <Searcher toggle={toggleSearch} />}
+      {isMenuOpen && <MenuMobile />}
+      {isCartOpen && <ShoppingCart />}
+      {isSearchOpen && <Searcher />}
     </nav>
   );
 };
@@ -87,17 +82,13 @@ const DesktopNavbar = () => {
     toggleCart,
     isCartOpen,
     handleLogout,
+    isSearchOpen,
+    toggleSearch,
   } = useContext(AppContext);
 
   const isMenActive = useMatch("/men");
   const isWomenActive = useMatch("/women");
   const isAdminActive = useMatch("/administrar-productos");
-
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  const toggleSearch = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
 
   return (
     <>
@@ -194,7 +185,7 @@ const DesktopNavbar = () => {
             </li>
           </ul>
         </div>
-        {isCartOpen && <ShoppingCart toggleMobileMenu={toggleCart} />}
+        {isCartOpen && <ShoppingCart />}
       </nav>
       {isSearchOpen && <Searcher />}
     </>
@@ -203,8 +194,9 @@ const DesktopNavbar = () => {
 
 const Navbar = () => {
   const isMobile = useMediaQuery("(max-width: 640px)");
+  const ScrollableNavbar = isMobile ? MobileNavbar : DesktopNavbar;
 
-  return <>{isMobile ? <MobileNavbar /> : <DesktopNavbar />}</>;
+  return <ScrollableNavbar />;
 };
 
 export default Navbar;

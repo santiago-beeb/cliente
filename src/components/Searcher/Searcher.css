@@ -1,6 +1,6 @@
 .container-search {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,17 +11,51 @@
   padding: 0;
   top: 0;
   z-index: 1300;
-  background-color: gainsboro;
+  background-color: rgba(220, 220, 220, 0.47);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .search-modal {
-  width: 90%; /* Reduce un poco más el ancho para dejar un margen alrededor del modal */
-  height: 60px; /* Permite que el modal se ajuste al contenido */
+  width: 100%;
+  padding-top: 20px;
+  height: auto;
+  background-color: white;
 }
 
 .product-list {
-  width: 90%; /* Asegura que la lista de productos ocupe todo el ancho disponible */
-  display: flex; /* Organiza los productos en una fila */
-  flex-wrap: wrap; /* Permite que los productos se envuelvan a la siguiente línea si no hay suficiente espacio */
+  background-color: white;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 670px) {
+  .product-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1099px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .container-search {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .search-modal {
+    width: 100%;
+    height: auto;
+  }
+
+  .product-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
