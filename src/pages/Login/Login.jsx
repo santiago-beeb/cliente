@@ -1,6 +1,7 @@
 import { useRef, useState, useContext } from "react";
 import { Button, TextField } from "@mui/material";
 import { AppContext } from "../../context/AppContext";
+import { Helmet } from "react-helmet";
 import "./Login.css";
 
 const url = "https://server-general.up.railway.app/api/user/login";
@@ -56,6 +57,9 @@ const Login = () => {
 
   return (
     <div className="Login">
+      <Helmet>
+        <title>Iniciar Sesion || General Shop</title>
+      </Helmet>
       <div className="Login-container">
         <h1 className="title">Iniciar sesión</h1>
         <form action="" className="form" ref={form} onSubmit={handleSubmit}>

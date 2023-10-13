@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useMatch } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -11,6 +11,7 @@ import "./Navbar.css";
 import { MenuMobile } from "../MenuMobile/MenuMobile";
 import { ShoppingCart } from "../../containers/ShoppingCart/ShoppingCart";
 import { Searcher } from "../Searcher/Searcher";
+
 import SearchIcon from "@mui/icons-material/Search";
 
 const MobileNavbar = () => {
@@ -21,6 +22,12 @@ const MobileNavbar = () => {
     toggleCart,
     isCartOpen,
   } = useContext(AppContext);
+
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
 
   return (
     <nav className={`mobile-navbar`}>
@@ -48,10 +55,11 @@ const MobileNavbar = () => {
         {/* <Searcher onClick={closeMobileMenu} /> */}
         <div className="mobile-double">
           <SearchIcon
+            onClick={toggleSearch}
             style={{
               color: "white",
               height: "30px",
-              width: "35px",
+              width: "30px",
             }}
           />
           <ShoppingCartIcon
@@ -66,6 +74,7 @@ const MobileNavbar = () => {
       </div>
       {isMenuOpen && <MenuMobile toggleMobileMenu={toggleMobileMenu} />}
       {isCartOpen && <ShoppingCart toggleCart={toggleCart} />}
+      {isSearchOpen && <Searcher toggle={toggleSearch} />}
     </nav>
   );
 };
@@ -84,95 +93,111 @@ const DesktopNavbar = () => {
   const isWomenActive = useMatch("/women");
   const isAdminActive = useMatch("/administrar-productos");
 
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
   return (
-    <nav>
-      <div className="navbar-left">
-        <Link to="/" className="container_logo" onClick={closeCart}>
-          <StoreIcon
-            style={{
-              color: "white",
-              marginLeft: "10px",
-              height: "30px",
-              width: "30px",
-            }}
-          />
-        </Link>
-        <ul>
-          <li>
-            <Link
-              to="/men"
-              onClick={closeCart}
-              className={isMenActive ? "active-link" : ""}
-            >
-              Hombre
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/women"
-              onClick={closeCart}
-              className={isWomenActive ? "active-link" : ""}
-            >
-              Mujer
-            </Link>
-          </li>
-          {isAdmin && (
+    <>
+      <nav>
+        <div className="navbar-left">
+          <Link to="/" className="container_logo" onClick={closeCart}>
+            <StoreIcon
+              style={{
+                color: "white",
+                marginLeft: "10px",
+                height: "30px",
+                width: "30px",
+              }}
+            />
+          </Link>
+          <ul>
             <li>
               <Link
-                to="/administrar-productos"
+                to="/men"
                 onClick={closeCart}
-                className={isAdminActive ? "active-link" : ""}
+                className={isMenActive ? "active-link" : ""}
               >
-                Admin
+                Hombre
               </Link>
             </li>
-          )}
-        </ul>
-      </div>
-      <Searcher onClick={closeCart} />
-      <div className="navbar-right">
-        <ul>
-          <Link>
-            <div className="mobile-icon" onClick={toggleCart}>
-              <ShoppingCartIcon
-                style={{
-                  color: "white",
-                  height: "35px",
-                  width: "35px",
-                }}
-                Link
-              />
-            </div>
-          </Link>
-          <li>
-            {isLoggedIn ? (
-              <a href="/login" className="navbar-email" onClick={handleLogout}>
-                <LogoutIcon
-                  style={{
-                    color: "white",
-                    marginLeft: "10px",
-                    height: "30px",
-                    width: "30px",
-                  }}
-                />
-              </a>
-            ) : (
-              <Link to="/login" className="navbar-email" onClick={closeCart}>
-                <LoginIcon
-                  style={{
-                    color: "white",
-                    marginLeft: "10px",
-                    height: "30px",
-                    width: "30px",
-                  }}
-                />
+            <li>
+              <Link
+                to="/women"
+                onClick={closeCart}
+                className={isWomenActive ? "active-link" : ""}
+              >
+                Mujer
               </Link>
+            </li>
+            {isAdmin && (
+              <li>
+                <Link
+                  to="/administrar-productos"
+                  onClick={closeCart}
+                  className={isAdminActive ? "active-link" : ""}
+                >
+                  Admin
+                </Link>
+              </li>
             )}
-          </li>
-        </ul>
-      </div>
-      {isCartOpen && <ShoppingCart toggleMobileMenu={toggleCart} />}
-    </nav>
+          </ul>
+        </div>
+        <div className="navbar-right">
+          <ul>
+            <li>
+              <div className="mobile-icon" onClick={toggleSearch}>
+                <SearchIcon
+                  style={{
+                    color: "white",
+                    height: "30px",
+                    width: "30px",
+                  }}
+                />
+              </div>
+            </li>
+            <li>
+              <div className="mobile-icon" onClick={toggleCart}>
+                <ShoppingCartIcon
+                  style={{
+                    color: "white",
+                    height: "30px",
+                    width: "30px",
+                  }}
+                />
+              </div>
+            </li>
+            <li>
+              {isLoggedIn ? (
+                <a href="/login" className="mobile-icon" onClick={handleLogout}>
+                  <LogoutIcon
+                    style={{
+                      color: "white",
+                      height: "30px",
+                      width: "30px",
+                    }}
+                  />
+                </a>
+              ) : (
+                <Link to="/login" className="mobile-icon" onClick={closeCart}>
+                  <LoginIcon
+                    style={{
+                      color: "white",
+                      height: "30px",
+                      width: "30px",
+                    }}
+                  />
+                </Link>
+              )}
+            </li>
+          </ul>
+        </div>
+        {isCartOpen && <ShoppingCart toggleMobileMenu={toggleCart} />}
+      </nav>
+      {isSearchOpen && <Searcher />}
+    </>
   );
 };
 

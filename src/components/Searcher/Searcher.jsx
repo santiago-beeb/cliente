@@ -1,83 +1,72 @@
-import { styled, alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
-import { InputBase } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useGetProducts } from "../../hooks/useGetProducts";
+import { useMatch } from "react-router-dom";
+import { ProductItem } from "../ProductItem/ProductItem";
+import { TextField, Typography } from "@mui/material";
+import { Loading } from "../Loading/Loading";
+import CloseIcon from "@mui/icons-material/Close";
+import "./Searcher.css"; // Asegúrate de tener un archivo CSS con estilos adecuados
+
+const APImen =
+  "https://server-general.up.railway.app/api/product/products-for-men";
+const APIwomen =
+  "https://server-general.up.railway.app/api/product/products-for-women";
 
 const Searcher = () => {
-  const Search = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    position: "relative",
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    borderRadius: theme.shape.borderRadius,
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    height: "40px",
-    marginTop: "10px",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "500px",
-    },
-  }));
+  const isWomenActive = useMatch("/women");
+  const [search, setSearch] = useState("");
+  const { products, loading, error } = useGetProducts(
+    isWomenActive ? APIwomen : APImen
+  );
+  let results = [];
 
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }));
+  if (loading) {
+    return <Loading />;
+  }
 
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    width: "100%",
-    height: "100%",
-    "& .MuiInputBase-input": {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "400px",
-      },
-    },
-  }));
+  if (error) {
+    return <p>Error al cargar : {error.message}</p>;
+  }
 
-  const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-
-  const handleSearchChange = (event) => {
-    setSearchText(event.target.value);
-  };
-
-  // Usamos useEffect para manejar la lógica de búsqueda
-  // Esto se ejecutará después de que el componente se haya vuelto a renderizar
-  useEffect(() => {
-    // Aquí puedes agregar la lógica para buscar en tus productos
-    // Por ejemplo:
-    // let resultados = buscarProductos(searchText);
-    // setSearchResults(resultados);
-  }, [searchText]);
+  if (!search) {
+    results = products;
+  } else {
+    results = products.filter(
+      (product) =>
+        product.pdc_descripcion.toLowerCase().includes(search.toLowerCase()) ||
+        product.pdc_fk_color.toLowerCase().includes(search.toLowerCase()) ||
+        product.pdc_fk_marca.toLowerCase().includes(search.toLowerCase())
+    );
+  }
 
   return (
     <>
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Buscar..."
-          inputProps={{ "aria-label": "search" }}
-          value={searchText}
-          onChange={handleSearchChange} // Agrega esta línea
-        />
-      </Search>
+      <div className="container-search">
+        <div className="search-modal">
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Buscar productos"
+            type="search"
+            fullWidth
+            variant="standard"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="product-list">
+          {results.length > 0 ? (
+            results.map((product) => (
+              <ProductItem product={product} key={product.pdc_id} />
+            ))
+          ) : (
+            <Typography variant="caption">
+              No se encontraron productos para la busqueda {search}{" "}
+            </Typography>
+          )}
+        </div>
+      </div>
     </>
   );
 };

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
+import { Helmet } from "react-helmet"
 import "./CreateAccount.css";
 
 const url = "https://server-general.up.railway.app/api/user/signup";
@@ -108,6 +109,9 @@ const CreateAccount = () => {
 
   return (
     <div className="signup">
+      <Helmet>
+        <title>Registro || General Shop</title>
+      </Helmet>
       <div className="signup-container">
         <h1 className="title">Registro</h1>
         <form action="" className="form" onSubmit={handleSubmit}>

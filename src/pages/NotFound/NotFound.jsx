@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import "./NotFound.css";
 
 const NotFound = () => {
   return (
     <div className="vertical-center">
+      <Helmet>
+        <title>Página no encontrada || General Shop</title>
+      </Helmet>
       <div className="container">
         <div id="notfound" className="text-center ">
           <h1>😮</h1>

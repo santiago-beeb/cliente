@@ -3,7 +3,6 @@ import { Layout } from "../containers/layout";
 import { Home } from "../pages/Home/Home";
 import { Login } from "../pages/Login/Login";
 import { CreateAccount } from "../pages/CreateAccount/CreateAccount";
-import "./App.css";
 import { NotFound } from "../pages/NotFound/NotFound";
 import { AdminProduct } from "../pages/AdminProduct/AdminProduct";
 import { Checkout } from "../pages/Checkout/Checkout";
@@ -11,6 +10,7 @@ import { AppContext, AppProvider } from "../context/AppContext";
 import { useContext } from "react";
 import Women from "../pages/Category/Women";
 import Men from "../pages/Category/Men";
+import "./App.css";
 
 function App() {
   return (

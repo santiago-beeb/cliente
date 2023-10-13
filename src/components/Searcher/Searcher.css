@@ -1,0 +1,27 @@
+.container-search {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: fixed;
+  color: black;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  z-index: 1300;
+  background-color: gainsboro;
+  overflow-y: auto;
+}
+
+.search-modal {
+  width: 90%; /* Reduce un poco más el ancho para dejar un margen alrededor del modal */
+  height: 60px; /* Permite que el modal se ajuste al contenido */
+}
+
+.product-list {
+  width: 90%; /* Asegura que la lista de productos ocupe todo el ancho disponible */
+  display: flex; /* Organiza los productos en una fila */
+  flex-wrap: wrap; /* Permite que los productos se envuelvan a la siguiente línea si no hay suficiente espacio */
+}

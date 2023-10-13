@@ -25,6 +25,7 @@ import { useGetProducts } from "../../hooks/useGetProducts";
 import { Loading } from "../../components/Loading/Loading";
 import { AppContext } from "../../context/AppContext";
 import "./AdminProduct.css";
+import { Helmet } from "react-helmet";
 
 const API = "https://server-general.up.railway.app/api/product/products";
 const addApi = "https://server-general.up.railway.app/api/product/product-add";
@@ -352,6 +353,9 @@ function AdminProduct() {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>Administrar Productos || General Shop</title>
+      </Helmet>
       <div className="container-title">
         <h2>Lista de productos</h2>
         <Button color="success" variant="contained" onClick={handleOpenAdd}>
