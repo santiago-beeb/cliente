@@ -32,13 +32,13 @@
   padding: 20px;
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 640px) {
   .product-list {
     grid-template-columns: 1fr;
   }
 }
 
-@media screen and (min-width: 671px) and (max-width: 1099px) {
+@media screen and (min-width: 641px) and (max-width: 1099px) {
   .product-list {
     grid-template-columns: repeat(2, 1fr);
   }

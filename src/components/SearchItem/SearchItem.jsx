@@ -22,11 +22,10 @@ function SearchItem({ product }) {
       <List onClick={openModal}>
         <ListItem button>
           <ListItemAvatar>
-            <CardMedia
-              component="img"
+            <img
               height={150}
               width={150}
-              image={product.pdc_imagen}
+              src={product.pdc_imagen}
               alt={product.pdc_descripcion}
             />
           </ListItemAvatar>
