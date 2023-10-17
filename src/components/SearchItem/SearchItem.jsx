@@ -19,18 +19,13 @@ function SearchItem({ product }) {
 
   return (
     <div>
-      <List
-        onClick={openModal}
-        sx={{
-          width: "100%",
-          bgcolor: "background.paper",
-        }}
-      >
+      <List onClick={openModal}>
         <ListItem button>
           <ListItemAvatar>
             <CardMedia
               component="img"
-              height="150"
+              height={150}
+              width={150}
               image={product.pdc_imagen}
               alt={product.pdc_descripcion}
             />
