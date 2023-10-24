@@ -1,7 +1,7 @@
 import { Loading } from "../../components/Loading/Loading";
 import { ProductItem } from "../../components/ProductItem/ProductItem";
 import { useGetProducts } from "../../hooks/useGetProducts";
-import "./ProductList.css"
+import "./ProductList.css";
 
 const API =
   "https://server-general.up.railway.app/api/product/products-for-men";
