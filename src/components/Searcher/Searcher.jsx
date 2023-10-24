@@ -43,6 +43,17 @@ const Searcher = () => {
     );
   }
 
+  const handleClick = async (productId) => {
+    try {
+      await fetch(
+        `https://server-general.up.railway.app/api/product/product-search/${productId}`,
+        { method: "POST" }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="container-search">
@@ -56,7 +67,11 @@ const Searcher = () => {
         <div className="product-list">
           {results.length > 0 ? (
             results.map((product) => (
-              <SearchItem product={product} key={product.pdc_id} />
+              <SearchItem
+                handleClick={() => handleClick(product.pdc_id)}
+                product={product}
+                key={product.pdc_id}
+              />
             ))
           ) : (
             <Typography variant="caption">

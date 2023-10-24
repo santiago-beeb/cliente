@@ -2,15 +2,15 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import { CardMedia } from "@mui/material";
 import { useState } from "react";
 import { ProductInfo } from "../ProductInfo/ProductInfo";
 
-function SearchItem({ product }) {
+function SearchItem({ product, handleClick }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
     setModalOpen(true);
+    handleClick();
   };
 
   const closeModal = () => {

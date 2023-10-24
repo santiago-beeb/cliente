@@ -3,14 +3,14 @@ import { useGetProducts } from "../../hooks/useGetProducts";
 import "./ProductList.css";
 
 const API =
-  "https://server-general.up.railway.app/api/product/products-for-men";
+  "https://server-general.up.railway.app/api/product/most-searcher";
 
 const MostSearched = () => {
   const { products } = useGetProducts(API);
 
   return (
     <section className="main-container">
-      <div className="ProductList">
+      <div className="list-most-searcher">
         {products.map((product) => (
           <ProductItem product={product} key={product.pdc_id} />
         ))}
