@@ -1,7 +1,9 @@
 .loading-screen {
   height: calc(100vh - 121px);
   width: 100vw;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 999;
 }
