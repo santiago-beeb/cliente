@@ -7,7 +7,6 @@ const API =
 
 const MostSearched = () => {
   const { products } = useGetProducts(API);
-
   return (
     <section className="main-container">
       <div className="list-most-searcher">

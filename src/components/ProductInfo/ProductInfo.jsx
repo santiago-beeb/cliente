@@ -34,7 +34,7 @@ const ProductInfo = ({ product, onClose }) => {
   const handleAddToCart = () => {
     if (
       quantity > 0 &&
-      quantity <= product[`cant_${selectedSize.toLowerCase()}`]
+      quantity <= sizeQuantities[product.pdc_id][selectedSize]
     ) {
       for (let i = 0; i < quantity; i++) {
         addToCart(product, selectedSize, quantity);

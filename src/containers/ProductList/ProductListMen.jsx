@@ -8,7 +8,6 @@ const API =
 
   const ProductListMen = () => {
   const { products, loading, error } = useGetProducts(API);
-
   if (loading) {
     return <Loading />;
   }
