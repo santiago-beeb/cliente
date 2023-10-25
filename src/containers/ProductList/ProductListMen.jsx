@@ -6,7 +6,7 @@ import "./ProductList.css";
 const API =
   "https://server-general.up.railway.app/api/product/products-for-men";
 
-const ProductListMen = () => {
+  const ProductListMen = () => {
   const { products, loading, error } = useGetProducts(API);
 
   if (loading) {

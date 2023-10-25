@@ -6,8 +6,6 @@ import {
   Modal,
   Snackbar,
   TextField,
-  MenuItem,
-  Select,
   Typography,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -17,15 +15,16 @@ import "./ProductInfo.css";
 import { AppContext } from "../../context/AppContext";
 
 const ProductInfo = ({ product, onClose }) => {
-  const sizes = ["XS", "S", "M", "L", "XL"]; // Añade aquí las tallas disponibles
-  const [selectedSize, setSelectedSize] = useState(sizes[0]);
+  const { addToCart, sizeQuantities, selectedSize, setSelectedSize } =
+    useContext(AppContext);
+
+  console.log(sizeQuantities);
   const [quantity, setQuantity] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
   const [addedToCart, setAddedToCart] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [severity, setSeverity] = useState("");
-  const { addToCart, removeFromCart } = useContext(AppContext);
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -37,17 +36,20 @@ const ProductInfo = ({ product, onClose }) => {
       quantity > 0 &&
       quantity <= product[`cant_${selectedSize.toLowerCase()}`]
     ) {
-      // Agrega el producto al carrito utilizando addToCart del contexto
       for (let i = 0; i < quantity; i++) {
-        addToCart(product);
+        addToCart(product, selectedSize, quantity);
       }
+      setSelectedSize("");
       setAddedToCart(true);
       setSnackbarMessage("Producto agregado al carrito");
-      setSeverity("success"); // Establecer el severity en "success" para un mensaje exitoso
+      setSeverity("success");
       setErrorMessage("");
+      setTimeout(() => {
+        setAddedToCart(false);
+      }, 3000);
     } else {
       setErrorMessage("Cantidad no válida para la talla seleccionada.");
-      setSeverity("error"); // Establecer el severity en "error" para un mensaje de error
+      setSeverity("error");
     }
   };
 
@@ -84,39 +86,40 @@ const ProductInfo = ({ product, onClose }) => {
                   <Button
                     onClick={() => setSelectedSize("XS")}
                     variant={selectedSize === "XS" ? "contained" : "text"}
-                    disabled={product.cant_xs === 0}
+                    disabled={sizeQuantities[product.pdc_id].XS === 0}
                   >
                     XS
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("S")}
                     variant={selectedSize === "S" ? "contained" : "text"}
-                    disabled={product[`cant_s`] === 0}
+                    disabled={sizeQuantities[product.pdc_id].S === 0}
                   >
                     S
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("M")}
                     variant={selectedSize === "M" ? "contained" : "text"}
-                    disabled={product[`cant_m`] === 0}
+                    disabled={sizeQuantities[product.pdc_id].M === 0}
                   >
                     M
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("L")}
                     variant={selectedSize === "L" ? "contained" : "text"}
-                    disabled={product[`cant_l`] === 0}
+                    disabled={sizeQuantities[product.pdc_id].L <= 0}
                   >
                     L
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("XL")}
                     variant={selectedSize === "XL" ? "contained" : "text"}
-                    disabled={product[`cant_xl`] === 0}
+                    disabled={sizeQuantities[product.pdc_id].XL === 0}
                   >
                     XL
                   </Button>
                 </ButtonGroup>
+
                 <div className="quantity-selector">
                   <TextField
                     label="Cantidad"
@@ -146,10 +149,10 @@ const ProductInfo = ({ product, onClose }) => {
                   className="modal-button cart-icon"
                   variant="outlined"
                   color="secondary"
-                  onClick={addedToCart ? onClose : handleAddToCart}
+                  onClick={handleAddToCart}
                 >
                   {addedToCart ? (
-                    <ShoppingCartCheckoutIcon />
+                    <ShoppingCartCheckoutIcon disabled />
                   ) : (
                     <AddShoppingCartIcon />
                   )}

@@ -19,8 +19,8 @@ function AppProvider({ children }) {
   const [isAdmin, setAdmin] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [nombre, setNombre] = useState("");
-  const { cart, addToCart, removeFromCart } = useCartState();
-  const [selectedSize, setSelectedSize] = useState("XS");
+  const [selectedSize, setSelectedSize] = useState("");
+  const { cart, addToCart, removeFromCart, sizeQuantities } = useCartState();
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -175,6 +175,7 @@ function AppProvider({ children }) {
         productInfoMessage,
         productInfoSeverity,
         selectedSize,
+        sizeQuantities,
         setSelectedSize,
         setProductInfoMessage,
         addToCart,

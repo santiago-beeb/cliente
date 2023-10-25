@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
 const CartItem = ({ item }) => {
-  const { removeFromCart, selectedSize } = useContext(AppContext);
+  const { removeFromCart } = useContext(AppContext);
 
   return (
     <div className="cart-item">
@@ -22,10 +22,10 @@ const CartItem = ({ item }) => {
             primary={item.pdc_descripcion}
             secondary={`$${item.pdc_valor} x${item.quantity}`}
           />
-          <ListItemText secondary={`Talla: ${selectedSize}`} />
+          <ListItemText secondary={`Talla: ${item.size}`} />{" "}
           <CloseIcon
             style={{ cursor: "pointer" }}
-            onClick={() => removeFromCart(item.pdc_id)}
+            onClick={() => removeFromCart(item.pdc_id, item.size)}
           />
         </ListItem>
       </List>
