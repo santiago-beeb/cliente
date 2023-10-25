@@ -4,8 +4,6 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { CardActions } from "@mui/material";
 import { ProductInfo } from "../ProductInfo/ProductInfo"; // Asegúrate de importar el componente ProductInfo
 
 const ProductItem = ({ product }) => {
@@ -38,13 +36,11 @@ const ProductItem = ({ product }) => {
             <Typography gutterBottom variant="h5" component="div">
               {product.pdc_descripcion}
             </Typography>
+            <Typography gutterBottom variant="h6" component="div">
+              ${product.pdc_valor}
+            </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Añadir al carrito
-          </Button>
-        </CardActions>
       </Card>
       {modalOpen && <ProductInfo product={product} onClose={closeModal} />}
     </>

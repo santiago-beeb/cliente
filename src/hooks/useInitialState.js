@@ -2,37 +2,54 @@ import { useState } from "react";
 
 const initialState = {
   cart: [],
-  lastIdRemoved: -1,
 };
 
-const useInitialState = () => {
+const useCartState = () => {
   const [state, setState] = useState(initialState);
 
-  const addToCart = (payload) => {
-    setState({
-      ...state,
-      cart: [...state.cart, { ...payload, idCart: state.cart.length + 1 }],
+  const addToCart = (product) => {
+    setState((prevState) => {
+      const isProductInCart = prevState.cart.some(
+        (item) => item.pdc_id === product.pdc_id
+      );
+
+      if (isProductInCart) {
+        // Si el producto ya está en el carrito, actualiza la cantidad en lugar de agregar uno nuevo
+        return {
+          ...prevState,
+          cart: prevState.cart.map((item) =>
+            item.pdc_id === product.pdc_id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          ),
+        };
+      } else {
+        // Si el producto no está en el carrito, agrega uno nuevo
+        return {
+          ...prevState,
+          cart: [...prevState.cart, { ...product, quantity: 1 }],
+        };
+      }
     });
   };
-  const removeFromCart = (payload) => {
-    const fooIdx = state.cart.findIndex(({ id }) => payload.id === id);
 
-    if (fooIdx > -1) {
-      let foo = [...state.cart];
-      foo.splice(fooIdx, 1);
-      setState({
-        ...state,
-        cart: [...foo],
-        lastIdRemoved: payload.id,
-      });
-    }
+  const removeFromCart = (productId) => {
+    setState((prevState) => {
+      const updatedCart = prevState.cart.filter(
+        (product) => product.pdc_id !== productId
+      );
+      return {
+        ...prevState,
+        cart: updatedCart,
+      };
+    });
   };
 
   return {
-    state,
+    cart: state.cart,
     addToCart,
     removeFromCart,
   };
 };
 
-export { useInitialState };
+export { useCartState };

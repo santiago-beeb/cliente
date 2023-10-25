@@ -6,7 +6,7 @@ const Checkout = () => {
       <Helmet>
         <title>Checkout || General Shop</title>
       </Helmet>
-      <div>Ckeckout</div>
+      <div></div>
     </div>
   );
 };

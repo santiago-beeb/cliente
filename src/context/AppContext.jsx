@@ -1,4 +1,5 @@
 import { useState, createContext, useEffect } from "react";
+import { useCartState } from "../hooks/useInitialState";
 import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 
@@ -18,6 +19,8 @@ function AppProvider({ children }) {
   const [isAdmin, setAdmin] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [nombre, setNombre] = useState("");
+  const { cart, addToCart, removeFromCart } = useCartState();
+  const [selectedSize, setSelectedSize] = useState("XS");
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -166,11 +169,16 @@ function AppProvider({ children }) {
         isSearchOpen,
         cargando,
         modalOpen,
+        cart,
         selectedProduct,
         isProductInfoOpen,
         productInfoMessage,
         productInfoSeverity,
+        selectedSize,
+        setSelectedSize,
         setProductInfoMessage,
+        addToCart,
+        removeFromCart,
         openProductInfo,
         closeProductInfo,
         handleProductInfoSnackbarClose,

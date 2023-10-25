@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@mui/material";
+import { Badge, useMediaQuery } from "@mui/material";
 import { useContext } from "react";
 import { Link, useMatch } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
@@ -20,6 +20,7 @@ const MobileNavbar = () => {
     closeMobileMenu,
     toggleCart,
     isCartOpen,
+    cart,
     isSearchOpen,
     toggleSearch,
   } = useContext(AppContext);
@@ -57,14 +58,16 @@ const MobileNavbar = () => {
               width: "30px",
             }}
           />
-          <ShoppingCartIcon
-            onClick={toggleCart}
-            style={{
-              color: "white",
-              height: "30px",
-              width: "35px",
-            }}
-          />
+          <Badge badgeContent={cart.length} color="secondary">
+            <ShoppingCartIcon
+              onClick={toggleCart}
+              style={{
+                color: "white",
+                height: "30px",
+                width: "35px",
+              }}
+            />
+          </Badge>
         </div>
       </div>
       {isMenuOpen && <MenuMobile />}
@@ -81,6 +84,7 @@ const DesktopNavbar = () => {
     closeCart,
     toggleCart,
     isCartOpen,
+    cart,
     handleLogout,
     isSearchOpen,
     toggleSearch,
@@ -151,13 +155,15 @@ const DesktopNavbar = () => {
             </li>
             <li>
               <div className="mobile-icon" onClick={toggleCart}>
-                <ShoppingCartIcon
-                  style={{
-                    color: "white",
-                    height: "30px",
-                    width: "30px",
-                  }}
-                />
+                <Badge badgeContent={cart.length} color="secondary">
+                  <ShoppingCartIcon
+                    style={{
+                      color: "white",
+                      height: "30px",
+                      width: "30px",
+                    }}
+                  />
+                </Badge>
               </div>
             </li>
             <li>
