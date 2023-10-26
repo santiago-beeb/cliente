@@ -15,8 +15,9 @@ import "./ProductInfo.css";
 import { AppContext } from "../../context/AppContext";
 
 const ProductInfo = ({ product, onClose }) => {
-  const { addToCart, sizeQuantities, selectedSize, setSelectedSize } =
+  const { addToCart, selectedSize, setSelectedSize, sizeQuantities } =
     useContext(AppContext);
+  //const sizeQuantities = JSON.parse(localStorage.getItem("sizeQuantities"));
 
   console.log(sizeQuantities);
   const [quantity, setQuantity] = useState(1);
@@ -36,11 +37,9 @@ const ProductInfo = ({ product, onClose }) => {
       quantity > 0 &&
       quantity <= sizeQuantities[product.pdc_id][selectedSize]
     ) {
-      for (let i = 0; i < quantity; i++) {
-        addToCart(product, selectedSize, quantity);
-      }
-      setSelectedSize("");
-      setAddedToCart(true);
+      addToCart(product, selectedSize, quantity); // Agrega el producto con la cantidad especificada
+      setSelectedSize(""); // Limpia la talla seleccionada
+      setAddedToCart(true); // Establece que se ha agregado al carrito
       setSnackbarMessage("Producto agregado al carrito");
       setSeverity("success");
       setErrorMessage("");
@@ -86,21 +85,21 @@ const ProductInfo = ({ product, onClose }) => {
                   <Button
                     onClick={() => setSelectedSize("XS")}
                     variant={selectedSize === "XS" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].XS === 0}
+                    disabled={sizeQuantities[product.pdc_id].XS <= 0}
                   >
                     XS
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("S")}
                     variant={selectedSize === "S" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].S === 0}
+                    disabled={sizeQuantities[product.pdc_id].S <= 0}
                   >
                     S
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("M")}
                     variant={selectedSize === "M" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].M === 0}
+                    disabled={sizeQuantities[product.pdc_id].M <= 0}
                   >
                     M
                   </Button>
@@ -114,7 +113,7 @@ const ProductInfo = ({ product, onClose }) => {
                   <Button
                     onClick={() => setSelectedSize("XL")}
                     variant={selectedSize === "XL" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].XL === 0}
+                    disabled={sizeQuantities[product.pdc_id].XL <= 0}
                   >
                     XL
                   </Button>
