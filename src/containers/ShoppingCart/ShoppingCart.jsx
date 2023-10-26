@@ -36,7 +36,7 @@ const ShoppingCart = () => {
             </div>
             {cart.length > 0 && (
               <Link onClick={closeCart} to="/checkout">
-                <Button variant="contained">Checkout</Button>
+                <Button variant="contained">Comprar</Button>
               </Link>
             )}
           </div>
@@ -44,7 +44,6 @@ const ShoppingCart = () => {
           <p className="p-cart">El carrito está vacío.</p>
         )}
       </div>
-      {isCartOpen && <Checkout />}
     </aside>
   );
 };

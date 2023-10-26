@@ -21,7 +21,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginWrapper />} />
             <Route path="/signup" element={<CreateAccountWrapper />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<CheckoutWrapper />} />
             <Route path="/men" element={<Men />} />
             <Route path="/women" element={<Women />} />
             <Route path="/administrar-productos" element={<AdminWrapper />} />
@@ -46,6 +46,11 @@ const AdminWrapper = () => {
 const CreateAccountWrapper = () => {
   const { isLoggedIn } = useContext(AppContext);
   return isLoggedIn ? <Navigate to="/" /> : <CreateAccount />;
+};
+
+const CheckoutWrapper = () => {
+  const { isLoggedIn } = useContext(AppContext);
+  return !isLoggedIn ? <Navigate to="/login" /> : <Checkout />;
 };
 
 export default App;

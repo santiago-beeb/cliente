@@ -148,10 +148,11 @@ const ProductInfo = ({ product, onClose }) => {
                   className="modal-button cart-icon"
                   variant="outlined"
                   color="secondary"
+                  disabled={!selectedSize.length}
                   onClick={handleAddToCart}
                 >
                   {addedToCart ? (
-                    <ShoppingCartCheckoutIcon disabled />
+                    <ShoppingCartCheckoutIcon />
                   ) : (
                     <AddShoppingCartIcon />
                   )}

@@ -1,0 +1,10 @@
+.product-container {
+    display: flex;
+    margin: 50px;
+    padding: 50px;
+}
+
+.product-imagen {
+  width: 100px;
+  height: 100px;
+}
