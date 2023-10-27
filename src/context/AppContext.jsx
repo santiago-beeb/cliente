@@ -132,6 +132,7 @@ function AppProvider({ children }) {
         ord_fk_usuario: order.usr_id,
         ord_direccion: order.deliveryAddress,
         productos: cart,
+        userEmail: order.userEmail,
       };
 
       const addOrderURL =

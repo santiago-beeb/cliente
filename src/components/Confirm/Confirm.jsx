@@ -17,6 +17,7 @@ const Confirm = ({ onClose, deliveryAddress, invoiceSubtotal }) => {
       usr_id: id,
       deliveryAddress: deliveryAddress,
       sizeUpdates: sizeUpdates,
+      userEmail: correo
     };
   
     confirmOrder(order);
