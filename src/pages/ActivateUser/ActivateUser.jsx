@@ -58,7 +58,6 @@ const ActivateUser = () => {
               <>
                 <h1>😕</h1>
                 <h2>{activationMessage}</h2>
-                <p>Por favor, contáctanos para obtener ayuda.</p>
               </>
             ) : (
               <>
