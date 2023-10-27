@@ -1,4 +1,4 @@
-.ShoppingCart {
+.shopping-cart {
   width: 100vw;
   padding: 24px;
   box-sizing: border-box;
@@ -11,11 +11,29 @@
   animation: swipeLeft 0.4s ease;
 }
 
-.p-cart {
+.my-order-content {
+  overflow-y: auto;
+  max-height: calc(100vh - 161px);
+}
+
+.empty-cart {
   display: flex;
+  flex-direction: column;
   height: calc(100vh - 121px);
   align-items: center;
   justify-content: center;
+}
+
+.p-cart {
+  margin: 0;
+}
+
+.center-button {
+  display: flex;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 @keyframes swipeLeft {
@@ -28,7 +46,7 @@
 }
 
 @media (min-width: 640px) {
-  .ShoppingCart {
+  .shopping-cart {
     width: 400px;
   }
 }

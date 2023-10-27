@@ -2,9 +2,28 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { AppContext } from "../../context/AppContext";
 import "./Checkout.css";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+} from "@mui/material";
 
 const Checkout = () => {
   const { cart } = useContext(AppContext);
+
+  // Cálculos para el resumen
+  const invoiceSubtotal = cart.reduce(
+    (acc, item) => acc + item.pdc_valor * item.quantity,
+    0
+  );
+  //const TAX_RATE = 0.07;
+  //const invoiceTaxes = invoiceSubtotal * TAX_RATE;
+  //const invoiceTotal = invoiceSubtotal + invoiceTaxes;
 
   return (
     <div>
@@ -13,22 +32,65 @@ const Checkout = () => {
       </Helmet>
       <div>
         <div className="product-container">
-          <h1>Pedido</h1>
-          <table>
-            {cart.map((item) => (
-              <div key={item._id}>
-                <p>Producto: {item.pdc_descripcion}</p>
-                <img
-                  className="product-imagen"
-                  src={item.pdc_imagen}
-                  alt={item.pdc_descripcion}
-                />
-                <p>
-                  Price: ${item.pdc_valor} x {item.quantity}
-                </p>
-              </div>
-            ))}
-          </table>
+          <TableContainer component={Paper}>
+            <Table aria-label="spanning table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" colSpan={5}>
+                    <Typography variant="h4">Pedido</Typography>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography variant="h5">Total</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell>Descripción</TableCell>
+                  <TableCell>Talla</TableCell>
+                  <TableCell align="right">Cantidad</TableCell>
+                  <TableCell align="right">Precio Unitario</TableCell>
+                  <TableCell align="right">Precio Total</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {cart.map((item) => (
+                  <TableRow key={item.pdc_descripcion}>
+                    <TableCell>
+                      <img
+                        className="product-imagen"
+                        src={item.pdc_imagen}
+                        alt={item.pdc_descripcion}
+                      />
+                    </TableCell>
+                    <TableCell>{item.pdc_descripcion}</TableCell>
+                    <TableCell>{item.size}</TableCell>
+                    <TableCell align="right">{item.quantity}</TableCell>
+                    <TableCell align="right">${item.pdc_valor}</TableCell>
+                    <TableCell align="right">
+                      ${item.pdc_valor * item.quantity}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {/* <TableRow>
+                  <TableCell colSpan={2}>Subtotal</TableCell>
+                  <TableCell align="right">
+                    {ccyFormat(invoiceSubtotal)}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Impuesto</TableCell>
+                  <TableCell align="right">
+                    {`${(TAX_RATE * 100).toFixed(0)} %`}
+                  </TableCell>
+                  <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
+                </TableRow> */}
+                <TableRow>
+                  <TableCell colSpan={5}>Total</TableCell>
+                  <TableCell align="right">${invoiceSubtotal}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </div>
     </div>

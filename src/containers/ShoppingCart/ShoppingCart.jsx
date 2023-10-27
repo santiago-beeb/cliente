@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import { Checkout } from "../../pages/Checkout/Checkout";
 import { Link } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Grid } from "@mui/material"; // Se agrega Grid
 import CartItem from "../../components/CartItem/CartItem";
 import "./ShoppingCart.css";
 
@@ -15,35 +14,45 @@ const ShoppingCart = () => {
   );
 
   return (
-    <aside className={`ShoppingCart ${isCartOpen ? "open" : ""}`}>
+    <aside className={`shopping-cart ${isCartOpen ? "open" : ""}`}>
       <div className="title-container">
         <Typography variant="h4" className="title">
           Carrito de compras
         </Typography>
         <hr />
       </div>
-      <div className="my-order-content">
-        {cart.length > 0 ? (
-          <div>
-            {cart.map((item) => (
-              <CartItem key={item.pdc_id} item={item} />
-            ))}
-            <div className="order">
-              <Typography variant="body1">
-                <span>Total</span>
+      {cart.length > 0 ? (
+        <div className="my-order-content">
+          {cart.map((item) => (
+            <CartItem key={item.pdc_id} item={item} />
+          ))}
+          <Grid container className="total">
+            <Grid item xs={7}>
+              <Typography variant="h6">
+                <span>Total: </span>
               </Typography>
+            </Grid>
+            <Grid item xs={5}>
               <Typography variant="h6">{`$${total}`}</Typography>
-            </div>
-            {cart.length > 0 && (
+            </Grid>
+          </Grid>
+          {cart.length > 0 && (
+            <div className="center-button">
               <Link onClick={closeCart} to="/checkout">
-                <Button variant="contained">Comprar</Button>
+                <Button variant="outlined" color="secondary">
+                  Comprar
+                </Button>
               </Link>
-            )}
-          </div>
-        ) : (
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="empty-cart">
+          <h1>😮</h1>
           <p className="p-cart">El carrito está vacío.</p>
-        )}
-      </div>
+          <p className="p-cart">Prueba agregando más productos</p>
+        </div>
+      )}
     </aside>
   );
 };

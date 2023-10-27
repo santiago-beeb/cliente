@@ -124,7 +124,7 @@ const ProductInfo = ({ product, onClose }) => {
                     label="Cantidad"
                     type="number"
                     value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
+                    onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
                     min={1}
                     max={product[`cant_${selectedSize.toLowerCase()}`]}
                   />
