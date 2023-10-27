@@ -50,7 +50,7 @@ const ShoppingCart = () => {
         <div className="empty-cart">
           <h1>😮</h1>
           <p className="p-cart">El carrito está vacío.</p>
-          <p className="p-cart">Prueba agregando más productos</p>
+          <p className="p-cart">Prueba agregando un producto.</p>
         </div>
       )}
     </aside>

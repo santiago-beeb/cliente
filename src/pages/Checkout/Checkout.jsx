@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { AppContext } from "../../context/AppContext";
 import "./Checkout.css";
@@ -11,19 +11,35 @@ import {
   TableRow,
   Paper,
   Typography,
+  Button,
+  TextField,
 } from "@mui/material";
+import Confirm from "../../components/Confirm/Confirm";
 
 const Checkout = () => {
   const { cart } = useContext(AppContext);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Cálculos para el resumen
+  const openModal = () => {
+    if (deliveryAddress.trim() !== "") {
+      setModalOpen(true);
+    } else {
+      setErrorMessage(
+        "Por favor, ingrese una dirección de entrega antes de confirmar."
+      );
+    }
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   const invoiceSubtotal = cart.reduce(
     (acc, item) => acc + item.pdc_valor * item.quantity,
     0
   );
-  //const TAX_RATE = 0.07;
-  //const invoiceTaxes = invoiceSubtotal * TAX_RATE;
-  //const invoiceTotal = invoiceSubtotal + invoiceTaxes;
 
   return (
     <div>
@@ -71,19 +87,6 @@ const Checkout = () => {
                     </TableCell>
                   </TableRow>
                 ))}
-                {/* <TableRow>
-                  <TableCell colSpan={2}>Subtotal</TableCell>
-                  <TableCell align="right">
-                    {ccyFormat(invoiceSubtotal)}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Impuesto</TableCell>
-                  <TableCell align="right">
-                    {`${(TAX_RATE * 100).toFixed(0)} %`}
-                  </TableCell>
-                  <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
-                </TableRow> */}
                 <TableRow>
                   <TableCell colSpan={5}>Total</TableCell>
                   <TableCell align="right">${invoiceSubtotal}</TableCell>
@@ -92,7 +95,36 @@ const Checkout = () => {
             </Table>
           </TableContainer>
         </div>
+        <div className="center-button">
+          <TextField
+            label="Dirección de entrega"
+            type="text"
+            value={deliveryAddress}
+            onChange={(e) => setDeliveryAddress(e.target.value)}
+          />
+          <div onClick={openModal}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              disabled={deliveryAddress.trim() === ""}
+            >
+              Confirmar
+            </Button>
+          </div>
+          {errorMessage && (
+            <Typography variant="caption" color="red">
+              {errorMessage}
+            </Typography>
+          )}
+        </div>
       </div>
+      {modalOpen && (
+        <Confirm
+          onClose={closeModal}
+          deliveryAddress={deliveryAddress}
+          invoiceSubtotal={invoiceSubtotal}
+        />
+      )}
     </div>
   );
 };

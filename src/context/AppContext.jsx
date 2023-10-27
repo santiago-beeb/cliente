@@ -19,8 +19,11 @@ function AppProvider({ children }) {
   const [isAdmin, setAdmin] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [nombre, setNombre] = useState("");
+  const [id, setId] = useState("");
+  const [correo, setCorreo] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
-  const { cart, addToCart, removeFromCart, sizeQuantities } = useCartState();
+  const { cart, addToCart, removeFromCart, emptyCart, sizeQuantities } =
+    useCartState();
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -42,8 +45,10 @@ function AppProvider({ children }) {
         return response.json();
       })
       .then((data) => {
+        setId(data.id);
         setAdmin(data.isAdmin);
         setNombre(data.nombre);
+        setCorreo(data.correo);
       })
       .catch((error) => {
         console.error("Error al verificar el estado de administrador:", error);
@@ -75,6 +80,7 @@ function AppProvider({ children }) {
             setLoggedIn(false);
             setAdmin(false);
             setNombre("");
+            setCorreo("");
             Navigate("/login");
           } else {
             throw new Error(`Solicitud fallida con código: ${response.status}`);
@@ -94,6 +100,63 @@ function AppProvider({ children }) {
     }, 3600000);
     return () => clearInterval(tokenCheckInterval);
   }, []);
+
+  const confirmOrder = async (order) => {
+    try {
+      // Realiza una solicitud PATCH para actualizar las tallas en el servidor
+      const sizeEditURL = `https://server-general.up.railway.app/api/product/update-sizes`;
+
+      const sizeEditData = { sizeUpdates: order.sizeUpdates };
+      console.log(sizeEditData);
+
+      const sizeEditResponse = await fetch(sizeEditURL, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sizeEditData),
+      });
+
+      if (sizeEditResponse.status !== 200) {
+        console.error("Error al actualizar las tallas");
+        return;
+      }
+
+      // Luego, crea una orden utilizando los datos del carrito
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString().split("T")[0];
+
+      const orderData = {
+        ord_fecha_compra: formattedDate,
+        ord_valor_total: order.total,
+        ord_fk_usuario: order.usr_id,
+        ord_direccion: order.deliveryAddress,
+        productos: cart,
+      };
+
+      const addOrderURL =
+        "https://server-general.up.railway.app/api/product/order";
+
+      const addOrderResponse = await fetch(addOrderURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (addOrderResponse.status !== 200) {
+        console.error("Error al agregar la orden");
+        return;
+      }
+
+      console.log("Pedido confirmado con éxito");
+      emptyCart();
+      //Navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const toggleMobileMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -176,6 +239,10 @@ function AppProvider({ children }) {
         productInfoSeverity,
         selectedSize,
         sizeQuantities,
+        correo,
+        id,
+        confirmOrder,
+        setCorreo,
         setSelectedSize,
         setProductInfoMessage,
         addToCart,

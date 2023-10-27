@@ -156,12 +156,23 @@ const useCartState = () => {
     });
   };
 
+  const emptyCart = () => {
+    setState((prevState) => {
+      localStorage.removeItem("cartState");
+      return {
+        ...prevState,
+        cart: [],
+      };
+    });
+  };
+
   return {
     cart: state.cart,
     addToCart,
     removeFromCart,
     sizeQuantities,
     setSizeQuantities,
+    emptyCart,
   };
 };
 
