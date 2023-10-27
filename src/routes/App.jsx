@@ -8,6 +8,7 @@ import { AdminProduct } from "../pages/AdminProduct/AdminProduct";
 import { Checkout } from "../pages/Checkout/Checkout";
 import { AppContext, AppProvider } from "../context/AppContext";
 import { useContext } from "react";
+import { ActivateUser } from "../pages/ActivateUser/ActivateUser";
 import Women from "../pages/Category/Women";
 import Men from "../pages/Category/Men";
 import "./App.css";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/men" element={<Men />} />
             <Route path="/women" element={<Women />} />
             <Route path="/administrar-productos" element={<AdminWrapper />} />
+            <Route path="/activate/:userId" element={<ActivateUser />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
