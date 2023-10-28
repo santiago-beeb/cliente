@@ -3,7 +3,7 @@ import { useGetProducts } from "../../hooks/useGetProducts";
 import "./ProductList.css";
 
 const API =
-  "https://server-general.up.railway.app/api/product/most-searcher";
+  "https://server-orcin-seven.vercel.app/api/product/most-searcher";
 
 const MostSearched = () => {
   const { products } = useGetProducts(API);

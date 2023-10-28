@@ -2,12 +2,12 @@ import { useState, useEffect, useContext } from "react";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet";
 import "./CreateAccount.css";
 
-const url = "https://server-general.up.railway.app/api/user/signup";
+const url = "https://server-orcin-seven.vercel.app/api/user/signup";
 const documentTypesUrl =
-  "https://server-general.up.railway.app/api/user/document-types";
+  "https://server-orcin-seven.vercel.app/api/user/document-types";
 
 const CreateAccount = () => {
   const navigate = useNavigate();

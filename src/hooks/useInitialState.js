@@ -4,7 +4,7 @@ const initialState = {
   cart: [],
 };
 
-const API = "https://server-general.up.railway.app/api/product/products";
+const API = "https://server-orcin-seven.vercel.app/api/product/products";
 
 const useCartState = () => {
   const [products, setProducts] = useState([]);

@@ -4,7 +4,7 @@ import { useGetProducts } from "../../hooks/useGetProducts";
 import "./ProductList.css";
 
 const API =
-  "https://server-general.up.railway.app/api/product/products-for-men";
+  "https://server-orcin-seven.vercel.app/api/product/products-for-men";
 
   const ProductListMen = () => {
   const { products, loading, error } = useGetProducts(API);

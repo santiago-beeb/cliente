@@ -9,7 +9,7 @@ const ActivateUser = () => {
   const navigate = useNavigate(); // Hook para la navegación
 
   useEffect(() => {
-    fetch(`https://server-general.up.railway.app/api/user/active/${userId}`, {
+    fetch(`https://server-orcin-seven.vercel.app/api/user/active/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

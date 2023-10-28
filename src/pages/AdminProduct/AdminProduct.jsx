@@ -27,8 +27,8 @@ import { AppContext } from "../../context/AppContext";
 import "./AdminProduct.css";
 import { Helmet } from "react-helmet";
 
-const API = "https://server-general.up.railway.app/api/product/products";
-const addApi = "https://server-general.up.railway.app/api/product/product-add";
+const API = "https://server-orcin-seven.vercel.app/api/product/products";
+const addApi = "https://server-orcin-seven.vercel.app/api/product/product-add";
 const token = sessionStorage.getItem("token");
 
 function AdminProduct() {
@@ -107,7 +107,7 @@ function AdminProduct() {
     try {
       const response = await fetch(
         isEditing
-          ? `https://server-general.up.railway.app/api/product/product-edit/${productId}`
+          ? `https://server-orcin-seven.vercel.app/api/product/product-edit/${productId}`
           : addApi,
         {
           method: isEditing ? "PATCH" : "POST",
@@ -146,7 +146,7 @@ function AdminProduct() {
   const fetchSecciones = async () => {
     try {
       const response = await fetch(
-        "https://server-general.up.railway.app/api/product/seccion",
+        "https://server-orcin-seven.vercel.app/api/product/seccion",
         {
           method: "GET",
           headers: {
@@ -172,7 +172,7 @@ function AdminProduct() {
   const fetchMarcas = async () => {
     try {
       const response = await fetch(
-        "https://server-general.up.railway.app/api/product/marca",
+        "https://server-orcin-seven.vercel.app/api/product/marca",
         {
           method: "GET",
           headers: {
@@ -198,7 +198,7 @@ function AdminProduct() {
   const fetchColores = async () => {
     try {
       const response = await fetch(
-        "https://server-general.up.railway.app/api/product/color",
+        "https://server-orcin-seven.vercel.app/api/product/color",
         {
           method: "GET",
           headers: {
@@ -224,7 +224,7 @@ function AdminProduct() {
   const fetchEstados = async () => {
     try {
       const response = await fetch(
-        "https://server-general.up.railway.app/api/product/estado",
+        "https://server-orcin-seven.vercel.app/api/product/estado",
         {
           method: "GET",
           headers: {
@@ -250,7 +250,7 @@ function AdminProduct() {
   const deleteProduct = async (productId) => {
     try {
       const response = await fetch(
-        `https://server-general.up.railway.app/api/product/product-delete/${productId}`,
+        `https://server-orcin-seven.vercel.app/api/product/product-delete/${productId}`,
         {
           method: "DELETE",
           headers: {

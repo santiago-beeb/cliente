@@ -9,7 +9,7 @@ const useGetProduct = (productId) => {
     const data = async () => {
       try {
         const response = await fetch(
-          `https://server-general.up.railway.app/api/product/product/${productId}`,
+          `https://server-orcin-seven.vercel.app/api/product/product/${productId}`,
           {
             method: "GET",
             headers: {

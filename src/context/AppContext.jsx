@@ -31,7 +31,7 @@ function AppProvider({ children }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     const url =
-      "https://server-general.up.railway.app/api/user/check-admin-role";
+      "https://server-orcin-seven.vercel.app/api/user/check-admin-role";
 
     const requestOptions = {
       method: "GET",
@@ -66,7 +66,7 @@ function AppProvider({ children }) {
     }
 
     const url =
-      "https://server-general.up.railway.app/api/user/check-admin-role";
+      "https://server-orcin-seven.vercel.app/api/user/check-admin-role";
 
     const requestOptions = {
       method: "GET",
@@ -106,7 +106,7 @@ function AppProvider({ children }) {
 
   const confirmOrder = async (order) => {
     try {
-      const sizeEditURL = `https://server-general.up.railway.app/api/product/update-sizes`;
+      const sizeEditURL = `https://server-orcin-seven.vercel.app/api/product/update-sizes`;
 
       const sizeEditData = { sizeUpdates: order.sizeUpdates };
 
@@ -154,7 +154,7 @@ function AppProvider({ children }) {
       };
 
       const addOrderURL =
-        "https://server-general.up.railway.app/api/product/order";
+        "https://server-orcin-seven.vercel.app/api/product/order";
 
       const addOrderResponse = await fetch(addOrderURL, {
         method: "POST",

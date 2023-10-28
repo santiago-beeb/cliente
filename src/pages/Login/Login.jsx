@@ -4,7 +4,7 @@ import { AppContext } from "../../context/AppContext";
 import { Helmet } from "react-helmet";
 import "./Login.css";
 
-const url = "https://server-general.up.railway.app/api/user/login";
+const url = "https://server-orcin-seven.vercel.app/api/user/login";
 
 const Login = () => {
   const form = useRef(null);

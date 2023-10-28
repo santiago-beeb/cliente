@@ -9,9 +9,9 @@ import "./Searcher.css";
 import { AppContext } from "../../context/AppContext";
 
 const APImen =
-  "https://server-general.up.railway.app/api/product/products-for-men";
+  "https://server-orcin-seven.vercel.app/api/product/products-for-men";
 const APIwomen =
-  "https://server-general.up.railway.app/api/product/products-for-women";
+  "https://server-orcin-seven.vercel.app/api/product/products-for-women";
 
 const Searcher = () => {
   const isWomenActive = useMatch("/women");
@@ -46,7 +46,7 @@ const Searcher = () => {
   const handleClick = async (productId) => {
     try {
       await fetch(
-        `https://server-general.up.railway.app/api/product/product-search/${productId}`,
+        `https://server-orcin-seven.vercel.app/api/product/product-search/${productId}`,
         { method: "POST" }
       );
     } catch (error) {
