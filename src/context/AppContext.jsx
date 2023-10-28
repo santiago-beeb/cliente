@@ -18,6 +18,7 @@ function AppProvider({ children }) {
   const [cargando, setCargando] = useState(false);
   const [isAdmin, setAdmin] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpenConfirm, setModalOpenConfirm] = useState(false);
   const [nombre, setNombre] = useState("");
   const [id, setId] = useState("");
   const [snackbarMessageConfirm, setSnackbarMessageConfirm] = useState("");
@@ -164,13 +165,18 @@ function AppProvider({ children }) {
       });
 
       if (addOrderResponse.status !== 200) {
-        console.error("Error al agregar la orden");
+        setSnackbarMessageConfirm("Error al agregar la orden");
+        setSnackbarOpenConfirm(true);
         return;
       }
 
-      console.log("Pedido confirmado con éxito");
+      setSnackbarOpenConfirm(true);
+      setSnackbarMessageConfirm(
+        "Pedido confirmado con éxito, redirigiendo al inicio"
+      );
+      closeModalConfirm();
       emptyCart();
-      //Navigate("/");
+      goToHome();
     } catch (error) {
       setSnackbarMessageConfirm(
         "Error al confirmar el pedido. Por favor, inténtalo de nuevo.",
@@ -178,6 +184,10 @@ function AppProvider({ children }) {
       );
       setSnackbarOpenConfirm(true);
     }
+  };
+
+  const goToHome = () => {
+    Navigate("/");
   };
 
   const toggleMobileMenu = () => {
@@ -205,6 +215,18 @@ function AppProvider({ children }) {
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const openModalConfirm = () => {
+    setSnackbarOpenConfirm(false);
+    setSnackbarMessageConfirm("");
+    setModalOpenConfirm(true);
+  };
+
+  const closeModalConfirm = () => {
+    setTimeout(() => {
+      setModalOpenConfirm(false);
+    }, 3000);
   };
 
   const toggleSearch = () => {
@@ -265,6 +287,7 @@ function AppProvider({ children }) {
         id,
         snackbarMessageConfirm,
         snackbarOpenConfirm,
+        modalOpenConfirm,
         confirmOrder,
         setCorreo,
         setSelectedSize,
@@ -289,6 +312,9 @@ function AppProvider({ children }) {
         toggleSearch,
         openModal,
         closeModal,
+        closeModalConfirm,
+        openModalConfirm,
+        goToHome,
       }}
     >
       {children}

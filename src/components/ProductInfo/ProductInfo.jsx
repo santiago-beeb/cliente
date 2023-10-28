@@ -17,9 +17,7 @@ import { AppContext } from "../../context/AppContext";
 const ProductInfo = ({ product, onClose }) => {
   const { addToCart, selectedSize, setSelectedSize, sizeQuantities } =
     useContext(AppContext);
-  //const sizeQuantities = JSON.parse(localStorage.getItem("sizeQuantities"));
 
-  console.log(sizeQuantities);
   const [quantity, setQuantity] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
   const [addedToCart, setAddedToCart] = useState(false);

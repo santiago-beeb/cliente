@@ -3,3 +3,6 @@ body {
   font-family: "Kanit", sans-serif;
   overflow: auto;
 }
+::-webkit-scrollbar {
+  display: none;
+}

@@ -17,17 +17,18 @@ import {
 import Confirm from "../../components/Confirm/Confirm";
 
 const Checkout = () => {
-  const { cart } = useContext(AppContext);
-  const [modalOpen, setModalOpen] = useState(false);
+  const { cart, openModalConfirm, modalOpenConfirm } =
+    useContext(AppContext);
+  //const [modalOpen, setModalOpen] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState("");
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
+  // const openModal = () => {
+  //   setModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setModalOpen(false);
+  // };
 
   const invoiceSubtotal = cart.reduce(
     (acc, item) => acc + item.pdc_valor * item.quantity,
@@ -101,16 +102,15 @@ const Checkout = () => {
               variant="outlined"
               color="secondary"
               disabled={deliveryAddress.trim() === ""}
-              onClick={openModal}
+              onClick={openModalConfirm}
             >
               Confirmar
             </Button>
           </div>
         </div>
       </div>
-      {modalOpen && (
+      {modalOpenConfirm && (
         <Confirm
-          onClose={closeModal}
           deliveryAddress={deliveryAddress}
           invoiceSubtotal={invoiceSubtotal}
         />

@@ -1,14 +1,15 @@
 import { Alert, Box, Button, Modal, Snackbar, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
-const Confirm = ({ onClose, deliveryAddress, invoiceSubtotal }) => {
+const Confirm = ({ deliveryAddress, invoiceSubtotal }) => {
   const {
     nombre,
     correo,
     confirmOrder,
     cart,
     id,
+    closeModalConfirm,
     snackbarMessageConfirm,
     snackbarOpenConfirm,
   } = useContext(AppContext);
@@ -33,7 +34,7 @@ const Confirm = ({ onClose, deliveryAddress, invoiceSubtotal }) => {
 
   return (
     <>
-      <Modal open={true} onClose={onClose}>
+      <Modal open={true} onClose={closeModalConfirm}>
         <Box className="modal-container">
           <div className="modal-card">
             <div className="modal-info">
@@ -54,7 +55,7 @@ const Confirm = ({ onClose, deliveryAddress, invoiceSubtotal }) => {
                   className="modal-button checkout-icon"
                   variant="outlined"
                   color="secondary"
-                  onClick={onClose}
+                  onClick={closeModalConfirm}
                 >
                   Cancelar
                 </Button>
