@@ -20,16 +20,9 @@ const Checkout = () => {
   const { cart } = useContext(AppContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [deliveryAddress, setDeliveryAddress] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const openModal = () => {
-    if (deliveryAddress.trim() !== "") {
-      setModalOpen(true);
-    } else {
-      setErrorMessage(
-        "Por favor, ingrese una dirección de entrega antes de confirmar."
-      );
-    }
+    setModalOpen(true);
   };
 
   const closeModal = () => {
@@ -99,23 +92,20 @@ const Checkout = () => {
           <TextField
             label="Dirección de entrega"
             type="text"
+            disabled={cart.length === 0}
             value={deliveryAddress}
             onChange={(e) => setDeliveryAddress(e.target.value)}
           />
-          <div onClick={openModal}>
+          <div>
             <Button
               variant="outlined"
               color="secondary"
               disabled={deliveryAddress.trim() === ""}
+              onClick={openModal}
             >
               Confirmar
             </Button>
           </div>
-          {errorMessage && (
-            <Typography variant="caption" color="red">
-              {errorMessage}
-            </Typography>
-          )}
         </div>
       </div>
       {modalOpen && (

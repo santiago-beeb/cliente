@@ -20,6 +20,8 @@ function AppProvider({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [nombre, setNombre] = useState("");
   const [id, setId] = useState("");
+  const [snackbarMessageConfirm, setSnackbarMessageConfirm] = useState("");
+  const [snackbarOpenConfirm, setSnackbarOpenConfirm] = useState(false);
   const [correo, setCorreo] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const { cart, addToCart, removeFromCart, emptyCart, sizeQuantities } =
@@ -103,11 +105,9 @@ function AppProvider({ children }) {
 
   const confirmOrder = async (order) => {
     try {
-      // Realiza una solicitud PATCH para actualizar las tallas en el servidor
       const sizeEditURL = `https://server-general.up.railway.app/api/product/update-sizes`;
 
       const sizeEditData = { sizeUpdates: order.sizeUpdates };
-      console.log(sizeEditData);
 
       const sizeEditResponse = await fetch(sizeEditURL, {
         method: "PATCH",
@@ -118,7 +118,24 @@ function AppProvider({ children }) {
       });
 
       if (sizeEditResponse.status !== 200) {
-        console.error("Error al actualizar las tallas");
+        setSnackbarOpenConfirm(true);
+        setSnackbarMessageConfirm("Error al eliminar las tallas");
+        return;
+      }
+
+      const sizeEditResult = await sizeEditResponse.json();
+
+      if (sizeEditResult.message === "Cantidad sin stock") {
+        const productIdWithoutStock = sizeEditResult.productId;
+        const productName = cart.find(
+          (item) => item.pdc_id === productIdWithoutStock
+        )?.pdc_descripcion;
+        if (productName) {
+          setSnackbarOpenConfirm(true);
+          setSnackbarMessageConfirm(
+            `No hay suficiente stock disponible para el producto: ${productName}`
+          );
+        }
         return;
       }
 
@@ -155,7 +172,11 @@ function AppProvider({ children }) {
       emptyCart();
       //Navigate("/");
     } catch (error) {
-      console.error(error);
+      setSnackbarMessageConfirm(
+        "Error al confirmar el pedido. Por favor, inténtalo de nuevo.",
+        error
+      );
+      setSnackbarOpenConfirm(true);
     }
   };
 
@@ -242,6 +263,8 @@ function AppProvider({ children }) {
         sizeQuantities,
         correo,
         id,
+        snackbarMessageConfirm,
+        snackbarOpenConfirm,
         confirmOrder,
         setCorreo,
         setSelectedSize,

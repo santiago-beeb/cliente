@@ -325,12 +325,10 @@ function AdminProduct() {
     setNewProduct(initialNewProduct);
   };
 
-  // Función para manejar el cambio de página
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  // Función para manejar el cambio de filas por página
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
