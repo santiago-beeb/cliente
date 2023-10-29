@@ -11,6 +11,7 @@ const isUserAuthenticated = () => {
 };
 
 function AppProvider({ children }) {
+  const token = sessionStorage.getItem("token");
   const [isLoggedIn, setLoggedIn] = useState(isUserAuthenticated);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
@@ -27,6 +28,112 @@ function AppProvider({ children }) {
   const [selectedSize, setSelectedSize] = useState("");
   const { cart, addToCart, removeFromCart, emptyCart, sizeQuantities } =
     useCartState();
+
+  const [secciones, setSecciones] = useState([]);
+
+  // Función para obtener las marcas
+  const fetchMarcas = async () => {
+    try {
+      const response = await fetch(
+        "https://server-orcin-seven.vercel.app/api/product/marca",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            token: `${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error("Error al obtener las marcas");
+        return [];
+      }
+    } catch (error) {
+      console.error("Error al obtener las marcas", error.message);
+      return [];
+    }
+  };
+
+  // Función para obtener las secciones
+  const fetchSecciones = async () => {
+    try {
+      const response = await fetch(
+        "https://server-orcin-seven.vercel.app/api/product/seccion",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            token: `${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error("Error al obtener las secciones");
+        return [];
+      }
+    } catch (error) {
+      console.error("Error al obtener las secciones", error);
+      return [];
+    }
+  };
+
+  // Función para obtener los colores
+  const fetchColores = async () => {
+    try {
+      const response = await fetch(
+        "https://server-orcin-seven.vercel.app/api/product/color",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            token: `${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error("Error al obtener los colores");
+        return [];
+      }
+    } catch (error) {
+      console.error("Error al obtener los colores", error);
+      return [];
+    }
+  };
+
+  // Función para obtener los estados
+  const fetchEstados = async () => {
+    try {
+      const response = await fetch(
+        "https://server-orcin-seven.vercel.app/api/product/estado",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            token: `${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      } else {
+        console.error("Error al obtener los estados");
+        return [];
+      }
+    } catch (error) {
+      console.error("Error al obtener los estados", error);
+      return [];
+    }
+  };
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -288,6 +395,7 @@ function AppProvider({ children }) {
         snackbarMessageConfirm,
         snackbarOpenConfirm,
         modalOpenConfirm,
+        secciones,
         confirmOrder,
         setCorreo,
         setSelectedSize,
@@ -315,6 +423,10 @@ function AppProvider({ children }) {
         closeModalConfirm,
         openModalConfirm,
         goToHome,
+        fetchMarcas,
+        fetchColores,
+        fetchEstados,
+        fetchSecciones,
       }}
     >
       {children}

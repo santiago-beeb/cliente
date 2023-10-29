@@ -32,7 +32,8 @@ const addApi = "https://server-orcin-seven.vercel.app/api/product/product-add";
 const token = sessionStorage.getItem("token");
 
 function AdminProduct() {
-  const { cargando } = useContext(AppContext);
+  const { cargando, fetchMarcas, fetchColores, fetchEstados, fetchSecciones } =
+    useContext(AppContext);
   const [update, setUpdate] = useState(false);
   const { products, loading, error } = useGetProducts(API, update);
   const [page, setPage] = useState(0);
@@ -68,6 +69,16 @@ function AdminProduct() {
   const [colores, setColores] = useState([]);
   const [estados, setEstados] = useState([]);
 
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+    setSeverity("");
+  };
+
+  // Llama a la función para cargar los datos de los desplegables cuando el componente se monta
+  useEffect(() => {
+    loadDropdownData();
+  }, []);
+
   // Función para cargar los datos de secciones, marcas, colores y estados
   const loadDropdownData = async () => {
     const seccionesData = await fetchSecciones();
@@ -82,16 +93,6 @@ function AdminProduct() {
     const estadosData = await fetchEstados();
     setEstados(estadosData);
   };
-
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-    setSeverity("");
-  };
-
-  // Llama a la función para cargar los datos de los desplegables cuando el componente se monta
-  useEffect(() => {
-    loadDropdownData();
-  }, []);
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -142,111 +143,6 @@ function AdminProduct() {
     }
   };
 
-  // Función para obtener las secciones
-  const fetchSecciones = async () => {
-    try {
-      const response = await fetch(
-        "https://server-orcin-seven.vercel.app/api/product/seccion",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            token: `${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        console.error("Error al obtener las secciones");
-        return [];
-      }
-    } catch (error) {
-      console.error("Error al obtener las secciones", error);
-      return [];
-    }
-  };
-
-  // Función para obtener las marcas
-  const fetchMarcas = async () => {
-    try {
-      const response = await fetch(
-        "https://server-orcin-seven.vercel.app/api/product/marca",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            token: `${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        console.error("Error al obtener las marcas");
-        return [];
-      }
-    } catch (error) {
-      console.error("Error al obtener las marcas", error);
-      return [];
-    }
-  };
-
-  // Función para obtener los colores
-  const fetchColores = async () => {
-    try {
-      const response = await fetch(
-        "https://server-orcin-seven.vercel.app/api/product/color",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            token: `${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        console.error("Error al obtener los colores");
-        return [];
-      }
-    } catch (error) {
-      console.error("Error al obtener los colores", error);
-      return [];
-    }
-  };
-
-  // Función para obtener los estados
-  const fetchEstados = async () => {
-    try {
-      const response = await fetch(
-        "https://server-orcin-seven.vercel.app/api/product/estado",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            token: `${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      } else {
-        console.error("Error al obtener los estados");
-        return [];
-      }
-    } catch (error) {
-      console.error("Error al obtener los estados", error);
-      return [];
-    }
-  };
-
-  // Función para obtener los estados
   const deleteProduct = async (productId) => {
     try {
       const response = await fetch(
@@ -337,7 +233,7 @@ function AdminProduct() {
   const handleDelete = () => {
     if (selectedProduct) {
       deleteProduct(selectedProduct.pdc_id);
-      handleClose(); // Cerrar el modal después de eliminar
+      handleClose();
     }
   };
 

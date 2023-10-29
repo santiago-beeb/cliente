@@ -3,12 +3,14 @@ import { Button, TextField } from "@mui/material";
 import { AppContext } from "../../context/AppContext";
 import { Helmet } from "react-helmet";
 import "./Login.css";
+import { Navigate } from "react-router-dom";
 
 const url = "https://server-orcin-seven.vercel.app/api/user/login";
 
 const Login = () => {
   const form = useRef(null);
-  const { setLoggedIn, cargando, setCargando } = useContext(AppContext);
+  const { setLoggedIn, cargando, setCargando } =
+    useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [contrasenia, setContrasenia] = useState("");
@@ -41,9 +43,10 @@ const Login = () => {
         setLoggedIn(true);
         const data = await response.json();
         const token = data.token;
+        //setAdmin(data.admin);
         sessionStorage.setItem("token", token);
-        //window.location.reload();
-        window.location.href = "/";
+        Navigate("/");
+        //window.location.href = "/";
       } else {
         const data = await response.json();
         setError(data.message || "Inicio de sesión fallido");
