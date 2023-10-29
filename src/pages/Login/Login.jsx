@@ -9,8 +9,7 @@ const url = "https://server-orcin-seven.vercel.app/api/user/login";
 
 const Login = () => {
   const form = useRef(null);
-  const { setLoggedIn, cargando, setCargando } =
-    useContext(AppContext);
+  const { setLoggedIn, cargando, setCargando } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [contrasenia, setContrasenia] = useState("");
@@ -45,8 +44,8 @@ const Login = () => {
         const token = data.token;
         //setAdmin(data.admin);
         sessionStorage.setItem("token", token);
-        Navigate("/");
-        //window.location.href = "/";
+        //Navigate("/");
+        window.location.href = "/";
       } else {
         const data = await response.json();
         setError(data.message || "Inicio de sesión fallido");
