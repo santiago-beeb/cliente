@@ -23,7 +23,9 @@ function AppProvider({ children }) {
   const [nombre, setNombre] = useState("");
   const [id, setId] = useState("");
   const [snackbarMessageConfirm, setSnackbarMessageConfirm] = useState("");
+  const [severityConfirm, setSeverityConfirm] = useState("");
   const [snackbarOpenConfirm, setSnackbarOpenConfirm] = useState(false);
+  const [loadingConfirm, setLoadingConfirm] = useState(false);
   const [correo, setCorreo] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const { cart, addToCart, removeFromCart, emptyCart, sizeQuantities } =
@@ -213,6 +215,7 @@ function AppProvider({ children }) {
 
   const confirmOrder = async (order) => {
     try {
+      setLoadingConfirm(true);
       const sizeEditURL = `https://server-orcin-seven.vercel.app/api/product/update-sizes`;
 
       const sizeEditData = { sizeUpdates: order.sizeUpdates };
@@ -239,9 +242,11 @@ function AppProvider({ children }) {
           (item) => item.pdc_id === productIdWithoutStock
         )?.pdc_descripcion;
         if (productName) {
+          setSeverityConfirm("warning");
           setSnackbarOpenConfirm(true);
+          setLoadingConfirm(false);
           setSnackbarMessageConfirm(
-            `No hay suficiente stock disponible para el producto: ${productName}`
+            `No hay suficiente stock disponible para ${productName}`
           );
         }
         return;
@@ -275,25 +280,81 @@ function AppProvider({ children }) {
         throw new Error(`HTTP error! status: ${addOrderResponse.status}`);
       }
 
+      setSeverityConfirm("success");
       setSnackbarOpenConfirm(true);
       setSnackbarMessageConfirm(
-        "Pedido confirmado con éxito, redirigiendo al inicio"
+        "Pedido confirmado con éxito, se han enviado los detalles a su direccion de correo"
       );
       closeModalConfirm();
       emptyCart();
+      emptyAddress();
+      setLoadingConfirm(false);
       //goToHome();
     } catch (error) {
       console.error(error);
+      setSnackbarOpenConfirm(true);
+      setSeverityConfirm("error");
       setSnackbarMessageConfirm(
         "Error al confirmar el pedido. Por favor, inténtalo de nuevo.",
         error
       );
-      setSnackbarOpenConfirm(true);
+      setLoadingConfirm(false);
     }
   };
 
   const goToHome = () => {
     window.location.href = "/";
+  };
+
+  const handleSnackbarConfirmClose = () => {
+    setSnackbarOpenConfirm(false);
+    setSeverityConfirm("");
+  };
+
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState("");
+  const [city, setCity] = useState("");
+  const [department, setDepartment] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+
+  const handleAddressChange = (field, value) => {
+    switch (field) {
+      case "street":
+        setStreet(value);
+        break;
+      case "number":
+        setNumber(value);
+        break;
+      case "city":
+        setCity(value);
+        break;
+      case "department":
+        setDepartment(value);
+        break;
+      case "postalCode":
+        setPostalCode(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const isEmptyAddress = () => {
+    return (
+      street.trim() === "" ||
+      number.trim() === "" ||
+      city.trim() === "" ||
+      department.trim() === "" ||
+      postalCode.trim() === ""
+    );
+  };
+
+  const emptyAddress = () => {
+    setStreet("");
+    setNumber("");
+    setCity("");
+    setDepartment("");
+    setPostalCode("");
   };
 
   const toggleMobileMenu = () => {
@@ -330,9 +391,7 @@ function AppProvider({ children }) {
   };
 
   const closeModalConfirm = () => {
-    setTimeout(() => {
-      setModalOpenConfirm(false);
-    }, 3000);
+    setModalOpenConfirm(false);
   };
 
   const toggleSearch = () => {
@@ -395,6 +454,14 @@ function AppProvider({ children }) {
         snackbarOpenConfirm,
         modalOpenConfirm,
         secciones,
+        severityConfirm,
+        street,
+        number,
+        city,
+        department,
+        postalCode,
+        loadingConfirm,
+        handleSnackbarConfirmClose,
         setSecciones,
         confirmOrder,
         setCorreo,
@@ -427,6 +494,8 @@ function AppProvider({ children }) {
         fetchColores,
         fetchEstados,
         fetchSecciones,
+        isEmptyAddress,
+        handleAddressChange,
       }}
     >
       {children}

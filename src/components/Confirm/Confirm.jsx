@@ -1,8 +1,17 @@
-import { Alert, Box, Button, Modal, Snackbar, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Modal,
+  Snackbar,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import "./Confirm.css";
 
-const Confirm = ({ deliveryAddress, invoiceSubtotal }) => {
+const Confirm = ({ completeAddress, invoiceSubtotal }) => {
   const {
     nombre,
     correo,
@@ -12,6 +21,8 @@ const Confirm = ({ deliveryAddress, invoiceSubtotal }) => {
     closeModalConfirm,
     snackbarMessageConfirm,
     snackbarOpenConfirm,
+    severityConfirm,
+    loadingConfirm,
   } = useContext(AppContext);
 
   const addOrder = () => {
@@ -24,7 +35,7 @@ const Confirm = ({ deliveryAddress, invoiceSubtotal }) => {
     const order = {
       total: invoiceSubtotal,
       usr_id: id,
-      deliveryAddress: deliveryAddress,
+      deliveryAddress: completeAddress,
       sizeUpdates: sizeUpdates,
       userEmail: correo,
     };
@@ -35,45 +46,53 @@ const Confirm = ({ deliveryAddress, invoiceSubtotal }) => {
   return (
     <>
       <Modal open={true} onClose={closeModalConfirm}>
-        <Box className="modal-container">
-          <div className="modal-card">
-            <div className="modal-info">
-              <Typography variant="h4">Confirmación de Pedido</Typography>
-              <Typography variant="h5" className="modal-price">
+        <Box className="confirm-modal-container">
+          <div className="confirm-modal-card">
+            <div className="confirm-modal-info">
+              <Typography variant="h5">Confirmación de orden</Typography>
+              <Typography variant="h6" className="confirm-modal-price">
                 Información Personal:
               </Typography>
               <Typography>Nombre: {nombre}</Typography>
               <Typography>Email: {correo}</Typography>
 
-              <Typography variant="h5" className="modal-price">
+              <Typography variant="h6" className="confirm-modal-price">
                 Dirección de Entrega:
               </Typography>
-              <Typography>{deliveryAddress}</Typography>
+              <Typography>{completeAddress}</Typography>
 
-              <div className="modal-button-container">
-                <Button
-                  className="modal-button checkout-icon"
-                  variant="outlined"
-                  color="secondary"
-                  onClick={closeModalConfirm}
-                >
-                  Cancelar
-                </Button>
-                <Button
-                  className="modal-button cart-icon"
-                  variant="outlined"
-                  color="secondary"
-                  onClick={addOrder}
-                >
-                  Confirmar Pedido
-                </Button>
+              <div className="confirm-modal-button-container">
+                <Stack direction="row" spacing={2}>
+                  <Button
+                    className="confirm-modal-button checkout-icon"
+                    variant="outlined"
+                    color="secondary"
+                    onClick={closeModalConfirm}
+                    disabled={loadingConfirm}
+                  >
+                    Cancelar
+                  </Button>
+                  <Button
+                    className="confirm-modal-button cart-icon"
+                    variant="contained"
+                    color="success"
+                    onClick={addOrder}
+                    disabled={loadingConfirm}
+                  >
+                    Confirmar Pedido
+                  </Button>
+                </Stack>
               </div>
             </div>
           </div>
         </Box>
       </Modal>
       <Snackbar open={snackbarOpenConfirm} autoHideDuration={6000}>
-        <Alert severity="error" variant="filled" sx={{ width: "100%" }}>
+        <Alert
+          severity={severityConfirm}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
           {snackbarMessageConfirm}
         </Alert>
       </Snackbar>

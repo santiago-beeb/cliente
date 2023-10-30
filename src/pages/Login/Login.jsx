@@ -1,15 +1,20 @@
 import { useRef, useState, useContext } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import { AppContext } from "../../context/AppContext";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Helmet } from "react-helmet";
 import "./Login.css";
-import { Navigate } from "react-router-dom";
 
 const url = "https://server-orcin-seven.vercel.app/api/user/login";
 
 const Login = () => {
   const form = useRef(null);
   const { setLoggedIn, cargando, setCargando } = useContext(AppContext);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const [email, setEmail] = useState("");
   const [contrasenia, setContrasenia] = useState("");
@@ -67,7 +72,7 @@ const Login = () => {
         <form action="" className="form" ref={form} onSubmit={handleSubmit}>
           <TextField
             required
-            disabled={cargando} // Deshabilita el campo de correo si está cargando.
+            disabled={cargando}
             type="email"
             id="email"
             label="Correo Electrónico"
@@ -79,15 +84,27 @@ const Login = () => {
           />
           <TextField
             required
-            disabled={cargando} // Deshabilita el campo de contraseña si está cargando.
+            disabled={cargando}
             id="standard-password-input"
             label="Contraseña"
-            type="password"
+            type={showPassword ? "text" : "password"}
             autoComplete="current-password"
             variant="standard"
             name="password"
             value={contrasenia}
             onChange={(e) => setContrasenia(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button type="submit" variant="contained" disabled={cargando}>
             Iniciar Sesión

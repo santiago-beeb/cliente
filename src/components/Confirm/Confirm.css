@@ -1,0 +1,38 @@
+.confirm-modal-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 350px;
+  width: 400px;
+  background-color: hsl(0deg, 0%, 100%);
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 16px;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+}
+
+.confirm-modal-info {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: space-around;
+}
+
+.confirm-modal-price {
+  color: hsl(228deg, 12%, 48%);
+}
+
+.confirm-modal-button {
+  height: 55px;
+}
+
+@media (max-width: 640px) {
+  .confirm-modal-card {
+    grid-template-columns: 1fr;
+    width: 80%;
+    height: 40%;
+    overflow-y: auto;
+  }
+}
