@@ -271,10 +271,8 @@ function AppProvider({ children }) {
         body: JSON.stringify(orderData),
       });
 
-      if (addOrderResponse.status !== 200) {
-        setSnackbarMessageConfirm("Error al agregar la orden");
-        setSnackbarOpenConfirm(true);
-        return;
+      if (!addOrderResponse.ok) {
+        throw new Error(`HTTP error! status: ${addOrderResponse.status}`);
       }
 
       setSnackbarOpenConfirm(true);
@@ -283,8 +281,9 @@ function AppProvider({ children }) {
       );
       closeModalConfirm();
       emptyCart();
-      goToHome();
+      //goToHome();
     } catch (error) {
+      console.error(error);
       setSnackbarMessageConfirm(
         "Error al confirmar el pedido. Por favor, inténtalo de nuevo.",
         error
@@ -294,7 +293,7 @@ function AppProvider({ children }) {
   };
 
   const goToHome = () => {
-    Navigate("/");
+    window.location.href = "/";
   };
 
   const toggleMobileMenu = () => {
@@ -396,6 +395,7 @@ function AppProvider({ children }) {
         snackbarOpenConfirm,
         modalOpenConfirm,
         secciones,
+        setSecciones,
         confirmOrder,
         setCorreo,
         setSelectedSize,
