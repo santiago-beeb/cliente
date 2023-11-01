@@ -39,7 +39,7 @@
   margin-top: 5px;
 }
 
-@media (max-width: 640px) {
+@media (max-height: 800px) {
   .Login {
     height: 100%;
     margin-bottom: 10px;
