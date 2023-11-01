@@ -1,5 +1,7 @@
 .backgroundStyle {
-  background-image: url("https://b2cmattelsa.vtexassets.com/assets/vtex.file-manager-graphql/images/ae39bb89-0a9c-4364-8303-8050d597bc1f___484457618d70650a8e733283470e0a1b.jpg");
+  /* background-image: url("https://b2cmattelsa.vtexassets.com/assets/vtex.file-manager-graphql/images/ae39bb89-0a9c-4364-8303-8050d597bc1f___484457618d70650a8e733283470e0a1b.jpg");
+  */
+  background-image: url("https://b2cmattelsa.vtexassets.com/assets/vtex.file-manager-graphql/images/a07a202a-9546-4cef-9577-13cf6ff69a69___b80fbbb460590637ff30bc62355ae2f9.jpg");
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -7,7 +9,9 @@
 }
 @media (max-width: 640px) {
   .backgroundStyle {
-    background-image: url("https://b2cmattelsa.vtexassets.com/assets/vtex.file-manager-graphql/images/80a6f647-8499-46c3-add3-a81ec0548848___838cb2c8175802966e917f98bea13f7f.jpg");
+    /*background-image: url("https://b2cmattelsa.vtexassets.com/assets/vtex.file-manager-graphql/images/80a6f647-8499-46c3-add3-a81ec0548848___838cb2c8175802966e917f98bea13f7f.jpg");
+    */
+    background-image: url("https://b2cmattelsa.vtexassets.com/assets/vtex.file-manager-graphql/images/64d8d705-3df5-4362-bbd7-de9a3da01a6f___e3734197a146e2c23fd1f05a5f8f7f1a.jpg");
     width: auto;
   }
 }

@@ -12,6 +12,7 @@ import { ActivateUser } from "../pages/ActivateUser/ActivateUser";
 import Women from "../pages/Category/Women";
 import Men from "../pages/Category/Men";
 import "./App.css";
+import ForgotPassword from "../pages/PasswordRecovery/PasswordRecovery";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/checkout" element={<CheckoutWrapper />} />
             <Route path="/men" element={<Men />} />
             <Route path="/women" element={<Women />} />
+            <Route path="/password-recovery" element={<ForgotPassword />} />
             <Route path="/administrar-productos" element={<AdminWrapper />} />
             <Route path="/activate/:userId" element={<ActivateUser />} />
             <Route path="*" element={<NotFound />} />

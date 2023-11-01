@@ -5,6 +5,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Helmet } from "react-helmet";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 const url = "https://server-orcin-seven.vercel.app/api/user/login";
 
@@ -110,10 +111,13 @@ const Login = () => {
             Iniciar Sesión
           </Button>
           {error && <p className="error-message">{error}</p>}
-          <a href="/password-recovery" disabled={cargando}>
+          <Link to="/password-recovery" disabled={cargando}>
             Olvidé mi contraseña
-          </a>
+          </Link>
+          <Link>
+          </Link>
           <Button href="/signup" variant="outlined" disabled={cargando}>
+            
             Registrarse
           </Button>{" "}
         </form>

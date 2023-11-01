@@ -8,7 +8,7 @@ const API =
 const MostSearched = () => {
   const { products } = useGetProducts(API);
   return (
-    <section className="main-container">
+    <section className="main-container-most-searcher">
       <div className="list-most-searcher">
         {products.map((product) => (
           <ProductItem product={product} key={product.pdc_id} />

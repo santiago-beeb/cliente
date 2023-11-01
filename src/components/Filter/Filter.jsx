@@ -19,6 +19,12 @@ const Filter = ({ onBrandChange, onColorChange }) => {
     loadData();
   }, []);
 
+  useEffect(() => {
+    // Actualiza las casillas de verificación cuando cambian las selecciones
+    setSelectedBrand(selectedBrand);
+    setSelectedColor(selectedColor);
+  }, [selectedBrand, selectedColor]);
+
   const loadData = async () => {
     const marcasData = await fetchMarcas();
     setMarcas(marcasData);
@@ -47,8 +53,18 @@ const Filter = ({ onBrandChange, onColorChange }) => {
     }
   };
 
+  const cleanFilter = () => {
+    setSelectedBrand("");
+    setSelectedColor("");
+    onBrandChange("");
+    onColorChange("");
+  };
+
   return (
     <div className="filter-options">
+      <div className="filter-clean" onClick={cleanFilter}>
+        <p>Limpiar filtros</p>
+      </div>
       <FormLabel component="legend">Marca</FormLabel>
       <FormGroup>
         {marcas.map((marca) => (
@@ -56,10 +72,10 @@ const Filter = ({ onBrandChange, onColorChange }) => {
             key={marca.mar_id}
             control={
               <Checkbox
-                id={marca.mar_nombre}
-                name={marca.mar_nombre}
-                value={marca.mar_nombre}
+                key={selectedBrand}
+                checked={selectedBrand === marca.mar_nombre}
                 onChange={handleBrandChange}
+                value={marca.mar_nombre}
               />
             }
             label={marca.mar_nombre}
@@ -74,10 +90,10 @@ const Filter = ({ onBrandChange, onColorChange }) => {
             key={color.col_id}
             control={
               <Checkbox
-                id={color.col_nombre}
-                name={color.col_nombre}
-                value={color.col_nombre}
+                key={selectedColor}
+                checked={selectedColor === color.col_nombre}
                 onChange={handleColorChange}
+                value={color.col_nombre}
               />
             }
             label={color.col_nombre}

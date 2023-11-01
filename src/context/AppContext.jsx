@@ -357,9 +357,16 @@ function AppProvider({ children }) {
     setPostalCode("");
   };
 
+  const [filtersVisible, setFiltersVisible] = useState(false);
+
+  const toggleFilters = () => {
+    setFiltersVisible(!filtersVisible);
+  };
+
   const toggleMobileMenu = () => {
     setMenuOpen(!isMenuOpen);
     setCartOpen(false);
+    setFiltersVisible(false);
   };
 
   const closeMobileMenu = () => {
@@ -370,6 +377,7 @@ function AppProvider({ children }) {
   const toggleCart = () => {
     setCartOpen(!isCartOpen);
     setMenuOpen(false);
+    setFiltersVisible(false);
   };
 
   const closeCart = () => {
@@ -396,6 +404,7 @@ function AppProvider({ children }) {
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
+    setFiltersVisible(false);
   };
 
   const handleLogout = () => {
@@ -435,6 +444,7 @@ function AppProvider({ children }) {
       value={{
         isLoggedIn,
         isCartOpen,
+        filtersVisible,
         isAdmin,
         nombre,
         isMenuOpen,
@@ -496,6 +506,7 @@ function AppProvider({ children }) {
         fetchSecciones,
         isEmptyAddress,
         handleAddressChange,
+        toggleFilters,
       }}
     >
       {children}
