@@ -12,7 +12,7 @@ import { ActivateUser } from "../pages/ActivateUser/ActivateUser";
 import Women from "../pages/Category/Women";
 import Men from "../pages/Category/Men";
 import "./App.css";
-import PasswordRecovery from "../pages/passwordRecovery/PasswordRecovery";
+import PasswordRecovery from "../pages/PasswordRecovery/PasswordRecovery";
 
 function App() {
   return (
