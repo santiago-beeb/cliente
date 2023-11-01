@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { Link, useMatch } from "react-router-dom";
 import "./MenuMobile.css";
@@ -12,6 +12,11 @@ const MenuMobile = () => {
     handleLogout,
     isMenuOpen,
   } = useContext(AppContext);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(isMenuOpen);
+  }, [isMenuOpen]);
 
   const isMenActive = useMatch("/men");
   const isWomenActive = useMatch("/women");
@@ -19,7 +24,7 @@ const MenuMobile = () => {
   const isLoginActive = useMatch("/login");
 
   return (
-    <div className={`mobile-menu ${isMenuOpen ? "menu-open" : ""}`}>
+    <div className={`mobile-menu ${isOpen ? "menu-open" : ""}`}>
       <ul>
         <li onClick={handleLinkClick}>
           <Link

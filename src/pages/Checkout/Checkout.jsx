@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import Confirm from "../../components/Confirm/Confirm";
 import { Link } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Checkout = () => {
   const {
@@ -29,6 +30,7 @@ const Checkout = () => {
     snackbarOpenConfirm,
     severityConfirm,
     handleSnackbarConfirmClose,
+    removeFromCart,
   } = useContext(AppContext);
 
   const completeAddress = `calle ${street} # ${number}, ${city} - ${department}, codigo postal ${postalCode}`;
@@ -92,6 +94,10 @@ const Checkout = () => {
                       Total: ${item.pdc_valor * item.quantity}
                     </Typography>
                   </div>
+                  <CloseIcon
+                    style={{ cursor: "pointer" }}
+                    onClick={() => removeFromCart(item.pdc_id, item.size)}
+                  />
                 </div>
               ))}
               <div className="checkout-total">

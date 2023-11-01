@@ -1,15 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import "./Filter.css";
 import {
   Checkbox,
   FormControlLabel,
   FormGroup,
   FormLabel,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Filter = ({ onBrandChange, onColorChange }) => {
-  const { fetchMarcas, fetchColores } = useContext(AppContext);
+  const { fetchMarcas, fetchColores, toggleFilters } = useContext(AppContext);
   const [marcas, setMarcas] = useState([]);
   const [colores, setColores] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -62,8 +62,13 @@ const Filter = ({ onBrandChange, onColorChange }) => {
 
   return (
     <div className="filter-options">
-      <div className="filter-clean" onClick={cleanFilter}>
-        <p>Limpiar filtros</p>
+      <div className="box">
+        <div className="filter-clean" onClick={cleanFilter}>
+          <p>Limpiar filtros</p>
+        </div>
+        <div className="icon-close-filter">
+          <CloseIcon onClick={toggleFilters} />
+        </div>
       </div>
       <FormLabel component="legend">Marca</FormLabel>
       <FormGroup>

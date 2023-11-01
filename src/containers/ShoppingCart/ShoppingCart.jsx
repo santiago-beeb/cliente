@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 import { Button, Typography, Grid } from "@mui/material"; // Se agrega Grid
@@ -7,6 +7,11 @@ import "./ShoppingCart.css";
 
 const ShoppingCart = () => {
   const { isCartOpen, closeCart, cart } = useContext(AppContext);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(isCartOpen);
+  }, [isCartOpen]);
 
   const total = cart.reduce(
     (acc, item) => acc + item.pdc_valor * item.quantity,
@@ -14,7 +19,7 @@ const ShoppingCart = () => {
   );
 
   return (
-    <aside className={`shopping-cart ${isCartOpen ? "open" : ""}`}>
+    <aside className={`shopping-cart ${isOpen ? "open" : ""}`}>
       <div className="title-container">
         <Typography variant="h4" className="title">
           Carrito de compras

@@ -22,6 +22,10 @@
   display: none;
 }
 
+.icon-close-filter {
+  display: none;
+}
+
 .filter-clean {
   width: 100px;
   cursor: pointer;
@@ -46,12 +50,18 @@
     cursor: pointer;
     width: 70px;
   }
-
+  .box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .main-container {
     grid-template-columns: 1fr;
     margin: 10px;
   }
-
+  .icon-close-filter {
+    display: block;
+  }
   .ProductList {
     grid-template-columns: 1fr;
   }
@@ -62,13 +72,13 @@
     padding: 24px;
     position: fixed;
     width: calc(100% - 48px);
-    top: 140px;
+    top: 60px;
     bottom: 0;
     right: 0;
-    animation: swipeRight 0.4s ease;
     transform: translateX(100%);
     transition: transform 0.4s ease;
   }
+
   .filter-container.visible {
     transform: translateX(0);
   }
