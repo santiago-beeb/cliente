@@ -40,4 +40,8 @@
 }
 
 @media (max-width: 640px) {
+  .Login {
+    height: 100%;
+    margin-bottom: 10px;
+  }
 }
