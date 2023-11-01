@@ -19,14 +19,14 @@ const ProductInfo = ({ product, onClose }) => {
     useContext(AppContext);
 
   const [quantity, setQuantity] = useState(1);
-  const [errorMessage, setErrorMessage] = useState("");
   const [addedToCart, setAddedToCart] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(true);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [severity, setSeverity] = useState("");
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
+    setSnackbarMessage("");
     setSeverity("");
   };
 
@@ -38,14 +38,15 @@ const ProductInfo = ({ product, onClose }) => {
       addToCart(product, selectedSize, quantity); // Agrega el producto con la cantidad especificada
       setSelectedSize(""); // Limpia la talla seleccionada
       setAddedToCart(true); // Establece que se ha agregado al carrito
+      setSnackbarOpen(true);
       setSnackbarMessage("Producto agregado al carrito");
       setSeverity("success");
-      setErrorMessage("");
       setTimeout(() => {
         setAddedToCart(false);
       }, 3000);
     } else {
-      setErrorMessage("Cantidad no válida para la talla seleccionada.");
+      setSnackbarOpen(true);
+      setSnackbarMessage("Cantidad sin stock para la talla seleccionada.");
       setSeverity("error");
     }
   };
@@ -127,11 +128,6 @@ const ProductInfo = ({ product, onClose }) => {
                     max={product[`cant_${selectedSize.toLowerCase()}`]}
                   />
                 </div>
-                {errorMessage && (
-                  <Typography variant="caption" color="red">
-                    {errorMessage}
-                  </Typography>
-                )}
               </Box>
               <div className="modal-button-container">
                 <Button

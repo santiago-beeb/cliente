@@ -303,7 +303,7 @@ function AppProvider({ children }) {
   };
 
   const goToHome = () => {
-    window.location.href = "/";
+    Navigate("/");
   };
 
   const handleSnackbarConfirmClose = () => {

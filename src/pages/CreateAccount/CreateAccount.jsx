@@ -192,6 +192,7 @@ const CreateAccount = () => {
             type="email"
             id="email"
             label="Correo Electrónico"
+            helperText="Se enviará un correo de confirmación"
             variant="standard"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
