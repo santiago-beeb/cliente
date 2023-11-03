@@ -49,7 +49,7 @@ const Login = () => {
         const data = await response.json();
         const token = data.token;
         //setAdmin(data.admin);
-        sessionStorage.setItem("token", token);
+        localStorage.setItem("token", token);
         //Navigate("/");
         window.location.href = "/";
       } else {

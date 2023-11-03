@@ -6,12 +6,12 @@ import { Navigate } from "react-router-dom";
 const AppContext = createContext();
 
 const isUserAuthenticated = () => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   return Boolean(token);
 };
 
 function AppProvider({ children }) {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const [isLoggedIn, setLoggedIn] = useState(isUserAuthenticated);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
@@ -138,7 +138,7 @@ function AppProvider({ children }) {
   };
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const url =
       "https://server-orcin-seven.vercel.app/api/user/check-admin-role";
 
@@ -168,7 +168,7 @@ function AppProvider({ children }) {
   }, [isLoggedIn]);
 
   const checkTokenValidity = () => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     if (!token) {
       return;
@@ -188,7 +188,7 @@ function AppProvider({ children }) {
       .then((response) => {
         if (!response.ok) {
           if (response.status === 401) {
-            sessionStorage.removeItem("token");
+            localStorage.removeItem("token");
             setLoggedIn(false);
             setAdmin(false);
             setNombre("");
@@ -420,7 +420,7 @@ function AppProvider({ children }) {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     setLoggedIn(false);
     toggleMobileMenu();
     setAdmin(false);
