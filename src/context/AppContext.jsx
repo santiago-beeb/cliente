@@ -312,27 +312,35 @@ function AppProvider({ children }) {
   };
 
   const [street, setStreet] = useState("");
+  const [streetName, setStreetName] = useState("");
   const [number, setNumber] = useState("");
+  const [plateNumber, setPlateNumber] = useState("");
+  const [info, setInfo] = useState("");
   const [city, setCity] = useState("");
   const [department, setDepartment] = useState("");
-  const [postalCode, setPostalCode] = useState("");
 
   const handleAddressChange = (field, value) => {
     switch (field) {
       case "street":
         setStreet(value);
         break;
+      case "streetName":
+        setStreetName(value);
+        break;
       case "number":
         setNumber(value);
+        break;
+      case "plateNumber":
+        setPlateNumber(value);
+        break;
+      case "info":
+        setInfo(value);
         break;
       case "city":
         setCity(value);
         break;
       case "department":
         setDepartment(value);
-        break;
-      case "postalCode":
-        setPostalCode(value);
         break;
       default:
         break;
@@ -342,19 +350,23 @@ function AppProvider({ children }) {
   const isEmptyAddress = () => {
     return (
       street.trim() === "" ||
+      streetName.trim() === "" ||
       number.trim() === "" ||
+      plateNumber.trim() === "" ||
+      info.trim() === "" ||
       city.trim() === "" ||
-      department.trim() === "" ||
-      postalCode.trim() === ""
+      department.trim() === ""
     );
   };
 
   const emptyAddress = () => {
     setStreet("");
+    setStreetName("");
     setNumber("");
+    setPlateNumber("");
+    setInfo("");
     setCity("");
     setDepartment("");
-    setPostalCode("");
   };
 
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -466,10 +478,12 @@ function AppProvider({ children }) {
         secciones,
         severityConfirm,
         street,
+        streetName,
         number,
+        plateNumber,
+        info,
         city,
         department,
-        postalCode,
         loadingConfirm,
         handleSnackbarConfirmClose,
         setSecciones,

@@ -22,10 +22,12 @@ const Checkout = () => {
     isEmptyAddress,
     handleAddressChange,
     street,
+    streetName,
     number,
+    plateNumber,
+    info,
     city,
     department,
-    postalCode,
     snackbarMessageConfirm,
     snackbarOpenConfirm,
     severityConfirm,
@@ -33,7 +35,7 @@ const Checkout = () => {
     removeFromCart,
   } = useContext(AppContext);
 
-  const completeAddress = `calle ${street} # ${number}, ${city} - ${department}, codigo postal ${postalCode}`;
+  const completeAddress = `${street} ${streetName} # ${number} - ${plateNumber} ${info}, ${city} - ${department}`;
 
   const invoiceSubtotal = cart.reduce(
     (acc, item) => acc + item.pdc_valor * item.quantity,
@@ -105,10 +107,11 @@ const Checkout = () => {
                 <Typography variant="subtitle1">${invoiceSubtotal}</Typography>
               </div>
             </Paper>
-            <div className="checkout-center-button">
+            <div className="checkout-form-address">
               <div className="checkout-input">
                 <TextField
-                  label="Calle"
+                  label="Tipo de via"
+                  placeholder="Ej: calle"
                   type="text"
                   variant="standard"
                   value={street}
@@ -119,13 +122,50 @@ const Checkout = () => {
               </div>
               <div className="checkout-input">
                 <TextField
+                  label="Nombre de via"
+                  placeholder="23 sur"
+                  type="text"
+                  variant="standard"
+                  value={streetName}
+                  onChange={(e) =>
+                    handleAddressChange("streetName", e.target.value)
+                  }
+                />
+              </div>
+              <div className="checkout-input-number">
+                <p>#</p>
+                <TextField
                   label="Número"
+                  placeholder="36C"
                   type="text"
                   variant="standard"
                   value={number}
                   onChange={(e) =>
                     handleAddressChange("number", e.target.value)
                   }
+                />
+              </div>
+              <div className="checkout-input-number">
+                <p>-</p>
+                <TextField
+                  label="Número de placa"
+                  placeholder="20"
+                  type="text"
+                  variant="standard"
+                  value={plateNumber}
+                  onChange={(e) =>
+                    handleAddressChange("plateNumber", e.target.value)
+                  }
+                />
+              </div>
+              <div className="checkout-input">
+                <TextField
+                  label="Info adicional"
+                  placeholder="Ej: barrio"
+                  type="text"
+                  variant="standard"
+                  value={info}
+                  onChange={(e) => handleAddressChange("info", e.target.value)}
                 />
               </div>
               <div className="checkout-input">
@@ -148,27 +188,16 @@ const Checkout = () => {
                   }
                 />
               </div>
-              <div className="checkout-input">
-                <TextField
-                  label="Código Postal"
-                  type="text"
-                  variant="standard"
-                  value={postalCode}
-                  onChange={(e) =>
-                    handleAddressChange("postalCode", e.target.value)
-                  }
-                />
-              </div>
-              <div className="checkout-button">
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  disabled={isEmptyAddress() || isCartEmpty}
-                  onClick={() => openModalConfirm(completeAddress)}
-                >
-                  Confirmar
-                </Button>
-              </div>
+            </div>
+            <div className="checkout-button">
+              <Button
+                variant="outlined"
+                color="secondary"
+                disabled={isEmptyAddress() || isCartEmpty}
+                onClick={() => openModalConfirm(completeAddress)}
+              >
+                Confirmar
+              </Button>
             </div>
           </div>
         )}
