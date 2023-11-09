@@ -29,7 +29,7 @@ import { Helmet } from "react-helmet";
 
 const API = "https://server-orcin-seven.vercel.app/api/product/products";
 const addApi = "https://server-orcin-seven.vercel.app/api/product/product-add";
-const token = sessionStorage.getItem("token");
+const token = localStorage.getItem("token");
 
 function AdminProduct() {
   const { cargando, fetchMarcas, fetchColores, fetchEstados, fetchSecciones } =
