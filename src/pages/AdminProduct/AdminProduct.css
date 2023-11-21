@@ -31,14 +31,14 @@
   border-radius: 15px;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
   padding: 16px;
-  height: 90vh;
-  overflow-y: auto;
 }
 
 .modal-box-add {
   width: 90%;
   max-width: 400px;
   margin: 0 auto;
+  height: 90vh;
+  overflow-y: auto;
 }
 .container-button {
   display: flex;

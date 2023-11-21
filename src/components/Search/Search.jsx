@@ -16,10 +16,9 @@ const Search = ({ search, inputValue, toggleSearch }) => {
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
     },
-    // Estilos específicos para dispositivos móviles
     [theme.breakpoints.down("sm")]: {
-      marginLeft: theme.spacing(1), // Reducir el margen izquierdo
-      width: "100%", // Usar el ancho completo
+      marginLeft: theme.spacing(1),
+      width: "100%",
     },
   }));
 
@@ -29,7 +28,7 @@ const Search = ({ search, inputValue, toggleSearch }) => {
       padding: theme.spacing(1, 1, 1, 0),
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create("width"),
-      width: "100%", // Usar el ancho completo
+      width: "100%",
     },
   }));
 
@@ -38,7 +37,8 @@ const Search = ({ search, inputValue, toggleSearch }) => {
     right: theme.spacing(2),
     cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
-      right: theme.spacing(1), // Alinear el icono de cierre a la derecha en dispositivos móviles
+      marginRight: theme.spacing(1),
+      right: theme.spacing(1),
     },
   }));
 

@@ -261,7 +261,8 @@ function AdminProduct() {
           id="search"
           className="search-product-admin"
           label="Buscar producto"
-          variant="outlined"
+          type="text"
+          variant="standard"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ marginBottom: "15px" }}
