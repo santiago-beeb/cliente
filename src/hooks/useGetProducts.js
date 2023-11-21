@@ -27,7 +27,7 @@ const useGetProducts = (API, update) => {
     };
 
     data();
-  }, [API, update]); // Agrega 'update' a las dependencias del useEffect
+  }, [API, update]);
 
   return { products, loading, error };
 };
