@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
-import { Button, Typography, Grid } from "@mui/material"; // Se agrega Grid
-import CartItem from "../../components/CartItem/CartItem";
+import { AppContext } from "@context/AppContext";
+import CartItem from "@components/CartItem/CartItem";
+import { Button, Typography, Grid } from "@mui/material";
 import "./ShoppingCart.css";
 
 const ShoppingCart = () => {

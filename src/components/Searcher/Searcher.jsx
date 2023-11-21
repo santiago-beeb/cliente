@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import { useGetProducts } from "../../hooks/useGetProducts";
 import { useMatch } from "react-router-dom";
+import { AppContext } from "@context/AppContext";
+import { useGetProducts } from "@hooks/useGetProducts";
+import { Loading } from "@components/Loading/Loading";
+import SearchItem from "@components/SearchItem/SearchItem";
+import Search from "@components/Search/Search";
 import { Typography } from "@mui/material";
-import { Loading } from "../Loading/Loading";
-import SearchItem from "../SearchItem/SearchItem";
-import Search from "../Search/Search";
 import "./Searcher.css";
-import { AppContext } from "../../context/AppContext";
 
 const APImen =
   "https://server-orcin-seven.vercel.app/api/product/products-for-men";

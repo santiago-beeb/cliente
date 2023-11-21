@@ -1,3 +1,4 @@
+import { useContext, useState } from "react";
 import {
   Alert,
   Box,
@@ -10,9 +11,8 @@ import {
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { useContext, useState } from "react";
+import { AppContext } from "@context/AppContext";
 import "./ProductInfo.css";
-import { AppContext } from "../../context/AppContext";
 
 const ProductInfo = ({ product, onClose }) => {
   const { addToCart, selectedSize, setSelectedSize, sizeQuantities } =

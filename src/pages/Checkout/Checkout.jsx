@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet";
-import { AppContext } from "../../context/AppContext";
-import "./Checkout.css";
+import { Link } from "react-router-dom";
 import {
   Paper,
   Typography,
@@ -10,9 +9,10 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import Confirm from "../../components/Confirm/Confirm";
-import { Link } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
+import Confirm from "@components/Confirm/Confirm";
+import { AppContext } from "@context/AppContext";
+import "./Checkout.css";
 
 const Checkout = () => {
   const {

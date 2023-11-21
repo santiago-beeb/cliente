@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   Alert,
   Box,
@@ -7,8 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { AppContext } from "@context/AppContext";
 import "./Confirm.css";
 
 const Confirm = ({ completeAddress, invoiceSubtotal }) => {

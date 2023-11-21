@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-import { ProductListMen } from "../../containers/ProductList/ProductListMen";
+import { ProductListMen } from "@containers/ProductList/ProductListMen";
 
 const Men = () => {
   return (

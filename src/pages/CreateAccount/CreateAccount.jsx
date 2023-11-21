@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { Button, MenuItem, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
+import { Button, MenuItem, TextField } from "@mui/material";
+import { AppContext } from "@context/AppContext";
 import "./CreateAccount.css";
 
 const url = "https://server-orcin-seven.vercel.app/api/user/signup";

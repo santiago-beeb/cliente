@@ -1,6 +1,6 @@
-import { Loading } from "../../components/Loading/Loading";
-import ProductItem from "../../components/ProductItem/ProductItem";
-import { useGetProducts } from "../../hooks/useGetProducts";
+import { Loading } from "@components/Loading/Loading";
+import ProductItem from "@components/ProductItem/ProductItem";
+import { useGetProducts } from "@hooks/useGetProducts";
 import "./ProductList.css";
 
 const API = "https://server-orcin-seven.vercel.app/api/product/most-searcher";

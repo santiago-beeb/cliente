@@ -1,7 +1,7 @@
+import { useContext } from "react";
 import { List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { AppContext } from "@context/AppContext";
 
 const CartItem = ({ item }) => {
   const { removeFromCart } = useContext(AppContext);

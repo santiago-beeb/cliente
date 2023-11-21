@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-import { MostSearched } from "../../containers/MostSearched/MostSearched";
+import { MostSearched } from "@containers/MostSearched/MostSearched";
 import "./Home.css";
 
 const Home = () => {

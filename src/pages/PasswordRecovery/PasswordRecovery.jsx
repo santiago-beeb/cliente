@@ -1,6 +1,6 @@
-import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { Button, TextField } from "@mui/material";
 import "./PasswordRecovery.css";
 
 const PasswordRecovery = () => {

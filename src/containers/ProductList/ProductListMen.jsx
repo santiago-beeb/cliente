@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react";
-import { Loading } from "../../components/Loading/Loading";
-import { useGetProducts } from "../../hooks/useGetProducts";
-import ProductItem from "../../components/ProductItem/ProductItem";
-import { Filter } from "../../components/Filter/Filter";
+import { useGetProducts } from "@hooks/useGetProducts";
+import { AppContext } from "@context/AppContext";
+import { Loading } from "@components/Loading/Loading";
+import ProductItem from "@components/ProductItem/ProductItem";
+import { Filter } from "@components/Filter/Filter";
 import TuneIcon from "@mui/icons-material/Tune";
-import { AppContext } from "../../context/AppContext";
 import "./ProductList.css";
 
 const API =

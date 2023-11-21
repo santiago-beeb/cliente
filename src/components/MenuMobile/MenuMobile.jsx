@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../context/AppContext";
 import { Link, useMatch } from "react-router-dom";
+import { AppContext } from "@context/AppContext";
 import "./MenuMobile.css";
 
 const MenuMobile = () => {

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import {
   Box,
   Button,
@@ -21,11 +22,10 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
-import { useGetProducts } from "../../hooks/useGetProducts";
-import { Loading } from "../../components/Loading/Loading";
-import { AppContext } from "../../context/AppContext";
+import { useGetProducts } from "@hooks/useGetProducts";
+import { Loading } from "@components/Loading/Loading";
+import { AppContext } from "@context/AppContext";
 import "./AdminProduct.css";
-import { Helmet } from "react-helmet";
 
 const API = "https://server-orcin-seven.vercel.app/api/product/products";
 const addApi = "https://server-orcin-seven.vercel.app/api/product/product-add";

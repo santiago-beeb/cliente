@@ -1,16 +1,16 @@
-import { Badge, useMediaQuery } from "@mui/material";
 import { useContext } from "react";
 import { Link, useMatch } from "react-router-dom";
+import { Badge, useMediaQuery } from "@mui/material";
 import StoreIcon from "@mui/icons-material/Store";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
-import { AppContext } from "../../context/AppContext";
-import { MenuMobile } from "../MenuMobile/MenuMobile";
-import { ShoppingCart } from "../../containers/ShoppingCart/ShoppingCart";
-import { Searcher } from "../Searcher/Searcher";
 import SearchIcon from "@mui/icons-material/Search";
+import { AppContext } from "@context/AppContext";
+import { MenuMobile } from "@components/MenuMobile/MenuMobile";
+import { ShoppingCart } from "@containers/ShoppingCart/ShoppingCart";
+import { Searcher } from "@components/Searcher/Searcher";
 import "./Navbar.css";
 
 const MobileNavbar = () => {

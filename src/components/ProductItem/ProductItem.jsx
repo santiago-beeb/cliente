@@ -4,7 +4,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { ProductInfo } from "../ProductInfo/ProductInfo";
+import { ProductInfo } from "@components/ProductInfo/ProductInfo";
 
 const ProductItem = ({ product }) => {
   const [modalOpen, setModalOpen] = useState(false);

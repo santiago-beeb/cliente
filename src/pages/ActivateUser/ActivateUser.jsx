@@ -6,7 +6,7 @@ const ActivateUser = () => {
   const { userId } = useParams();
   const [activationStatus, setActivationStatus] = useState("activating");
   const [activationMessage, setActivationMessage] = useState("");
-  const navigate = useNavigate(); // Hook para la navegación
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://server-orcin-seven.vercel.app/api/user/active/${userId}`, {
