@@ -28,6 +28,7 @@ const ProductItem = ({ product }) => {
         <CardActionArea onClick={openModal}>
           <CardMedia
             component="img"
+            loading="lazy"
             height="450"
             image={product.pdc_imagen}
             alt={product.pdc_descripcion}
@@ -47,4 +48,4 @@ const ProductItem = ({ product }) => {
   );
 };
 
-export { ProductItem };
+export default ProductItem;

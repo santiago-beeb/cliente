@@ -34,6 +34,7 @@ const token = localStorage.getItem("token");
 function AdminProduct() {
   const { cargando, fetchMarcas, fetchColores, fetchEstados, fetchSecciones } =
     useContext(AppContext);
+  const [searchTerm, setSearchTerm] = useState("");
   const [update, setUpdate] = useState(false);
   const { products, loading, error } = useGetProducts(API, update);
   const [page, setPage] = useState(0);
@@ -237,6 +238,10 @@ function AdminProduct() {
     }
   };
 
+  const filteredProducts = products.filter((product) =>
+    product.pdc_descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (loading) {
     return <Loading />;
   }
@@ -252,10 +257,20 @@ function AdminProduct() {
       </Helmet>
       <div className="container-title">
         <h2>Lista de productos</h2>
+        <TextField
+          id="search"
+          className="search-product-admin"
+          label="Buscar producto"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ marginBottom: "15px" }}
+        />
         <Button color="success" variant="contained" onClick={handleOpenAdd}>
           <AddIcon></AddIcon>
         </Button>
       </div>
+
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -275,7 +290,7 @@ function AdminProduct() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products
+            {filteredProducts
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((product) => (
                 <TableRow key={product.pdc_id}>

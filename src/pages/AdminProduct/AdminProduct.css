@@ -17,6 +17,10 @@
   width: 100%;
 }
 
+.search-product-admin{
+  width: 500px;
+}
+
 .modal-box,
 .modal-box-add {
   position: absolute;
@@ -27,15 +31,15 @@
   border-radius: 15px;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
   padding: 16px;
+  height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-box-add {
   width: 90%;
   max-width: 400px;
   margin: 0 auto;
-  overflow-y: auto;
 }
-
 .container-button {
   display: flex;
   justify-content: space-between;
@@ -43,6 +47,10 @@
 }
 
 @media (max-width: 640px) {
+  .search-product-admin{
+    width: 200px;
+  }
+  
   .modal-box,
   .modal-box-add {
     width: 80vw;

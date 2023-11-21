@@ -213,6 +213,7 @@ function AppProvider({ children }) {
     return () => clearInterval(tokenCheckInterval);
   }, []);
 
+  //funcion para actualizar tallas y agregar ordenes
   const confirmOrder = async (order) => {
     try {
       setLoadingConfirm(true);

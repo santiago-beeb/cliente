@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Loading } from "../../components/Loading/Loading";
-import { ProductItem } from "../../components/ProductItem/ProductItem";
 import { useGetProducts } from "../../hooks/useGetProducts";
+import ProductItem from "../../components/ProductItem/ProductItem";
 import { Filter } from "../../components/Filter/Filter";
 import TuneIcon from "@mui/icons-material/Tune";
-import "./ProductList.css";
 import { AppContext } from "../../context/AppContext";
+import "./ProductList.css";
 
 const API =
   "https://server-orcin-seven.vercel.app/api/product/products-for-women";
@@ -53,7 +53,7 @@ const ProductListWomen = () => {
         <div className="ProductList">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <ProductItem product={product} key={product.pdc_id} />
+              <ProductItem key={product.pdc_id} product={product} />
             ))
           ) : (
             <p>No se encontraron productos con los filtros seleccionados.</p>
