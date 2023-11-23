@@ -99,7 +99,6 @@ function AdminProduct() {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     const productId = editedProduct.pdc_id;
-    console.log("producto editado", editedProduct);
 
     let productToSend;
     if (isEditing) {
@@ -259,7 +258,6 @@ function AdminProduct() {
   );
 
   useEffect(() => {
-    // Comprueba si newProduct y editedProduct no son null
     if (newProduct && editedProduct) {
       // Comprueba si la imagen tiene el prefijo correcto
       let base64Image = isEditing
@@ -269,17 +267,22 @@ function AdminProduct() {
         base64Image = "data:image/jpeg;base64," + base64Image;
       }
 
-      // Actualiza la imagen en el estado
-      if (isEditing) {
-        setEditedProduct((prevProduct) => ({
-          ...prevProduct,
-          pdc_imagen: base64Image,
-        }));
-      } else {
-        setNewProduct((prevProduct) => ({
-          ...prevProduct,
-          pdc_imagen: base64Image,
-        }));
+      // Actualiza la imagen en el estado solo si ha cambiado
+      if (
+        base64Image !==
+        (isEditing ? editedProduct.pdc_imagen : newProduct.pdc_imagen)
+      ) {
+        if (isEditing) {
+          setEditedProduct((prevProduct) => ({
+            ...prevProduct,
+            pdc_imagen: base64Image,
+          }));
+        } else {
+          setNewProduct((prevProduct) => ({
+            ...prevProduct,
+            pdc_imagen: base64Image,
+          }));
+        }
       }
     }
   }, [newProduct, editedProduct, isEditing]);
