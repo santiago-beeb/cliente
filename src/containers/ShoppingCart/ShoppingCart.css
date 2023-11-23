@@ -32,6 +32,12 @@
   margin: 0;
 }
 
+.cart-image {
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 5px;
+}
+
 .center-button {
   display: flex;
   margin: 10px;

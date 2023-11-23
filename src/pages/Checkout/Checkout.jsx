@@ -86,7 +86,9 @@ const Checkout = () => {
                     <Typography variant="body2">{item.size}</Typography>
                   </div>
                   <div className="checkout-product-quantity">
-                    <Typography variant="subtitle1">{item.quantity}</Typography>
+                    <Typography variant="subtitle1">
+                      x{item.quantity}
+                    </Typography>
                   </div>
                   <div className="checkout-product-price">
                     <Typography variant="body2">

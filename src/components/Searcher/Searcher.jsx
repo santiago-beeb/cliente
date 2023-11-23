@@ -74,9 +74,11 @@ const Searcher = () => {
               />
             ))
           ) : (
-            <Typography variant="caption">
-              No se encontraron productos para la busqueda {search}{" "}
-            </Typography>
+            <div className="no-coincidencia">
+              <Typography variant="caption">
+                No se encontraron productos para la busqueda {search}{" "}
+              </Typography>
+            </div>
           )}
         </div>
       </div>

@@ -12,9 +12,10 @@ const CartItem = ({ item }) => {
         <ListItem>
           <ListItemAvatar>
             <img
+            className="cart-image"
               height={100}
               width={100}
-              src={`data:image/jpeg;base64,${product.pdc_imagen}`}
+              src={`data:image/jpeg;base64,${item.pdc_imagen}`}
               alt={item.pdc_descripcion}
             />
           </ListItemAvatar>
