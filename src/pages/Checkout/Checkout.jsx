@@ -76,7 +76,7 @@ const Checkout = () => {
                 >
                   <img
                     className="checkout-product-image"
-                    src={item.pdc_imagen}
+                    src={`data:image/jpeg;base64,${item.pdc_imagen}`}
                     alt={item.pdc_descripcion}
                   />
                   <div className="checkout-product-details">

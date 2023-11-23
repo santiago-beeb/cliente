@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import EditIcon from "@mui/icons-material/Edit";
 import { useGetProducts } from "@hooks/useGetProducts";
 import { Loading } from "@components/Loading/Loading";
@@ -98,6 +99,7 @@ function AdminProduct() {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     const productId = editedProduct.pdc_id;
+    console.log("producto editado", editedProduct);
 
     let productToSend;
     if (isEditing) {
@@ -238,9 +240,49 @@ function AdminProduct() {
     }
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setNewProduct({ ...newProduct, pdc_imagen: reader.result });
+      setEditedProduct({ ...editedProduct, pdc_imagen: reader.result });
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   const filteredProducts = products.filter((product) =>
     product.pdc_descripcion.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    // Comprueba si newProduct y editedProduct no son null
+    if (newProduct && editedProduct) {
+      // Comprueba si la imagen tiene el prefijo correcto
+      let base64Image = isEditing
+        ? editedProduct.pdc_imagen
+        : newProduct.pdc_imagen;
+      if (!base64Image.startsWith("data:image/jpeg;base64,")) {
+        base64Image = "data:image/jpeg;base64," + base64Image;
+      }
+
+      // Actualiza la imagen en el estado
+      if (isEditing) {
+        setEditedProduct((prevProduct) => ({
+          ...prevProduct,
+          pdc_imagen: base64Image,
+        }));
+      } else {
+        setNewProduct((prevProduct) => ({
+          ...prevProduct,
+          pdc_imagen: base64Image,
+        }));
+      }
+    }
+  }, [newProduct, editedProduct, isEditing]);
 
   if (loading) {
     return <Loading />;
@@ -551,7 +593,7 @@ function AdminProduct() {
               }}
             />
 
-            <TextField
+            {/* <TextField
               required
               disabled={cargando}
               type="text"
@@ -568,7 +610,8 @@ function AdminProduct() {
                 setNewProduct({ ...newProduct, pdc_imagen: newValue });
                 setEditedProduct({ ...editedProduct, pdc_imagen: newValue });
               }}
-            />
+            /> */}
+
             <TextField
               required
               select
@@ -590,6 +633,25 @@ function AdminProduct() {
                 </MenuItem>
               ))}
             </TextField>
+
+            <Button
+              disabled={cargando}
+              component="label"
+              variant="contained"
+              startIcon={<CloudUploadIcon />}
+            >
+              {isEditing ? "Cambiar imagen" : "Subir imagen"}
+              <input
+                accept="image/*"
+                className="input-img-admin"
+                type="file"
+                id="imagen"
+                name="imagen"
+                onChange={(e) => {
+                  handleImageUpload(e);
+                }}
+              />
+            </Button>
 
             <div className="container-button">
               <Button variant="outlined" color="error" onClick={handleClose}>

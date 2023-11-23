@@ -17,8 +17,20 @@
   width: 100%;
 }
 
-.search-product-admin{
+.search-product-admin {
   width: 500px;
+}
+
+.input-img-admin {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 1;
 }
 
 .modal-box,
@@ -47,10 +59,10 @@
 }
 
 @media (max-width: 640px) {
-  .search-product-admin{
+  .search-product-admin {
     width: 200px;
   }
-  
+
   .modal-box,
   .modal-box-add {
     width: 80vw;

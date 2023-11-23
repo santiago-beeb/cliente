@@ -57,7 +57,10 @@ const ProductInfo = ({ product, onClose }) => {
         <Box className="modal-container">
           <div className="modal-card">
             <div className="modal-image">
-              <img src={product.pdc_imagen} alt={product.pdc_descripcion} />
+              <img
+                src={`data:image/jpeg;base64,${product.pdc_imagen}`}
+                alt={product.pdc_descripcion}
+              />
             </div>
             <div className="modal-info">
               <Typography variant="h4">{product.pdc_descripcion}</Typography>

@@ -14,7 +14,7 @@ const CartItem = ({ item }) => {
             <img
               height={100}
               width={100}
-              src={item.pdc_imagen}
+              src={`data:image/jpeg;base64,${product.pdc_imagen}`}
               alt={item.pdc_descripcion}
             />
           </ListItemAvatar>

@@ -23,9 +23,10 @@ function SearchItem({ product, handleClick }) {
         <ListItem button>
           <ListItemAvatar>
             <img
+              className="img-search-item"
               height={150}
               width={150}
-              src={product.pdc_imagen}
+              src={`data:image/jpeg;base64,${product.pdc_imagen}`}
               alt={product.pdc_descripcion}
             />
           </ListItemAvatar>

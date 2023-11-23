@@ -30,7 +30,7 @@ const ProductItem = ({ product }) => {
             component="img"
             loading="lazy"
             height="450"
-            image={product.pdc_imagen}
+            image={`data:image/jpeg;base64,${product.pdc_imagen}`}
             alt={product.pdc_descripcion}
           />
           <CardContent>
