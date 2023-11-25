@@ -5,6 +5,7 @@ import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { AppContext } from "@context/AppContext";
+import CryptoJS from "crypto-js";
 import "./Login.css";
 
 const url = "https://server-orcin-seven.vercel.app/api/user/login";
@@ -24,6 +25,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const hashedPassword = CryptoJS.AES.encrypt(
+      contrasenia,
+      import.meta.env.VITE_KEY
+    ).toString();
+
     if (email === "" || contrasenia === "") {
       setError("Todos los campos son requeridos");
       return;
@@ -39,7 +45,7 @@ const Login = () => {
         },
         body: JSON.stringify({
           usr_email: email,
-          usr_contrasenia: contrasenia,
+          usr_contrasenia: hashedPassword,
         }),
       });
 

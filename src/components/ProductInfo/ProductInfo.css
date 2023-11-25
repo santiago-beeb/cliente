@@ -9,7 +9,7 @@
 
 .modal-card {
   display: grid;
-  grid-template-columns: 2fr 3fr; /* Ajustado para un diseño de tarjeta más grande */
+  grid-template-columns: 2fr 3fr;
   height: 450px;
   width: 700px;
   background-color: hsl(0deg, 0%, 100%);
@@ -24,8 +24,9 @@
 
 .modal-image img {
   height: 100%;
-  width: 100%; /* Añadido para asegurar que la imagen se ajuste correctamente */
-  object-fit: cover; /* Cambiado para que la imagen se ajuste correctamente */
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .modal-info {
