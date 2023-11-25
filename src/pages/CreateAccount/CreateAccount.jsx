@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { AppContext } from "@context/AppContext";
+import CryptoJS from "crypto-js";
 import "./CreateAccount.css";
 
 const url = "https://server-orcin-seven.vercel.app/api/user/signup";
@@ -76,6 +77,11 @@ const CreateAccount = () => {
       return;
     }
 
+    const hashedPassword = CryptoJS.AES.encrypt(
+      contrasenia,
+      import.meta.env.VITE_KEY
+    ).toString();
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -88,7 +94,7 @@ const CreateAccount = () => {
           usr_nombre: nombre,
           usr_apellido: apellido,
           usr_email: email,
-          usr_contrasenia: contrasenia,
+          usr_contrasenia: hashedPassword,
         }),
       });
 
