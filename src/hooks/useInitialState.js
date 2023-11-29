@@ -20,25 +20,25 @@ const useCartState = () => {
     };
 
     fetchProducts();
-    const intervalId = setInterval(fetchProducts, 60000); // Actualiza cada minuto
+    const intervalId = setInterval(fetchProducts, 60000);
 
-    return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
+    return () => clearInterval(intervalId); 
   }, []);
 
   const storedCartState = localStorage.getItem("cartState");
-  const storedSizeQuantities = localStorage.getItem("sizeQuantities"); // Nueva línea
+  const storedSizeQuantities = localStorage.getItem("sizeQuantities");
   const initialCartState = storedCartState
     ? JSON.parse(storedCartState)
     : initialState;
-  const initialSizeQuantities = storedSizeQuantities // Nueva línea
-    ? JSON.parse(storedSizeQuantities) // Nueva línea
-    : {}; // Nueva línea
+  const initialSizeQuantities = storedSizeQuantities
+    ? JSON.parse(storedSizeQuantities)
+    : {};
 
   const [state, setState] = useState({
     ...initialCartState,
     products: products,
   });
-  const [sizeQuantities, setSizeQuantities] = useState(initialSizeQuantities); // Nueva línea
+  const [sizeQuantities, setSizeQuantities] = useState(initialSizeQuantities);
 
   useEffect(() => {
     localStorage.setItem("cartState", JSON.stringify(state));
@@ -92,7 +92,6 @@ const useCartState = () => {
           (item) => item.pdc_id === product.pdc_id && item.size === size
         );
 
-        // Disminuir la cantidad en sizeQuantities
         const updatedQuantities = { ...sizeQuantities };
         updatedQuantities[product.pdc_id][size] -= quantity;
         setSizeQuantities(updatedQuantities);
@@ -119,7 +118,6 @@ const useCartState = () => {
   };
 
   const removeFromCart = (productId, size) => {
-    // Resta una unidad del producto al carrito y lo aumenta en las cantidades de tallas
     setState((prevState) => {
       const productInCart = prevState.cart.find(
         (item) => item.pdc_id === productId && item.size === size
@@ -129,7 +127,6 @@ const useCartState = () => {
         return prevState;
       }
 
-      // Aumenta la cantidad en sizeQuantities
       const updatedQuantities = { ...sizeQuantities };
       updatedQuantities[productId][size] += 1;
       setSizeQuantities(updatedQuantities);

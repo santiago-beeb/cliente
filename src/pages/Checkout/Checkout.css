@@ -29,7 +29,8 @@
 }
 
 .checkout-product-list {
-  width: 600px;
+  width: 80%;
+  max-width: 900px;
   padding: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
@@ -64,12 +65,13 @@
 .checkout-form-address {
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .checkout-input-number {
   display: flex;
+  flex: 1 0 10rem;
 }
 
 .checkout-input {
@@ -87,13 +89,15 @@
     margin: 10px;
   }
   .checkout-product-list {
-    width: 300px;
+    width: 90%;
+    min-width: 290px;
   }
   .checkout-form-address {
     flex-direction: column;
   }
   .checkout-input-number {
     justify-content: space-between;
+    flex: none;
   }
   .checkout-input-number div {
     width: 90%;

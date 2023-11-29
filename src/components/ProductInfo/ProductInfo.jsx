@@ -35,9 +35,9 @@ const ProductInfo = ({ product, onClose }) => {
       quantity > 0 &&
       quantity <= sizeQuantities[product.pdc_id][selectedSize]
     ) {
-      addToCart(product, selectedSize, quantity); // Agrega el producto con la cantidad especificada
-      setSelectedSize(""); // Limpia la talla seleccionada
-      setAddedToCart(true); // Establece que se ha agregado al carrito
+      addToCart(product, selectedSize, quantity);
+      setSelectedSize("");
+      setAddedToCart(true);
       setSnackbarOpen(true);
       setSnackbarMessage("Producto agregado al carrito");
       setSeverity("success");
