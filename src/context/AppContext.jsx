@@ -452,6 +452,25 @@ function AppProvider({ children }) {
     setProductInfoSeverity("");
   };
 
+  //hidden scroll
+
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 50);
+
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
+
   return (
     <AppContext.Provider
       value={{
@@ -484,6 +503,7 @@ function AppProvider({ children }) {
         plateNumber,
         info,
         city,
+        visible,
         department,
         loadingConfirm,
         handleSnackbarConfirmClose,

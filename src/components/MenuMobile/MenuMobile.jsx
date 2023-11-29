@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useMatch } from "react-router-dom";
 import { AppContext } from "@context/AppContext";
+import CloseIcon from "@mui/icons-material/Close";
 import "./MenuMobile.css";
 
 const MenuMobile = () => {
@@ -11,6 +12,7 @@ const MenuMobile = () => {
     handleLinkClick,
     handleLogout,
     isMenuOpen,
+    closeMobileMenu
   } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +27,8 @@ const MenuMobile = () => {
 
   return (
     <div className={`mobile-menu ${isOpen ? "menu-open" : ""}`}>
-      <ul>
+      <CloseIcon className="close-icon" onClick={() => closeMobileMenu()}  />
+      <ul className="first-ul">
         <li onClick={handleLinkClick}>
           <Link
             to="/men"

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AppContext } from "@context/AppContext";
 import CartItem from "@components/CartItem/CartItem";
 import { Button, Typography, Grid } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import "./ShoppingCart.css";
 
 const ShoppingCart = () => {
@@ -21,6 +22,7 @@ const ShoppingCart = () => {
   return (
     <aside className={`shopping-cart ${isOpen ? "open" : ""}`}>
       <div className="title-container">
+        <CloseIcon className="close-icon-cart" onClick={() => closeCart()} />
         <Typography variant="h4" className="title">
           Carrito de compras
         </Typography>

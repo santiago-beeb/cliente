@@ -11,6 +11,16 @@ nav {
   z-index: 1;
 }
 
+.navbar-visible {
+  top: 0;
+  transition: top 0.5s;
+}
+
+.navbar-hidden {
+  top: -60px;
+  transition: top 0.5s;
+}
+
 .container_logo {
   display: flex;
   align-items: center;

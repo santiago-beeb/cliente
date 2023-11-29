@@ -21,12 +21,17 @@ const MobileNavbar = () => {
     toggleCart,
     isCartOpen,
     cart,
+    visible,
     isSearchOpen,
     toggleSearch,
   } = useContext(AppContext);
 
   return (
-    <nav className={`mobile-navbar`}>
+    <nav
+      className={`mobile-navbar ${
+        visible ? "navbar-visible" : "navbar-hidden"
+      }`}
+    >
       <div className="mobile-layout">
         <div className="mobile-icon" onClick={toggleMobileMenu}>
           <MenuIcon
@@ -88,6 +93,7 @@ const DesktopNavbar = () => {
     handleLogout,
     isSearchOpen,
     toggleSearch,
+    visible,
   } = useContext(AppContext);
 
   const isMenActive = useMatch("/men");
@@ -96,7 +102,7 @@ const DesktopNavbar = () => {
 
   return (
     <>
-      <nav>
+      <nav className={visible ? "navbar-visible" : "navbar-hidden"}>
         <div className="navbar-left">
           <Link to="/" className="container_logo" onClick={closeCart}>
             <StoreIcon
