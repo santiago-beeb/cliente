@@ -10,15 +10,15 @@ nav {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
- 
+
 .navbar-visible {
   top: 0;
-  transition: top 0.5s;
+  transition: top 0.8s;
 }
 
 .navbar-hidden {
   top: -60px;
-  transition: top 0.5s;
+  transition: top 0.8s;
 }
 
 .container_logo {
