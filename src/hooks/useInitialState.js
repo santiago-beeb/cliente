@@ -22,8 +22,8 @@ const useCartState = () => {
     fetchProducts();
     const intervalId = setInterval(fetchProducts, 60000);
 
-    return () => clearInterval(intervalId); 
-  }, []);
+    return () => clearInterval(intervalId);
+  }, [products]);
 
   const storedCartState = localStorage.getItem("cartState");
   const storedSizeQuantities = localStorage.getItem("sizeQuantities");
@@ -81,7 +81,7 @@ const useCartState = () => {
       });
       setSizeQuantities(newSizeQuantities);
     }
-  }, [products]);
+  }, [products, state.cart]);
 
   const addToCart = (product, size, quantity) => {
     setState((prevState) => {
