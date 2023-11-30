@@ -253,8 +253,14 @@ function AdminProduct() {
     }
   };
 
-  const filteredProducts = products.filter((product) =>
-    product.pdc_descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredProducts = products.filter(
+    (product) =>
+      product.pdc_descripcion
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      product.pdc_fk_seccion.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.pdc_fk_marca.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.pdc_fk_color.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   useEffect(() => {
