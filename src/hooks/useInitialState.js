@@ -23,7 +23,7 @@ const useCartState = () => {
     const intervalId = setInterval(fetchProducts, 60000);
 
     return () => clearInterval(intervalId);
-  }, [products]);
+  }, []);
 
   const storedCartState = localStorage.getItem("cartState");
   const storedSizeQuantities = localStorage.getItem("sizeQuantities");
