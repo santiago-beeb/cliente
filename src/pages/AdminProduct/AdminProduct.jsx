@@ -23,7 +23,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import EditIcon from "@mui/icons-material/Edit";
-import { useGetProducts } from "@hooks/useGetProducts";
+import { useGetProductsMostSearched } from "@hooks/useGetProducts";
 import { Loading } from "@components/Loading/Loading";
 import { AppContext } from "@context/AppContext";
 import "./AdminProduct.css";
@@ -37,7 +37,7 @@ function AdminProduct() {
     useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [update, setUpdate] = useState(false);
-  const { products, loading, error } = useGetProducts(API, update);
+  const { products, loading, error } = useGetProductsMostSearched(API, update);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [open, setOpen] = useState(false);
