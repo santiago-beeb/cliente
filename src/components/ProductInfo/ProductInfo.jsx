@@ -17,7 +17,6 @@ import "./ProductInfo.css";
 const ProductInfo = ({ product, onClose }) => {
   const { addToCart, selectedSize, setSelectedSize, sizeQuantities } =
     useContext(AppContext);
-
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -87,39 +86,72 @@ const ProductInfo = ({ product, onClose }) => {
                   <Button
                     onClick={() => setSelectedSize("XS")}
                     variant={selectedSize === "XS" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].XS <= 0}
+                    disabled={
+                      sizeQuantities[product.pdc_id] &&
+                      sizeQuantities[product.pdc_id].XS &&
+                      sizeQuantities[product.pdc_id].XS <= 0
+                    }
                   >
                     XS
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("S")}
                     variant={selectedSize === "S" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].S <= 0}
+                    disabled={
+                      sizeQuantities[product.pdc_id] &&
+                      sizeQuantities[product.pdc_id].S &&
+                      sizeQuantities[product.pdc_id].S <= 0
+                    }
                   >
                     S
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("M")}
                     variant={selectedSize === "M" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].M <= 0}
+                    disabled={
+                      sizeQuantities[product.pdc_id] &&
+                      sizeQuantities[product.pdc_id].M &&
+                      sizeQuantities[product.pdc_id].M <= 0
+                    }
                   >
                     M
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("L")}
                     variant={selectedSize === "L" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].L <= 0}
+                    disabled={
+                      sizeQuantities[product.pdc_id] &&
+                      sizeQuantities[product.pdc_id].L &&
+                      sizeQuantities[product.pdc_id].L <= 0
+                    }
                   >
                     L
                   </Button>
                   <Button
                     onClick={() => setSelectedSize("XL")}
                     variant={selectedSize === "XL" ? "contained" : "text"}
-                    disabled={sizeQuantities[product.pdc_id].XL <= 0}
+                    disabled={
+                      sizeQuantities[product.pdc_id] &&
+                      sizeQuantities[product.pdc_id].XL &&
+                      sizeQuantities[product.pdc_id].XL <= 0
+                    }
                   >
                     XL
                   </Button>
                 </ButtonGroup>
+
+                {/* <ButtonGroup variant="text" aria-label="text button group">
+                  {["XS", "S", "M", "L", "XL"].map((size) => (
+                    <Button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      variant={selectedSize === size ? "contained" : "text"}
+                      disabled={sizeQuantities[product.pdc_id]?.[size] <= 0}
+                    >
+                      {size}
+                    </Button>
+                  ))}
+                </ButtonGroup> */}
 
                 <div className="quantity-selector">
                   <TextField

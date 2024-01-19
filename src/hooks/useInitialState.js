@@ -5,6 +5,7 @@ const initialState = {
 };
 
 const API = "https://server-orcin-seven.vercel.app/api/product/products";
+//const API = "http://localhost:3001/api/product/products";
 
 const useCartState = () => {
   const [products, setProducts] = useState([]);

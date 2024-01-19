@@ -8,6 +8,7 @@ import Search from "@components/Search/Search";
 import { Typography } from "@mui/material";
 import "./Searcher.css";
 
+//const APImen = "http://localhost:3001/api/product/products-for-men";
 const APImen =
   "https://server-orcin-seven.vercel.app/api/product/products-for-men";
 const APIwomen =
@@ -17,8 +18,16 @@ const Searcher = () => {
   const isWomenActive = useMatch("/women");
   const { toggleSearch } = useContext(AppContext);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const limit = 9;
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const { products, loading, error } = useGetProducts(
-    isWomenActive ? APIwomen : APImen
+    isWomenActive ? APIwomen : APImen,
+    page,
+    limit,
+    selectedBrand,
+    selectedColor
   );
   let results = [];
 

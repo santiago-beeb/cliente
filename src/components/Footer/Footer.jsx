@@ -6,7 +6,7 @@ const Footer = () => {
       <p>
         {"Copyright © "}
         <a color="inherit" href="https://general-shop.vercel.app/">
-          General Shoppp prueba
+          General Shop
         </a>{" "}
         {new Date().getFullYear()}
         {"."}

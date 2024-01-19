@@ -77,10 +77,9 @@ const Filter = ({ onBrandChange, onColorChange }) => {
             key={marca.mar_id}
             control={
               <Checkbox
-                key={selectedBrand}
-                checked={selectedBrand === marca.mar_nombre}
+                checked={selectedBrand === marca.mar_id.toString()}
                 onChange={handleBrandChange}
-                value={marca.mar_nombre}
+                value={marca.mar_id.toString()}
               />
             }
             label={marca.mar_nombre}
@@ -95,10 +94,9 @@ const Filter = ({ onBrandChange, onColorChange }) => {
             key={color.col_id}
             control={
               <Checkbox
-                key={selectedColor}
-                checked={selectedColor === color.col_nombre}
+                checked={selectedColor === color.col_id.toString()}
                 onChange={handleColorChange}
-                value={color.col_nombre}
+                value={color.col_id.toString()}
               />
             }
             label={color.col_nombre}

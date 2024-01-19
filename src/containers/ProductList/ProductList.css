@@ -31,6 +31,18 @@
   cursor: pointer;
 }
 
+.pagination {
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+}
+
+.pagination .MuiPaginationItem-root {
+  color: #ffffff; 
+  background-color: #000000;
+}
+
 @media screen and (max-width: 1100px) {
   .ProductList {
     grid-template-columns: repeat(2, minmax(200px, 1fr));

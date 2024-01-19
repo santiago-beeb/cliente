@@ -370,6 +370,8 @@ function AppProvider({ children }) {
     setDepartment("");
   };
 
+  //filtro
+
   const [filtersVisible, setFiltersVisible] = useState(false);
 
   const toggleFilters = () => {
@@ -470,6 +472,9 @@ function AppProvider({ children }) {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
+
+
+
 
   return (
     <AppContext.Provider

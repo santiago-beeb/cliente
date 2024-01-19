@@ -5,28 +5,27 @@ import { Loading } from "@components/Loading/Loading";
 import ProductItem from "@components/ProductItem/ProductItem";
 import { Filter } from "@components/Filter/Filter";
 import TuneIcon from "@mui/icons-material/Tune";
+import Pagination from "@mui/material/Pagination";
 import "./ProductList.css";
 
 const API =
   "https://server-orcin-seven.vercel.app/api/product/products-for-women";
+//const API = "http://localhost:3001/api/product/products-for-women";
 
 const ProductListWomen = () => {
+  const [page, setPage] = useState(1);
+  const limit = 9;
   const { toggleFilters, filtersVisible } = useContext(AppContext);
-  const { products, loading, error } = useGetProducts(API);
-  const [filteredProducts, setFilteredProducts] = useState(products);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
-
-  useEffect(() => {
-    const filtered = products.filter((product) => {
-      return (
-        (!selectedBrand || product.pdc_fk_marca === selectedBrand) &&
-        (!selectedColor || product.pdc_fk_color === selectedColor)
-      );
-    });
-
-    setFilteredProducts(filtered);
-  }, [selectedBrand, selectedColor, products]);
+  const { products, total, loading, error } = useGetProducts(
+    API,
+    page,
+    limit,
+    selectedBrand,
+    selectedColor
+  );
+  const totalPages = Math.ceil(total / limit);
 
   if (loading) {
     return <Loading />;
@@ -51,8 +50,8 @@ const ProductListWomen = () => {
           />
         </div>
         <div className="ProductList">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
+          {products.length > 0 ? (
+            products.map((product) => (
               <ProductItem key={product.pdc_id} product={product} />
             ))
           ) : (
@@ -60,6 +59,12 @@ const ProductListWomen = () => {
           )}
         </div>
       </section>
+      <Pagination
+        className="pagination"
+        count={totalPages}
+        page={page}
+        onChange={(event, value) => setPage(value)}
+      />
     </>
   );
 };

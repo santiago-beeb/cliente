@@ -1,12 +1,13 @@
 import { Loading } from "@components/Loading/Loading";
 import ProductItem from "@components/ProductItem/ProductItem";
-import { useGetProducts } from "@hooks/useGetProducts";
+import { useGetProductsMostSearched } from "@hooks/useGetProducts";
 import "./ProductList.css";
 
 const API = "https://server-orcin-seven.vercel.app/api/product/most-searcher";
+//const API = "http://localhost:3001/api/product/most-searcher";
 
 const MostSearched = () => {
-  const { products, loading, error } = useGetProducts(API);
+  const { products, loading, error } = useGetProductsMostSearched(API);
 
   if (loading) {
     return <Loading />;
