@@ -88,7 +88,6 @@ const ProductInfo = ({ product, onClose }) => {
                     variant={selectedSize === "XS" ? "contained" : "text"}
                     disabled={
                       sizeQuantities[product.pdc_id] &&
-                      sizeQuantities[product.pdc_id].XS &&
                       sizeQuantities[product.pdc_id].XS <= 0
                     }
                   >
@@ -99,7 +98,6 @@ const ProductInfo = ({ product, onClose }) => {
                     variant={selectedSize === "S" ? "contained" : "text"}
                     disabled={
                       sizeQuantities[product.pdc_id] &&
-                      sizeQuantities[product.pdc_id].S &&
                       sizeQuantities[product.pdc_id].S <= 0
                     }
                   >
@@ -110,7 +108,6 @@ const ProductInfo = ({ product, onClose }) => {
                     variant={selectedSize === "M" ? "contained" : "text"}
                     disabled={
                       sizeQuantities[product.pdc_id] &&
-                      sizeQuantities[product.pdc_id].M &&
                       sizeQuantities[product.pdc_id].M <= 0
                     }
                   >
@@ -121,7 +118,6 @@ const ProductInfo = ({ product, onClose }) => {
                     variant={selectedSize === "L" ? "contained" : "text"}
                     disabled={
                       sizeQuantities[product.pdc_id] &&
-                      sizeQuantities[product.pdc_id].L &&
                       sizeQuantities[product.pdc_id].L <= 0
                     }
                   >
@@ -132,7 +128,6 @@ const ProductInfo = ({ product, onClose }) => {
                     variant={selectedSize === "XL" ? "contained" : "text"}
                     disabled={
                       sizeQuantities[product.pdc_id] &&
-                      sizeQuantities[product.pdc_id].XL &&
                       sizeQuantities[product.pdc_id].XL <= 0
                     }
                   >
@@ -146,7 +141,10 @@ const ProductInfo = ({ product, onClose }) => {
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       variant={selectedSize === size ? "contained" : "text"}
-                      disabled={sizeQuantities[product.pdc_id]?.[size] <= 0}
+                      disabled={
+                        sizeQuantities[product.pdc_id] &&
+                        sizeQuantities[product.pdc_id][size] <= 0
+                      }
                     >
                       {size}
                     </Button>
