@@ -71,7 +71,7 @@ const CreateAccount = () => {
 
     if (!validatePassword(contrasenia)) {
       setError(
-        "La contraseña debe tener al menos 5 caracteres, incluyendo mayúsculas, minúsculas y números."
+        "La contraseña debe tener entre 5 y 20 caracteres, incluyendo al menos una mayúscula, una minúscula y un número."
       );
       setCargando(false);
       return;
