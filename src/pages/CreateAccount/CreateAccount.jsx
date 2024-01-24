@@ -31,7 +31,7 @@ const CreateAccount = () => {
   };
 
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,20}$/;
     return passwordRegex.test(password);
   };
 
