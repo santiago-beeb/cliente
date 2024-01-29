@@ -8,9 +8,7 @@ import TuneIcon from "@mui/icons-material/Tune";
 import Pagination from "@mui/material/Pagination";
 import "./ProductList.css";
 
-const API =
-  "https://server-orcin-seven.vercel.app/api/product/products-for-men";
-//const API = "http://localhost:3001/api/product/products-for-men";
+const API = import.meta.env.VITE_URL_MEN;
 
 const ProductListMen = () => {
   const [page, setPage] = useState(1);

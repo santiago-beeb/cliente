@@ -28,8 +28,8 @@ import { Loading } from "@components/Loading/Loading";
 import { AppContext } from "@context/AppContext";
 import "./AdminProduct.css";
 
-const API = "https://server-orcin-seven.vercel.app/api/product/products";
-const addApi = "https://server-orcin-seven.vercel.app/api/product/product-add";
+const API = import.meta.env.VITE_URL_PRODUCTS;
+const addApi = import.meta.env.VITE_URL_ADD_PRODUCTS;
 const token = localStorage.getItem("token");
 
 function AdminProduct() {
@@ -110,7 +110,7 @@ function AdminProduct() {
     try {
       const response = await fetch(
         isEditing
-          ? `https://server-orcin-seven.vercel.app/api/product/product-edit/${productId}`
+          ? `${import.meta.env.VITE_URL_EDIT_PRODUCTS}${productId}`
           : addApi,
         {
           method: isEditing ? "PATCH" : "POST",
@@ -148,7 +148,7 @@ function AdminProduct() {
   const deleteProduct = async (productId) => {
     try {
       const response = await fetch(
-        `https://server-orcin-seven.vercel.app/api/product/product-delete/${productId}`,
+        `${import.meta.env.VITE_URL_DELETE_PRODUCTS}${productId}`,
         {
           method: "DELETE",
           headers: {
@@ -241,15 +241,28 @@ function AdminProduct() {
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
 
-    reader.onloadend = () => {
-      setNewProduct({ ...newProduct, pdc_imagen: reader.result });
-      setEditedProduct({ ...editedProduct, pdc_imagen: reader.result });
-    };
-
+    // Validar si se seleccionó un archivo
     if (file) {
-      reader.readAsDataURL(file);
+      // Validar el tipo de archivo
+      if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          setNewProduct({ ...newProduct, pdc_imagen: reader.result });
+          setEditedProduct({ ...editedProduct, pdc_imagen: reader.result });
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        // Mostrar mensaje de error y resetear el valor del input
+        setSnackbarOpen(true);
+        setSeverity("error");
+        setSnackbarMessage(
+          "Solo se permiten archivos de imagen (JPEG, PNG, etc.)."
+        );
+        event.target.value = null;
+      }
     }
   };
 
@@ -659,6 +672,7 @@ function AdminProduct() {
                 onChange={(e) => {
                   handleImageUpload(e);
                 }}
+                {...(!isEditing && { required: true })}
               />
             </Button>
 

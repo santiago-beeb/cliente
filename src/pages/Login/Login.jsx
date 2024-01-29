@@ -8,8 +8,6 @@ import { AppContext } from "@context/AppContext";
 import CryptoJS from "crypto-js";
 import "./Login.css";
 
-const url = "https://server-orcin-seven.vercel.app/api/user/login";
-
 const Login = () => {
   const form = useRef(null);
   const { setLoggedIn, cargando, setCargando } = useContext(AppContext);
@@ -38,7 +36,7 @@ const Login = () => {
     setCargando(true);
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(import.meta.env.VITE_URL_LOGIN, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

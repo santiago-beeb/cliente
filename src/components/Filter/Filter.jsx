@@ -19,12 +19,6 @@ const Filter = ({ onBrandChange, onColorChange }) => {
     loadData();
   }, []);
 
-  useEffect(() => {
-    // Actualiza las casillas de verificación cuando cambian las selecciones
-    setSelectedBrand(selectedBrand);
-    setSelectedColor(selectedColor);
-  }, [selectedBrand, selectedColor]);
-
   const loadData = async () => {
     const marcasData = await fetchMarcas();
     setMarcas(marcasData);

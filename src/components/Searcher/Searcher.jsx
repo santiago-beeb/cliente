@@ -8,11 +8,8 @@ import Search from "@components/Search/Search";
 import { Typography } from "@mui/material";
 import "./Searcher.css";
 
-//const APImen = "http://localhost:3001/api/product/products-for-men";
-const APImen =
-  "https://server-orcin-seven.vercel.app/api/product/products-for-men";
-const APIwomen =
-  "https://server-orcin-seven.vercel.app/api/product/products-for-women";
+const APImen = import.meta.env.VITE_URL_MEN;
+const APIwomen = import.meta.env.VITE_URL_WOMEN;
 
 const Searcher = () => {
   const isWomenActive = useMatch("/women");
@@ -54,11 +51,10 @@ const Searcher = () => {
 
   const handleClick = async (productId) => {
     try {
-      await fetch(
-        `https://server-orcin-seven.vercel.app/api/product/product-search/${productId}`,
-        { method: "POST" }
-      );
-    } catch (error) {
+      await fetch(`${import.meta.env.VITE_URL_PRODUCT_SEARCHER}${productId}`, {
+        method: "POST",
+      });
+    } catch (error) {0
       console.error(error);
     }
   };

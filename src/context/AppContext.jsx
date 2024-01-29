@@ -139,8 +139,7 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const url =
-      "https://server-orcin-seven.vercel.app/api/user/check-admin-role";
+    const url = import.meta.env.VITE_URL_CHECK_ADMIN_ROLE;
 
     const requestOptions = {
       method: "GET",
@@ -174,8 +173,7 @@ function AppProvider({ children }) {
       return;
     }
 
-    const url =
-      "https://server-orcin-seven.vercel.app/api/user/check-admin-role";
+    const url = import.meta.env.VITE_URL_CHECK_ADMIN_ROLE;
 
     const requestOptions = {
       method: "GET",
@@ -217,7 +215,7 @@ function AppProvider({ children }) {
   const confirmOrder = async (order) => {
     try {
       setLoadingConfirm(true);
-      const sizeEditURL = `https://server-orcin-seven.vercel.app/api/product/update-sizes`;
+      const sizeEditURL = import.meta.env.VITE_URL_EDIT_SIZE;
 
       const sizeEditData = { sizeUpdates: order.sizeUpdates };
 
@@ -230,14 +228,15 @@ function AppProvider({ children }) {
       });
 
       if (sizeEditResponse.status !== 200) {
+        setSeverityConfirm("error");
         setSnackbarOpenConfirm(true);
+        setLoadingConfirm(false);
         setSnackbarMessageConfirm("Error al eliminar las tallas");
         return;
       }
 
       const sizeEditResult = await sizeEditResponse.json();
-
-      if (sizeEditResult.message === "Cantidad sin stock") {
+      if (sizeEditResult.status === 400) {
         const productIdWithoutStock = sizeEditResult.productId;
         const productName = cart.find(
           (item) => item.pdc_id === productIdWithoutStock
@@ -266,8 +265,7 @@ function AppProvider({ children }) {
         userEmail: order.userEmail,
       };
 
-      const addOrderURL =
-        "https://server-orcin-seven.vercel.app/api/product/order";
+      const addOrderURL = import.meta.env.VITE_URL_ADD_ORDER;
 
       const addOrderResponse = await fetch(addOrderURL, {
         method: "POST",
@@ -472,9 +470,6 @@ function AppProvider({ children }) {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
-
-
-
 
   return (
     <AppContext.Provider

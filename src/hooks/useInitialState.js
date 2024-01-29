@@ -4,8 +4,7 @@ const initialState = {
   cart: [],
 };
 
-const API = "https://server-orcin-seven.vercel.app/api/product/products";
-//const API = "http://localhost:3001/api/product/products";
+const API = import.meta.env.VITE_URL_PRODUCTS;
 
 const useCartState = () => {
   const [products, setProducts] = useState([]);

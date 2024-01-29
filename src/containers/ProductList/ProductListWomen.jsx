@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useGetProducts } from "@hooks/useGetProducts";
 import { AppContext } from "@context/AppContext";
 import { Loading } from "@components/Loading/Loading";
@@ -8,9 +8,7 @@ import TuneIcon from "@mui/icons-material/Tune";
 import Pagination from "@mui/material/Pagination";
 import "./ProductList.css";
 
-const API =
-  "https://server-orcin-seven.vercel.app/api/product/products-for-women";
-//const API = "http://localhost:3001/api/product/products-for-women";
+const API = import.meta.env.VITE_URL_WOMEN;
 
 const ProductListWomen = () => {
   const [page, setPage] = useState(1);

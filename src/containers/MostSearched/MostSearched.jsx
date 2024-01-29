@@ -3,8 +3,7 @@ import ProductItem from "@components/ProductItem/ProductItem";
 import { useGetProductsMostSearched } from "@hooks/useGetProducts";
 import "./ProductList.css";
 
-const API = "https://server-orcin-seven.vercel.app/api/product/most-searcher";
-//const API = "http://localhost:3001/api/product/most-searcher";
+const API = import.meta.env.VITE_URL_MOST_SEARCHER;
 
 const MostSearched = () => {
   const { products, loading, error } = useGetProductsMostSearched(API);

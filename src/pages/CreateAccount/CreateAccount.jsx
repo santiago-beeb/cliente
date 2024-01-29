@@ -6,7 +6,7 @@ import { AppContext } from "@context/AppContext";
 import CryptoJS from "crypto-js";
 import "./CreateAccount.css";
 
-const url = "https://server-orcin-seven.vercel.app/api/user/signup";
+const url = import.meta.env.VITE_URL_SIGNUP;
 const documentTypesUrl =
   "https://server-orcin-seven.vercel.app/api/user/document-types";
 
@@ -31,7 +31,7 @@ const CreateAccount = () => {
   };
 
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,20}$/;
     return passwordRegex.test(password);
   };
 
@@ -71,7 +71,7 @@ const CreateAccount = () => {
 
     if (!validatePassword(contrasenia)) {
       setError(
-        "La contraseña debe tener al menos 5 caracteres, incluyendo mayúsculas, minúsculas y números."
+        "La contraseña debe tener entre 5 y 20 caracteres, incluyendo al menos una mayúscula, una minúscula y un número."
       );
       setCargando(false);
       return;
