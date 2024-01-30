@@ -51,10 +51,15 @@ nav {
   border-radius: 8px;
 }
 
+.navbar-right ul li a {
+  color: #ccc;
+}
+
+.navbar-right ul li a.active-link,
 .navbar-left ul li a.active-link {
   color: #00a8cc;
 }
-
+.navbar-right ul li a:hover,
 .navbar-left ul li a:hover {
   color: #00a8cc;
 }

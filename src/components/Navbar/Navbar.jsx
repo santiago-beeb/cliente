@@ -99,6 +99,7 @@ const DesktopNavbar = () => {
   const isMenActive = useMatch("/men");
   const isWomenActive = useMatch("/women");
   const isAdminActive = useMatch("/administrar-productos");
+  const isOrderActive = useMatch("/orders");
 
   return (
     <>
@@ -148,6 +149,17 @@ const DesktopNavbar = () => {
         </div>
         <div className="navbar-right">
           <ul>
+            {isLoggedIn && (
+              <li>
+                <Link
+                  to="/orders"
+                  onClick={closeCart}
+                  className={isOrderActive ? "active-link" : ""}
+                >
+                  Ordenes
+                </Link>
+              </li>
+            )}
             <li>
               <div className="mobile-icon" onClick={toggleSearch}>
                 <SearchIcon

@@ -13,6 +13,7 @@ import Women from "@pages/Category/Women";
 import Men from "@pages/Category/Men";
 import PasswordRecovery from "@pages/PasswordRecovery/PasswordRecovery";
 import "./App.css";
+import Orders from "../pages/Orders/Orders";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/men" element={<Men />} />
             <Route path="/women" element={<Women />} />
             <Route path="/password-recovery" element={<PasswordRecovery />} />
+            <Route path="/orders" element={<OrderWrapper />} />
             <Route path="/administrar-productos" element={<AdminWrapper />} />
             <Route path="/activate/:userId" element={<ActivateUser />} />
             <Route path="*" element={<NotFound />} />
@@ -40,6 +42,11 @@ function App() {
 const LoginWrapper = () => {
   const { isLoggedIn } = useContext(AppContext);
   return isLoggedIn ? <Navigate to="/" /> : <Login />;
+};
+
+const OrderWrapper = () => {
+  const { isLoggedIn } = useContext(AppContext);
+  return !isLoggedIn ? <Navigate to="/login" /> : <Orders />;
 };
 
 const AdminWrapper = () => {

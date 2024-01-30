@@ -9,6 +9,9 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   plugins: [react()],
+  test: {
+    environment: "jsdom"
+  },
   resolve: {
     alias: {
       "@components": path.resolve(__dirname, "./src/components"),

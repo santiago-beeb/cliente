@@ -12,7 +12,7 @@ const MenuMobile = () => {
     handleLinkClick,
     handleLogout,
     isMenuOpen,
-    closeMobileMenu
+    closeMobileMenu,
   } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,12 +22,13 @@ const MenuMobile = () => {
 
   const isMenActive = useMatch("/men");
   const isWomenActive = useMatch("/women");
+  const isOrderActive = useMatch("/orders");
   const isAdminActive = useMatch("/administrar-productos");
   const isLoginActive = useMatch("/login");
 
   return (
     <div className={`mobile-menu ${isOpen ? "menu-open" : ""}`}>
-      <CloseIcon className="close-icon" onClick={() => closeMobileMenu()}  />
+      <CloseIcon className="close-icon" onClick={() => closeMobileMenu()} />
       <ul className="first-ul">
         <li onClick={handleLinkClick}>
           <Link
@@ -49,6 +50,18 @@ const MenuMobile = () => {
             Mujer
           </Link>
         </li>
+        {isLoggedIn && (
+          <li onClick={handleLinkClick}>
+            <Link
+              to="/orders"
+              className={`mobile-menu-link ${
+                isOrderActive ? "mobile-active-link" : ""
+              }`}
+            >
+              Ordenes
+            </Link>
+          </li>
+        )}
         {isAdmin && (
           <li onClick={handleLinkClick} className="smaller-font">
             <Link
