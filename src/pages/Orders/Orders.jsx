@@ -17,9 +17,7 @@ const Orders = () => {
   useEffect(() => {
     async function fetchOrders() {
       try {
-        const response = await fetch(
-          `http://localhost:3001/api/product/orders/${id}`
-        );
+        const response = await fetch(`${import.meta.env.VITE_URL_ORDERS}${id}`);
         if (response.ok) {
           const data = await response.json();
           setOrders(data);
