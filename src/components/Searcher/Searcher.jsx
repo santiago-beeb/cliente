@@ -7,6 +7,7 @@ import SearchItem from "@components/SearchItem/SearchItem";
 import Search from "@components/Search/Search";
 import { Typography } from "@mui/material";
 import "./Searcher.css";
+import { useGetProductsSearcher } from "../../hooks/useGetProducts";
 
 const APImen = import.meta.env.VITE_URL_MEN;
 const APIwomen = import.meta.env.VITE_URL_WOMEN;
@@ -16,7 +17,7 @@ const Searcher = () => {
   const { toggleSearch } = useContext(AppContext);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const limit = 9;
+  const [limit, setLimit] = useState(9);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const { products, loading, error } = useGetProducts(
@@ -26,6 +27,16 @@ const Searcher = () => {
     selectedBrand,
     selectedColor
   );
+  const { productsSearcher } = useGetProductsSearcher(
+    isWomenActive ? APIwomen : APImen,
+    page,
+    0,
+    selectedBrand,
+    selectedColor
+  );
+
+  console.log("todos los", productsSearcher);
+
   let results = [];
 
   if (loading) {
@@ -41,7 +52,7 @@ const Searcher = () => {
   if (!search) {
     results = products;
   } else {
-    results = products.filter(
+    results = productsSearcher.filter(
       (product) =>
         product.pdc_descripcion.toLowerCase().includes(search.toLowerCase()) ||
         product.pdc_fk_color.toLowerCase().includes(search.toLowerCase()) ||
@@ -54,7 +65,8 @@ const Searcher = () => {
       await fetch(`${import.meta.env.VITE_URL_PRODUCT_SEARCHER}${productId}`, {
         method: "POST",
       });
-    } catch (error) {0
+    } catch (error) {
+      0;
       console.error(error);
     }
   };

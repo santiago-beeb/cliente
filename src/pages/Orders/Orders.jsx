@@ -8,31 +8,41 @@ import "./Orders.css";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
+import { Loading } from "../../components/Loading/Loading";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
   const isOrdersEmpty = orders.length === 0;
   const { id } = useContext(AppContext);
 
   useEffect(() => {
     async function fetchOrders() {
       try {
+        setLoading(true);
         const response = await fetch(`${import.meta.env.VITE_URL_ORDERS}${id}`);
         if (response.ok) {
           const data = await response.json();
           setOrders(data);
+          setLoading(false);
         } else {
+          setLoading(false);
           throw new Error(
             `Error al obtener las ordenes: ${response.statusText}`
           );
         }
       } catch (error) {
+        setLoading(false);
         console.error(error.message);
       }
     }
 
     fetchOrders();
   }, [id]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
