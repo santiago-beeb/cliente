@@ -4,11 +4,11 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { Button, Divider, Typography } from "@mui/material";
-import "./Orders.css";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import { AppContext } from "../../context/AppContext";
 import { Link } from "react-router-dom";
 import { Loading } from "../../components/Loading/Loading";
+import "./Orders.css";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
