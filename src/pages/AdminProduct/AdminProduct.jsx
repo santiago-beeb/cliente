@@ -595,6 +595,9 @@ function AdminProduct() {
                 setNewProduct({ ...newProduct, cant_xl: newValue });
                 setEditedProduct({ ...editedProduct, cant_xl: newValue });
               }}
+              inputProps={{
+                min: 0,
+              }}
             />
             <TextField
               required
