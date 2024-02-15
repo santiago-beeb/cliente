@@ -9,7 +9,7 @@ const ActivateUser = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://server-orcin-seven.vercel.app/api/user/active/${userId}`, {
+    fetch(`${import.meta.env.VITE_URL_ACTIVATE}${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

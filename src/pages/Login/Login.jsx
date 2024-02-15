@@ -115,9 +115,9 @@ const Login = () => {
             Iniciar Sesión
           </Button>
           {error && <p className="error-message">{error}</p>}
-          <Link to="/password-recovery" disabled={cargando}>
+          {/* <Link to="/password-recovery" disabled={cargando}>
             Olvidé mi contraseña
-          </Link>
+          </Link> */}
           <Link></Link>
           <Button href="/signup" variant="outlined" disabled={cargando}>
             Registrarse
