@@ -50,11 +50,11 @@ function AppProvider({ children }) {
         const data = await response.json();
         return data;
       } else {
-        console.error("Error al obtener las marcas");
+        //console.error("Error al obtener las marcas");
         return [];
       }
     } catch (error) {
-      console.error("Error al obtener las marcas", error.message);
+      //console.error("Error al obtener las marcas", error.message);
       return [];
     }
   };
@@ -76,11 +76,11 @@ function AppProvider({ children }) {
         const data = await response.json();
         return data;
       } else {
-        console.error("Error al obtener las secciones");
+        //console.error("Error al obtener las secciones");
         return [];
       }
     } catch (error) {
-      console.error("Error al obtener las secciones", error);
+      //console.error("Error al obtener las secciones", error);
       return [];
     }
   };
@@ -102,11 +102,11 @@ function AppProvider({ children }) {
         const data = await response.json();
         return data;
       } else {
-        console.error("Error al obtener los colores");
+        //console.error("Error al obtener los colores");
         return [];
       }
     } catch (error) {
-      console.error("Error al obtener los colores", error);
+      //console.error("Error al obtener los colores", error);
       return [];
     }
   };
@@ -128,11 +128,11 @@ function AppProvider({ children }) {
         const data = await response.json();
         return data;
       } else {
-        console.error("Error al obtener los estados");
+        //console.error("Error al obtener los estados");
         return [];
       }
     } catch (error) {
-      console.error("Error al obtener los estados", error);
+      //console.error("Error al obtener los estados", error);
       return [];
     }
   };
@@ -162,7 +162,7 @@ function AppProvider({ children }) {
         setCorreo(data.correo);
       })
       .catch((error) => {
-        console.error("Error al verificar el estado de administrador:", error);
+        //console.error("Error al verificar el estado de administrador:", error);
       });
   }, [isLoggedIn]);
 
@@ -199,7 +199,7 @@ function AppProvider({ children }) {
         return response.json();
       })
       .catch((error) => {
-        console.error("Error al verificar el estado del token:", error);
+        //console.error("Error al verificar el estado del token:", error);
       });
   };
 
@@ -290,7 +290,7 @@ function AppProvider({ children }) {
       setLoadingConfirm(false);
       //goToHome();
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       setSnackbarOpenConfirm(true);
       setSeverityConfirm("error");
       setSnackbarMessageConfirm(

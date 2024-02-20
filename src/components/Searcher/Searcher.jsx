@@ -35,8 +35,6 @@ const Searcher = () => {
     selectedColor
   );
 
-  console.log("todos los", productsSearcher);
-
   let results = [];
 
   if (loading) {

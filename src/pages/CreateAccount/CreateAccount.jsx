@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Helmet } from "react-helmet";
-import { useNavigate } from "react-router-dom";
-import { Button, MenuItem, TextField } from "@mui/material";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Alert, Button, MenuItem, Snackbar, TextField } from "@mui/material";
 import { AppContext } from "@context/AppContext";
 import CryptoJS from "crypto-js";
 import "./CreateAccount.css";
@@ -23,6 +23,7 @@ const CreateAccount = () => {
   const [contrasenia, setContrasenia] = useState("");
   const [repetirContrasenia, setRepetirContrasenia] = useState("");
   const [error, setError] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [documentTypes, setDocumentTypes] = useState([]);
 
   const validateEmail = (email) => {
@@ -33,6 +34,16 @@ const CreateAccount = () => {
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,20}$/;
     return passwordRegex.test(password);
+  };
+
+  const emptyData = () => {
+    setTipoDocumento("");
+    setNumeroDocumento("");
+    setNombre("");
+    setApellido("");
+    setEmail("");
+    setContrasenia("");
+    setRepetirContrasenia("");
   };
 
   // Efecto para obtener los tipos de documento desde la API
@@ -100,7 +111,12 @@ const CreateAccount = () => {
 
       if (response.ok) {
         setError("");
-        navigate("/login");
+        setSnackbarOpen(true);
+        emptyData();
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+        //navigate("/login");
       } else {
         const data = await response.json();
         setError(data.message || "Registro fallido");
@@ -230,7 +246,17 @@ const CreateAccount = () => {
             Crear
           </Button>
         </form>
+        <br />
+        <Button variant="outlined" disabled={cargando}>
+          <Link to="/login">Ya tengo cuenta</Link>
+        </Button>
       </div>
+      <Snackbar open={snackbarOpen} autoHideDuration={3000}>
+        <Alert severity={"success"} variant="filled" sx={{ width: "100%" }}>
+          Usuario registrado exitosamente. Serás redirigido al inicio de sesión
+          en 3 segundos.
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
