@@ -1,8 +1,38 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
   font-family: "Kanit", sans-serif;
   overflow: auto;
 }
+
 ::-webkit-scrollbar {
   display: none;
+}
+
+.Layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content-wrapper {
+  flex-grow: 1;
+}
+
+.footer {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #212121;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
